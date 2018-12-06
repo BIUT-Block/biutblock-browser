@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const SECMain = require('../src/main')
+const SECCore = require('../src/main').secCore
 
 module.exports = function (socket) {
   const ClientIP = socket.request.connection.remoteAddress
@@ -18,7 +18,7 @@ module.exports = function (socket) {
 }
 
 function pushInfos (socket) {
-  SECMain.APIs.getWholeTokenBlockchain((err, data) => {
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) console.error(err)
     let TransactionsSum = 0
     data.forEach(_data => {
