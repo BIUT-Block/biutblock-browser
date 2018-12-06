@@ -1,4 +1,4 @@
-const SECMain = require('../src/main')
+const SECCore = require('../src/main').secCore
 
 module.exports = function (socket) {
   const ClientIP = socket.request.connection.remoteAddress
@@ -18,7 +18,7 @@ module.exports = function (socket) {
 
 function pushInfos (socket) {
   socket.emit('TokenPool', {
-    Transactions: SECMain.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse(),
-    HashArray: SECMain.CenterController.BlockChain.TokenPool.getTxHashArrayFromPool().reverse()
+    Transactions: SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse(),
+    HashArray: SECCore.CenterController.BlockChain.TokenPool.getTxHashArrayFromPool().reverse()
   })
 }

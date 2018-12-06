@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const SECMain = require('../src/main')
+const SECCore = require('../src/main').secCore
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -24,7 +24,7 @@ router.get('/transactionpool', function (req, res, next) {
 })
 
 router.get('/tokenblock', function (req, res, next) {
-  SECMain.APIs.getTokenBlock(req.query.hash, (err, block) => {
+  SECCore.APIs.getTokenBlock(req.query.hash, (err, block) => {
     if (err) next(err)
     res.render('tokenblockdetails', {
       title: 'Token Block Details',
@@ -35,7 +35,7 @@ router.get('/tokenblock', function (req, res, next) {
 
 router.get('/transactionblock', function (req, res, next) {
   console.log(req.query.id)
-  SECMain.APIs.getTransactionBlock(req.query.id, req.query.hash, (err, block) => {
+  SECCore.APIs.getTransactionBlock(req.query.id, req.query.hash, (err, block) => {
     if (err) next(err)
     res.render('transactionblockdetails', {
       title: 'Transaction Block Details',
@@ -46,7 +46,7 @@ router.get('/transactionblock', function (req, res, next) {
 })
 
 router.get('/tokentx', function (req, res, next) {
-  SECMain.APIs.getTokenTx(req.query.hash, (transaction) => {
+  SECCore.APIs.getTokenTx(req.query.hash, (transaction) => {
     res.render('tokentransactiondetails', {
       title: 'Token Transaction Details',
       transaction: transaction
@@ -55,7 +55,7 @@ router.get('/tokentx', function (req, res, next) {
 })
 
 router.get('/tokenpooltx', function (req, res, next) {
-  SECMain.APIs.getTokenTxInPool(req.query.hash, (transaction) => {
+  SECCore.APIs.getTokenTxInPool(req.query.hash, (transaction) => {
     res.render('tokentransactiondetails', {
       title: 'Token Transaction Details',
       transaction: transaction
@@ -64,7 +64,7 @@ router.get('/tokenpooltx', function (req, res, next) {
 })
 
 router.get('/transactiontx', function (req, res, next) {
-  SECMain.APIs.getTransactionTx(req.query.id, req.query.hash, (transaction) => {
+  SECCore.APIs.getTransactionTx(req.query.id, req.query.hash, (transaction) => {
     res.render('transactiontxdetails', {
       title: 'Transaction Tx Details',
       transaction: transaction
@@ -73,7 +73,7 @@ router.get('/transactiontx', function (req, res, next) {
 })
 
 router.get('/transactionpooltx', function (req, res, next) {
-  SECMain.APIs.getTransactionTxInPool(req.query.id, req.query.hash, (transaction) => {
+  SECCore.APIs.getTransactionTxInPool(req.query.id, req.query.hash, (transaction) => {
     res.render('transactiontxdetails', {
       title: 'Transaction Tx Details',
       transaction: transaction
