@@ -5,6 +5,6 @@ exports.secCore = SECCORE.core
 exports.secRpc = new SECRPC(exports.secCore)
 
 exports.run = function () {
-  SECCORE.coreRun()
+  SECCORE.run()
   exports.secRpc.runRPCServer()
 }

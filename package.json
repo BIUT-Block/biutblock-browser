@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/SEC-block/secjs-browser#README",
   "dependencies": {
-    "@sec-block/secjs-core": "^1.0.3",
+    "@sec-block/secjs-core": "^1.0.7",
     "@sec-block/secjs-rpc": "^1.0.2",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
