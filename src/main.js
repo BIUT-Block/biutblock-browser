@@ -1,10 +1,10 @@
 const SECCORE = require('@sec-block/secjs-core')
 const SECRPC = require('@sec-block/secjs-rpc')
 
-const secCore = new SECCORE()
-const secRpc = new SECRPC(secCore)
+exports.secCore = new SECCORE()
+const secRpc = new SECRPC(exports.secCore)
 
 exports.run = function () {
-  secCore.run()
+  exports.secCore.run()
   secRpc.runRPCServer()
 }
