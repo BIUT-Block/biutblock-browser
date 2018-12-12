@@ -1,207 +1,220 @@
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
   <title><%= title %></title>
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <!-- Vendor CSS -->
-  <link href="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/animate.css/animate.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/sweetalert/dist/sweetalert.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
-    rel="stylesheet">
-  <!-- CSS -->
-  <link href="/css/app_1.min.css" rel="stylesheet">
-  <link href="/css/app_2.min.css" rel="stylesheet">
-  <link href="/css/custom.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta content="SEC-Blockchain Explorer" name="description" />
+  <meta content="Coderthemes" name="author" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/public.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
-  <header id="header" class="clearfix">
-    <ul class="h-inner clearfix">
-      <li class="hi-logo hidden-xs">
-        <a href="/" class="p-l-10">
-          <img src="/img/logo.png" alt="" class="logo-img"> SEC Blockchain
-          Explorer Test V0.1
-        </a>
-      </li>
-      <!-- <li class="hi-logo hidden-xs">
-        <a href="/">SEC Blockchain Explorer</a>
-      </li> -->
-      <li class="pull-right">
-        <ul class="hi-menu">
-          <li data-ma-action="search-open">
-            <a href=""><i class="him-icon zmdi zmdi-search"></i></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
-    <!-- Top Search Content -->
-    <div class="h-search-wrap">
-      <div class="hsw-inner">
-        <i class="hsw-close zmdi zmdi-arrow-left" data-ma-action="search-close"></i>
-        <input type="text">
-      </div>
+  <!-- Navigation Bar-->
+  <header id="topnav">
+    <div class="topbar-main">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="/index.html" class="logo">
+            <span class="logo-large">SEC Explorer</span>
+          </a>
+        </div>
+        <div class="menu-extras topbar-custom">
+          <ul class="list-inline float-right">
+            <li class="menu-item list-inline-item">
+              <a class="navbar-toggle nav-link">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div> <!-- end container -->
     </div>
-    <nav class="ha-menu">
-      <ul>
-        <li class="active"><a href="/">Token Blockchain</a></li>
-        <li><a href="/transactionchain">Transaction Blockchain</a></li>
-        <li><a href="/tokenpool">Token Pool</a></li>
-        <li><a href="/transactionpool">Transaction Pool</a></li>
-        <li><a href="/nodeinfo">Node Details</a></li>
-        <li><a href="/secwallet">SEC Wallet</a></li>
-      </ul>
-    </nav>
+    <!-- end topbar-main -->
+    <div class="navbar-custom">
+      <div class="container-fluid">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu">
+            <li class="has-submenu active">
+              <a href="/">首页</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/tokenblockchain">区块链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/contract">合约</a>
+            </li>
+            <li class="has-submenu" title="敬请期待">
+              <a href="/transactionblockchain">交易链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/secwallet">钱包下载</a>
+            </li>
+          </ul>
+          <!-- End navigation menu -->
+        </div> <!-- end #navigation -->
+      </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
   </header>
+  <!-- End Navigation Bar-->
 
-  <section id="main">
-    <section id="content" style="padding-left: 15px">
-      <div class="container">
-        <div class="block-header">
-          <h2>Block Details</h2>
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <ol class="breadcrumb m-0 p-0 m-t-30">
+            <li class="breadcrumb-item"><a href="blockIndex.html">区块链</a></li>
+            <li class="breadcrumb-item active">区块详情</li>
+          </ol>
         </div>
-        <div class="row">
-          <div class="col-md-6">
-            <!-- Recent Items -->
-            <div class="card">
-              <div class="card-header">
-                <h2>SEC Token Block Number: <%= block.Number %> <small>in Tokenchain</small></h2>
-                <ul class="actions">
-                  <li class="dropdown">
-                    <a href="" data-toggle="dropdown">
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                        <a href="">Refresh</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
+      </div>
+
+      <div class="m-t-30 publicListCnt">
+        <div class="p-t-10">
+          <label class="publicListTit text-right">状态：</label>
+          <span class="publicListTxt" id="state"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">哈希值：</label>
+          <span class="publicListTxt" id="hashValues"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">高度：</label>
+          <span class="publicListTxt" id="heightBlock"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">时间：</label>
+          <span class="publicListTxt" id="time"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">容量：</label>
+          <span class="publicListTxt" id="capacity"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">父区块哈希：</label>
+          <span class="publicListTxt" id="fatherHash"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">Difficulty：</label>
+          <span class="publicListTxt" id="difficulty"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">GasUsed：</label>
+          <span class="publicListTxt" id="gasUsed"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">GasLimit：</label>
+          <span class="publicListTxt" id="gasLimit"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">ExtraData：</label>
+          <span class="publicListTxt" id="extraData"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">TransactionsRoot：</label>
+          <span class="publicListTxt" id="transactionsRoot"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">ReceiptRoot：</label>
+          <span class="publicListTxt" id="receiptRoot"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">LogsBloom：</label>
+          <span class="publicListTxt" id="logsBloom"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">MixHash：</label>
+          <span class="publicListTxt" id="mixHash"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">StateRoot：</label>
+          <span class="publicListTxt" id="stateRoot"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">Nonce：</label>
+          <span class="publicListTxt" id="nonce"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit text-right">Block Reward：</label>
+          <span class="publicListTxt" id="reward"></span>
+        </div>
+        <div class="p-t-10 p-b-10">
+          <label class="publicListTit text-right">Beneficiary：</label>
+          <span class="publicListTxt" id="beneficiary"></span>
+        </div>
+      </div>
+      <div class="row m-t-30">
+        <div class="col-md-12 col-xs-12">
+          <div class="card-box">
+            <h4 class="m-t-20 header-title">总共 <span id="total"></span> 条交易</h4>
+            <div class="table-responsive">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>交易哈希值 </th>
+                    <th>发送方</th>
+                    <th>接收方</th>
+                    <th>价值</th>
+                    <th>状态</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th>0xf37805617d5d422fd5b...</th>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>10.7 SEC</td>
+                    <td>Success</td>
+                  </tr>
+                  <tr>
+                    <th>0xf37805617d5d422fd5b...</th>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>10.7 SEC</td>
+                    <td>Success</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="page">
+                分页
               </div>
-              <div class="card-body m-t-0">
-                <table class="table table-inner table-vmiddle">
-                  <tbody>
-                    <% for (key in block) { %>
-                    <% if (key !== 'Transactions') { %>
-                    <tr>
-                      <td><strong><%= key %></strong></td>
-                      <td style="word-wrap: break-word; word-break: break-all;"><%= block[key] %></td>
-                    </tr>
-                    <% } %>
-                    <% } %>
-                  </tbody>
-                </table>
-              </div>
-              <div id="recent-items-chart" class="flot-chart"></div>
-            </div>
-          </div>
-          <div class="col-md-6">
-            <!-- Recent Items -->
-            <div class="card">
-              <div class="card-header">
-                <h2>SEC Token Block Transactions: <%= block.Transactions.length %> <small>in Block</small></h2>
-                <ul class="actions">
-                  <li class="dropdown">
-                    <a href="" data-toggle="dropdown">
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                        <a href="">Refresh</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-              <div class="card-body m-t-0">
-                <table class="table table-inner table-vmiddle">
-                  <thead>
-                    <tr>
-                      <th>Transaction Information</th>
-                      <th>Amount</th>
-                      <th>Status</th>
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <% for (trans of block.Transactions) { %>
-                    <tr>
-                      <td class="f-500" style="font-weight: normal !important;"><p style="color: #8BC34A">TxHash: 0x<%= trans.TxHash %></p><p>From: 0x<%= trans.TxFrom %></p><p>To: 0x<%= trans.TxTo %></p></td>
-                      <td><%= trans.Value %> SEC</td>
-                      <td style="text-transform:capitalize;"><%= trans.TxReceiptStatus %></td>
-                      <td class="f-500"><a href="/tokentx?hash=<%= trans.TxHash %>"><i class="zmdi zmdi-zoom-in"></i></a></td>
-                    </tr>
-                    <% } %>
-                  </tbody>
-                </table>
-              </div>
-              <div id="recent-items-chart" class="flot-chart"></div>
             </div>
           </div>
         </div>
       </div>
-    </section>
-  </section>
+    </div> <!-- end container -->
+  </div>
+  <!-- end wrapper -->
 
-  <footer id="footer">
-    Copyright &copy; 2018 SEC-Block
 
-    <ul class="f-menu">
-      <li><a href="https://www.secblock.io/">Project Home</a></li>
-      <li><a href="/support">Support</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </footer>
-
-  <!-- Page Loader -->
-  <div class="page-loader">
-    <div class="preloader pls-white">
-      <svg class="pl-circular" viewBox="25 25 50 50">
-        <circle class="plc-path" cx="50" cy="50" r="20" />
-        </svg>
-
-        <p>Please wait...</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          Copyright © 2018 SEC-Block
+        </div>
       </div>
     </div>
-
-    <!-- Javascript Libraries -->
-    <script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-    <script
-      src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.resize.js"></script>
-    <script src="/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
-    <script src="/vendors/sparklines/jquery.sparkline.min.js"></script>
-    <script
-      src="/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-    <script src="/vendors/bower_components/moment/min/moment.min.js"></script>
-    <script
-      src="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script
-      src="/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
-    <script src="/vendors/bower_components/Waves/dist/waves.min.js"></script>
-    <script src="/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
-    <script src="/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    <script
-      src="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <!-- Placeholder for IE9 -->
-    <!--[if IE 9 ]>
-            <script src="/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
-        <![endif]-->
-    <script src="/js/app.js"></script>
-  </body>
+  </footer>
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/jquery.app.js"></script>
+  <script src="/js/blockDetails.js"></script>
+</body>
 
 </html>

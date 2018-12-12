@@ -1,254 +1,161 @@
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
   <title><%= title %></title>
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <!-- Vendor CSS -->
-  <link href="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/animate.css/animate.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/sweetalert/dist/sweetalert.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
-    rel="stylesheet">
-  <!-- CSS -->
-  <link href="/css/app_1.min.css" rel="stylesheet">
-  <link href="/css/app_2.min.css" rel="stylesheet">
-  <link href="/css/custom.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta content="SEC-Blockchain Explorer" name="description" />
+  <meta content="Coderthemes" name="author" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
+  <!-- App css -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/public.css" rel="stylesheet" type="text/css" />
 </head>
 
 <body>
-  <header id="header" class="clearfix">
-    <ul class="h-inner clearfix">
-      <li class="hi-logo hidden-xs">
-        <a href="/" class="p-l-10">
-          <img src="/img/logo.png" alt="" class="logo-img"> SEC Blockchain
-          Explorer Test V0.1
-        </a>
-      </li>
-      <!-- <li class="hi-logo hidden-xs">
-        <a href="/">SEC Blockchain Explorer</a>
-      </li> -->
-      <li class="pull-right">
-        <ul class="hi-menu">
-          <li data-ma-action="search-open">
-            <a href=""><i class="him-icon zmdi zmdi-search"></i></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
-    <!-- Top Search Content -->
-    <div class="h-search-wrap">
-      <div class="hsw-inner">
-        <i class="hsw-close zmdi zmdi-arrow-left" data-ma-action="search-close"></i>
-        <input type="text">
-      </div>
+  <!-- Navigation Bar-->
+  <header id="topnav">
+    <div class="topbar-main">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="/index.html" class="logo">
+            <span class="logo-large">SEC Explorer</span>
+          </a>
+        </div>
+        <div class="menu-extras topbar-custom">
+          <ul class="list-inline float-right">
+            <li class="menu-item list-inline-item">
+              <a class="navbar-toggle nav-link">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="clearfix"></div>
+      </div> <!-- end container -->
     </div>
-    <nav class="ha-menu">
-      <ul>
-        <li><a href="/">Token Blockchain</a></li>
-        <li class="active"><a href="/transactionchain">Transaction Blockchain</a></li>
-        <li><a href="/tokenpool">Token Pool</a></li>
-        <li><a href="/transactionpool">Transaction Pool</a></li>
-        <li><a href="/nodeinfo">Node Details</a></li>
-        <li><a href="/secwallet">SEC Wallet</a></li>
-      </ul>
-    </nav>
+    <!-- end topbar-main -->
+    <div class="navbar-custom">
+      <div class="container-fluid">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu">
+            <li class="has-submenu active">
+              <a href="/">首页</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/tokenblockchain">区块链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/contract">合约</a>
+            </li>
+            <li class="has-submenu" title="敬请期待">
+              <a href="/transactionblockchain">交易链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/secwallet">钱包下载</a>
+            </li>
+          </ul>
+          <!-- End navigation menu -->
+        </div> <!-- end #navigation -->
+      </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
   </header>
+  <!-- End Navigation Bar-->
 
-  <section id="main">
-    <section id="content" style="padding-left: 15px">
-      <div class="container">
-        <div class="block-header">
-          <h2>Dashboard</h2>
-        </div>
-        <div class="card">
-          <div class="card-header">
-            <h2>SEC Blockchain <small>Transactions</small></h2>
-            <ul class="actions">
-              <li>
-                <a href="">
-                  <i class="zmdi zmdi-refresh-alt"></i>
-                </a>
-              </li>
-            </ul>
-          </div>
-          <div class="card-body">
-            <div class="chart-edge">
-              <div id="curved-line-chart" class="flot-chart"></div>
-            </div>
-          </div>
-        </div>
-        <div class="mini-charts">
-          <div class="row">
-            <div class="col-sm-6 col-md-6">
-              <div class="mini-charts-item">
-                <div class="clearfix">
-                  <div class="chart stats-bar"></div>
-                  <div class="count">
-                    <small>Block Number</small>
-                    <h2 id="transaction-block-number"></h2>
-                  </div>
-                </div>
-              </div>
-            </div>
+  <div class="wrapper">
+    <div class="container-fluid">
 
-            <div class="col-sm-6 col-md-6">
-              <div class="mini-charts-item">
-                <div class="clearfix">
-                  <div class="chart stats-line"></div>
-                  <div class="count">
-                    <small>Transactions</small>
-                    <h2 id="transaction-transactions-number"></h2>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="row">
-          <div class="col-sm-5">
-            <!-- Recent Items -->
-            <div class="card">
-              <div class="card-header">
-                <h2>SEC Blocks <small>TransactionChain</small></h2>
-                <ul class="actions">
-                  <li class="dropdown">
-                    <a href="" data-toggle="dropdown">
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                        <a href="">Refresh</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="card-body m-t-0" style="max-height: 1000px;
-                overflow-y: scroll">
-                <table class="table table-inner table-vmiddle">
-                  <thead>
-                    <tr>
-                      <th>Block Number</th>
-                      <th>Block Information</th>
-                      <th>TXs</th>
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody id="transaction-block-chain-list">
-                  </tbody>
-                </table>
-              </div>
-              <div id="recent-items-chart" class="flot-chart"></div>
-            </div>
-          </div>
-
-          <div class="col-sm-7">
-            <!-- Recent Items -->
-            <div class="card">
-              <div class="card-header">
-                <h2>Transactions <small>Transactions in TransactionChain</small></h2>
-                <ul class="actions">
-                  <li class="dropdown">
-                    <a href="" data-toggle="dropdown">
-                      <i class="zmdi zmdi-more-vert"></i>
-                    </a>
-
-                    <ul class="dropdown-menu dropdown-menu-right">
-                      <li>
-                        <a href="">Refresh</a>
-                      </li>
-                    </ul>
-                  </li>
-                </ul>
-              </div>
-
-              <div class="card-body m-t-0" style="max-height: 1000px;
-                overflow-y: scroll">
-                <table class="table table-inner table-vmiddle">
-                  <thead>
-                    <tr>
-                      <th>Transaction Information</th>
-                      <th>Product</th>
-                      <th>Status</th>
-                      <th>Details</th>
-                    </tr>
-                  </thead>
-                  <tbody id="transaction-trans-list">
-                  </tbody>
-                </table>
-              </div>
-              <div id="recent-items-chart" class="flot-chart"></div>
-            </div>
-          </div>
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <ol class="breadcrumb m-0 p-0 m-t-30">
+            <li class="breadcrumb-item"><a href="blockIndex.html">区块链</a></li>
+            <li class="breadcrumb-item active">交易详情</li>
+          </ol>
         </div>
       </div>
-    </section>
-  </section>
 
-  <footer id="footer">
-    Copyright &copy; 2018 SEC-Block
+      <div class="m-t-30 m-b-30 publicListCnt">
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">哈希值：</label>
+          <span class="publicListTxt tradingListTxt" id="hashValues"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">状态：</label>
+          <span class="publicListTxt tradingListTxt" id="state"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">高度：</label>
+          <span class="publicListTxt tradingListTxt" id="heightBlock"></span>
+        </div>
 
-    <ul class="f-menu">
-      <li><a href="https://www.secblock.io/">Project Home</a></li>
-      <li><a href="/support">Support</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </footer>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">时间：</label>
+          <span class="publicListTxt tradingListTxt" id="time"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">发送方：</label>
+          <span class="publicListTxt tradingListTxt" id="sender"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">接收方：</label>
+          <span class="publicListTxt tradingListTxt" id="receiving"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">价值：</label>
+          <span class="publicListTxt tradingListTxt" id="valueOf"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">GasUsed：</label>
+          <span class="publicListTxt tradingListTxt" id="gasUsed"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">GasLimit：</label>
+          <span class="publicListTxt tradingListTxt" id="gasLimit"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">Gas Price：</label>
+          <span class="publicListTxt tradingListTxt" id="price"></span>
+        </div>
 
-  <!-- Page Loader -->
-  <div class="page-loader">
-    <div class="preloader pls-white">
-      <svg class="pl-circular" viewBox="25 25 50 50">
-        <circle class="plc-path" cx="50" cy="50" r="20" />
-        </svg>
-
-        <p>Please wait...</p>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">Version：</label>
+          <span class="publicListTxt tradingListTxt" id="version"></span>
+        </div>
+        <div class="p-t-10">
+          <label class="publicListTit tradingListTit text-right">TxFee：</label>
+          <span class="publicListTxt tradingListTxt" id="txFee"></span>
+        </div>
+        <div class="p-t-10 p-b-10">
+          <label class="publicListTit tradingListTit text-right">InputData：</label>
+          <span class="publicListTxt tradingListTxt" id="inputData"></span>
+        </div>
+      </div>
+    </div> <!-- end container -->
+  </div>
+  <!-- end wrapper -->
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          Copyright © 2018 SEC-Block
+        </div>
       </div>
     </div>
-
-    <!-- Javascript Libraries -->
-    <script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-    <script
-      src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.resize.js"></script>
-    <script src="/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
-    <script src="/vendors/sparklines/jquery.sparkline.min.js"></script>
-    <script
-      src="/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-    <script src="/vendors/bower_components/moment/min/moment.min.js"></script>
-    <script
-      src="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script
-      src="/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
-    <script src="/vendors/bower_components/Waves/dist/waves.min.js"></script>
-    <script src="/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
-    <script src="/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    <script
-      src="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
-    <!-- Placeholder for IE9 -->
-    <!--[if IE 9 ]>
-            <script src="/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
-        <![endif]-->
-    <script src="/js/app.js"></script>
-    <script src="/js/custom-transactionblockchain.js"></script>
-  </body>
+  </footer>
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
+  <script src="/assets/js/jquery.app.js"></script>
+  <script src="/js/trading.js"></script>
+</body>
 
 </html>

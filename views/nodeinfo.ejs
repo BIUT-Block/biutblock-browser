@@ -1,244 +1,122 @@
 <!DOCTYPE html>
-<!--[if IE 9 ]><html class="ie9"><![endif]-->
+<html>
 
 <head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8" />
   <title><%= title %></title>
-  <link rel="shortcut icon" href="/favicon.ico" />
-  <!-- Vendor CSS -->
-  <link
-    href="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/animate.css/animate.min.css"
-    rel="stylesheet">
-  <link href="/vendors/bower_components/sweetalert/dist/sweetalert.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css"
-    rel="stylesheet">
-  <link
-    href="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.min.css"
-    rel="stylesheet">
-  <!-- CSS -->
-  <link href="/css/app_1.min.css" rel="stylesheet">
-  <link href="/css/app_2.min.css" rel="stylesheet">
-  <link href="/css/custom.css" rel="stylesheet">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta content="SEC-Blockchain Explorer" name="description" />
+  <meta content="Coderthemes" name="author" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+  <link rel="shortcut icon" href="assets/images/favicon.ico">
+  <!-- App css -->
+  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+  <link href="/css/public.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
-  <header id="header" class="clearfix">
-    <ul class="h-inner clearfix">
-      <li class="hi-logo hidden-xs">
-        <a href="/" class="p-l-10">
-          <img src="/img/logo.png" alt="" class="logo-img"> SEC
-          Blockchain Explorer
-        </a>
-      </li>
-
-      <li class="pull-right">
-        <ul class="hi-menu">
-          <li data-ma-action="search-open">
-            <a href=""><i class="him-icon zmdi zmdi-search"></i></a>
-          </li>
-        </ul>
-      </li>
-    </ul>
-
-    <!-- Top Search Content -->
-    <div class="h-search-wrap">
-      <div class="hsw-inner">
-        <i class="hsw-close zmdi zmdi-arrow-left"
-          data-ma-action="search-close"></i>
-        <input type="text">
-      </div>
-    </div>
-    <nav class="ha-menu">
-      <ul>
-        <li><a href="/">Token Blockchain</a></li>
-        <li><a href="/transactionchain">Transaction Blockchain</a></li>
-        <li><a href="/tokenpool">Token Pool</a></li>
-        <li><a href="/transactionpool">Transaction Pool</a></li>
-        <li class="active"><a href="/nodeinfo">Node Details</a></li>
-        <li><a href="/secwallet">SEC Wallet</a></li>
-      </ul>
-    </nav>
-  </header>
-
-  <section id="main">
-    <section id="content" style="padding-left: 15px">
-      <div class="container">
-
-        <!-- Basic -->
-        <div class="block-header">
-          <h2>Node Details</h2>
-          <ul class="actions">
-            <li class="dropdown">
-              <a href="">
-                <i class="zmdi zmdi-refresh-alt"></i>
+  <!-- Navigation Bar-->
+  <header id="topnav">
+    <div class="topbar-main">
+      <div class="container-fluid">
+        <div class="logo">
+          <a href="/index.html" class="logo">
+            <span class="logo-large">SEC Explorer</span>
+          </a>
+        </div>
+        <div class="menu-extras topbar-custom">
+          <ul class="list-inline float-right">
+            <li class="menu-item list-inline-item">
+              <a class="navbar-toggle nav-link">
+                <div class="lines">
+                  <span></span>
+                  <span></span>
+                  <span></span>
+                </div>
               </a>
-              <a href="" data-toggle="dropdown">
-                <i class="zmdi zmdi-more-vert"></i>
-              </a>
-              <ul class="dropdown-menu dropdown-menu-right">
-                <li>
-                  <a href="">Refresh</a>
-                </li>
-              </ul>
             </li>
           </ul>
         </div>
+        <div class="clearfix"></div>
+      </div> <!-- end container -->
+    </div>
+    <!-- end topbar-main -->
+    <div class="navbar-custom">
+      <div class="container-fluid">
+        <div id="navigation">
+          <!-- Navigation Menu-->
+          <ul class="navigation-menu">
+            <li class="has-submenu active">
+              <a href="/">首页</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/tokenblockchain">区块链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/contract">合约</a>
+            </li>
+            <li class="has-submenu" title="敬请期待">
+              <a href="/transactionblockchain">交易链</a>
+            </li>
+            <li class="has-submenu">
+              <a href="/secwallet">钱包下载</a>
+            </li>
+          </ul>
+          <!-- End navigation menu -->
+        </div> <!-- end #navigation -->
+      </div> <!-- end container -->
+    </div> <!-- end navbar-custom -->
+  </header>
+  <!-- End Navigation Bar-->
 
-        <div class="row">
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-header">
-                <h2>Public IPv4</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="PublicIPv4"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System Time</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemTime"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>Process Up Time</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="ProcessUpTime"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>GEO Location</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="GEOLocation"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-header">
-                <h2>Process CPU Usage</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="ProcessCPUUsage"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System CPU</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemCPU"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System Memory</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemMem"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System OS Info</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemOSInfo"></div>
-              </div>
-            </div>
-          </div>
-          <div class="col-sm-4">
-            <div class="card">
-              <div class="card-header">
-                <h2>Process Versions</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="ProcessVersions"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System Current Load</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemCurrentLoad"></div>
-              </div>
-            </div>
-            <div class="card">
-              <div class="card-header">
-                <h2>System Information</h2>
-              </div>
-              <div class="card-body card-padding">
-                <div id="SystemInfo"></div>
-              </div>
-            </div>
+  <div class="wrapper">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12 col-xs-12">
+          <ol class="breadcrumb m-0 p-0 m-t-30">
+            <li class="breadcrumb-item"><a href="blockIndex.html">区块链</a></li>
+            <li class="breadcrumb-item active">节点详情</li>
+          </ol>
+        </div>
+      </div>
+      <div class="row m-t-30 m-b-5">
+        <div class="col-md-12 col-xs-12">
+          <h4>当前节点数：99999</h4>
+        </div>
+      </div>
+
+      <div class="row m-b-20">
+        <div class="col-md-12 col-xs-12">
+          <div style="border:1px solid #ccc;height:300px;">
+            图形展示 height 高度根据需要设置
           </div>
         </div>
       </div>
-    </section>
-  </section>
 
-  <footer id="footer">
-    Copyright &copy; 2018 SEC-Block
+    </div> <!-- end container -->
+  </div>
+  <!-- end wrapper -->
 
-    <ul class="f-menu">
-      <li><a href="https://www.secblock.io/">Project Home</a></li>
-      <li><a href="/support">Support</a></li>
-      <li><a href="/contact">Contact</a></li>
-    </ul>
-  </footer>
 
-  <!-- Page Loader -->
-  <div class="page-loader">
-    <div class="preloader pls-white">
-      <svg class="pl-circular" viewBox="25 25 50 50">
-        <circle class="plc-path" cx="50" cy="50" r="20" />
-        </svg>
-        <p>Please wait...</p>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          Copyright © 2018 SEC-Block
+        </div>
       </div>
     </div>
+  </footer>
+  <script src="/assets/js/jquery.min.js"></script>
+  <script src="/assets/js/bootstrap.min.js"></script>
 
-    <!-- Javascript Libraries -->
-    <script src="/vendors/bower_components/jquery/dist/jquery.min.js"></script>
-    <script
-      src="/vendors/bower_components/bootstrap/dist/js/bootstrap.min.js"></script><script src="vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.js"></script>
-    <script src="/vendors/bower_components/flot/jquery.flot.resize.js"></script>
-    <script
-      src="/vendors/bower_components/flot.curvedlines/curvedLines.js"></script>
-    <script src="/vendors/sparklines/jquery.sparkline.min.js"></script>
-    <script
-      src="/vendors/bower_components/jquery.easy-pie-chart/dist/jquery.easypiechart.min.js"></script>
-    <script src="/vendors/bower_components/moment/min/moment.min.js"></script>
-    <script
-      src="/vendors/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
-    <script
-      src="/vendors/bower_components/simpleWeather/jquery.simpleWeather.min.js"></script>
-    <script src="/vendors/bower_components/Waves/dist/waves.min.js"></script>
-    <script src="/vendors/bootstrap-growl/bootstrap-growl.min.js"></script>
-    <script
-      src="/vendors/bower_components/sweetalert/dist/sweetalert.min.js"></script>
-    <script
-      src="/vendors/bower_components/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
-    <script src="/js/socket.io.js"></script>
-    <!-- Placeholder for IE9 -->
-    <!--[if IE 9 ]>
-            <script src="/vendors/bower_components/jquery-placeholder/jquery.placeholder.min.js"></script>
-        <![endif]-->
-    <script src="/js/app.js"></script>
-    <script src="/js/custom-nodeinfo.js"></script>
-  </body>
+  <script src="/assets/js/jquery.app.js"></script>
+
+</body>
 
 </html>
