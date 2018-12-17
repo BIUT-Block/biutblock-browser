@@ -1,0 +1,113 @@
+ <div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <ol class="breadcrumb m-0 p-0">
+          <li class="breadcrumb-item"><a href="/contract">合约</a></li>
+          <li class="breadcrumb-item active">合约详情</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="row m-t-20 card-box m-0">
+      <div class="col-md-6" style="padding-left: 0;">
+        <div class="contractList">
+          <span class="contractTit text-left">合约地址</span>
+          <span class="contractTxt" id="address"></span>
+        </div>
+        <div class="contractList">
+          <span class="contractTit text-left">余额</span>
+          <span class="contractTxt" id="balance"></span>
+        </div>
+        <div class="contractList contractList2">
+          <span class="contractTit text-left">交易次数</span>
+          <span class="contractTxt" id="tradingNumber"></span>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="contractList">
+          <span class="contractTit text-left">创建者</span>
+          <span class="contractTxt" id="creator"></span>
+        </div>
+        <div class="contractList">
+          <span class="contractTit text-left">交易号</span>
+          <span class="contractTxt" id="tradingNo"></span>
+        </div>
+        <div class="contractList contractList2">
+          <span class="contractTit text-left">交易时间</span>
+          <span class="contractTxt" id="tradingTime"></span>
+        </div>
+      </div>
+    </div>
+    <div class="row m-t-30">
+      <div class="col-md-12 col-xs-12">
+        <div class="card-box">
+          <ul class="nav nav-tabs">
+            <li class="nav-item">
+              <a href="#home" data-toggle="tab" aria-expanded="false"
+                class="nav-link active show">
+                交易
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#profile" data-toggle="tab" aria-expanded="true"
+                class="nav-link">
+                事件
+              </a>
+            </li>
+            <li class="nav-item">
+              <a href="#messages" data-toggle="tab" aria-expanded="false"
+                class="nav-link">
+                代码
+              </a>
+            </li>
+          </ul>
+          <div class="tab-content">
+            <div class="tab-pane fade active show" id="home">
+              <h4 class="header-title m-t-0">当前共 <span id="total">2</span> 条交易信息</h4>
+              <table class="table table-hover table-bordered">
+                <thead>
+                  <tr>
+                    <th>交易哈希</th>
+                    <th>区块</th>
+                    <th>交易时间</th>
+                    <th>发送人</th>
+                    <th>接收人</th>
+                    <th>价值</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>0xf37805617d5d422fd5b...</td>
+                    <td>4020470</td>
+                    <td>4 minutes ago</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>10 SEC</td>
+                  </tr>
+                  <tr>
+                    <td>0xf37805617d5d422fd5b...</td>
+                    <td>4020470</td>
+                    <td>4 minutes ago</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>0x9732a55cd5074d3...</td>
+                    <td>10 SEC</td>
+                  </tr>
+                </tbody>
+              </table>
+              <div class="page">
+                分页
+              </div>
+            </div>
+            <div class="tab-pane fade" id="profile">
+              代码
+            </div>
+            <div class="tab-pane fade" id="messages">
+              事件
+            </div>
+          </div>
+        </div>
+
+      </div> <!-- end container -->
+    </div>
+    <!-- end wrapper -->

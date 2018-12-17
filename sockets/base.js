@@ -1,3 +1,4 @@
+const home = require('./home')
 const tokenblockchain = require('./tokenblockchain')
 const transactionblockchain = require('./transactionblockchain')
 const nodeinfo = require('./nodeinfo')
@@ -9,6 +10,7 @@ module.exports = function (param) {
   io.on('connection', function (socket) {
     console.log('Welcome to SEC Block Socket IO Service')
   })
+  io.of('/home').on('connection', home)
   io.of('/tokenblockchain').on('connection', tokenblockchain)
   io.of('/nodeinfo').on('connection', nodeinfo)
   io.of('/tokenpool').on('connection', tokenpool)

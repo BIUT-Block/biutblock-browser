@@ -1,161 +1,56 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <title><%= title %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta content="SEC-Blockchain Explorer" name="description" />
-  <meta content="Coderthemes" name="author" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <link rel="shortcut icon" href="assets/images/favicon.ico">
-  <!-- App css -->
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
-  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
-  <link href="/css/public.css" rel="stylesheet" type="text/css" />
-</head>
-
-<body>
-  <!-- Navigation Bar-->
-  <header id="topnav">
-    <div class="topbar-main">
-      <div class="container-fluid">
-        <div class="logo">
-          <a href="/index.html" class="logo">
-            <span class="logo-large">SEC Explorer</span>
-          </a>
-        </div>
-        <div class="menu-extras topbar-custom">
-          <ul class="list-inline float-right">
-            <li class="menu-item list-inline-item">
-              <a class="navbar-toggle nav-link">
-                <div class="lines">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="clearfix"></div>
-      </div> <!-- end container -->
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <ol class="breadcrumb m-0 p-0">
+          <li class="breadcrumb-item"><a href="/tokenblockchain">区块</a></li>
+          <li class="breadcrumb-item active">交易</li>
+        </ol>
+      </div>
     </div>
-    <!-- end topbar-main -->
-    <div class="navbar-custom">
-      <div class="container-fluid">
-        <div id="navigation">
-          <!-- Navigation Menu-->
-          <ul class="navigation-menu">
-            <li class="has-submenu active">
-              <a href="/">首页</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/tokenblockchain">区块链</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/contract">合约</a>
-            </li>
-            <li class="has-submenu" title="敬请期待">
-              <a href="/transactionblockchain">交易链</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/secwallet">钱包下载</a>
-            </li>
-          </ul>
-          <!-- End navigation menu -->
-        </div> <!-- end #navigation -->
-      </div> <!-- end container -->
-    </div> <!-- end navbar-custom -->
-  </header>
-  <!-- End Navigation Bar-->
-
-  <div class="wrapper">
-    <div class="container-fluid">
-
-      <div class="row">
-        <div class="col-md-12 col-xs-12">
-          <ol class="breadcrumb m-0 p-0 m-t-30">
-            <li class="breadcrumb-item"><a href="blockIndex.html">区块链</a></li>
-            <li class="breadcrumb-item active">交易详情</li>
-          </ol>
-        </div>
-      </div>
-
-      <div class="m-t-30 m-b-30 publicListCnt">
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">哈希值：</label>
-          <span class="publicListTxt tradingListTxt" id="hashValues"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">状态：</label>
-          <span class="publicListTxt tradingListTxt" id="state"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">高度：</label>
-          <span class="publicListTxt tradingListTxt" id="heightBlock"></span>
-        </div>
-
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">时间：</label>
-          <span class="publicListTxt tradingListTxt" id="time"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">发送方：</label>
-          <span class="publicListTxt tradingListTxt" id="sender"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">接收方：</label>
-          <span class="publicListTxt tradingListTxt" id="receiving"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">价值：</label>
-          <span class="publicListTxt tradingListTxt" id="valueOf"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">GasUsed：</label>
-          <span class="publicListTxt tradingListTxt" id="gasUsed"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">GasLimit：</label>
-          <span class="publicListTxt tradingListTxt" id="gasLimit"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">Gas Price：</label>
-          <span class="publicListTxt tradingListTxt" id="price"></span>
-        </div>
-
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">Version：</label>
-          <span class="publicListTxt tradingListTxt" id="version"></span>
-        </div>
-        <div class="p-t-10">
-          <label class="publicListTit tradingListTit text-right">TxFee：</label>
-          <span class="publicListTxt tradingListTxt" id="txFee"></span>
-        </div>
-        <div class="p-t-10 p-b-10">
-          <label class="publicListTit tradingListTit text-right">InputData：</label>
-          <span class="publicListTxt tradingListTxt" id="inputData"></span>
-        </div>
-      </div>
-    </div> <!-- end container -->
-  </div>
-  <!-- end wrapper -->
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          Copyright © 2018 SEC-Block
+    <div class="row m-t-20">
+      <div class="col-md-12 col-xs-12">
+        <div class="card-box">
+          <h4 class="header-title">目前共 <span id="total"></span> 笔交易</h4>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>交易哈希</th>
+                  <th>区块</th>
+                  <th>块龄</th>
+                  <th>发送方</th>
+                  <th>接收方</th>
+                  <th>价值</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><a href="/tokentxdetails">aab4bc6c4fcd3a4b97e9a...</a></td>
+                  <td><a href="/tokenblockdetails">6701280</a></td>
+                  <td>4 minutes ago</td>
+                  <td><a href="/accountdetails">0xeebd6206f56c6f795ee...</a></td>
+                  <td><a href="/accountdetails">0xeebd6206f56c6f795ee...</a></td>
+                  <td>0.1 SEC</td>
+                </tr>
+                <tr>
+                  <td><a href="/tokentxdetails">aab4bc6c4fcd3a4b97e9a...</a></td>
+                  <td><a href="/tokenblockdetails">6701280</a></td>
+                  <td>4 minutes ago</td>
+                  <td><a href="/accountdetails">0xeebd6206f56c6f795ee...</a></td>
+                  <td><a href="/accountdetails">0xeebd6206f56c6f795ee...</a></td>
+                  <td>0.1 SEC</td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="page">
+              分页
+            </div>
+          </div>
         </div>
       </div>
     </div>
-  </footer>
-  <script src="/assets/js/jquery.min.js"></script>
-  <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="/assets/js/jquery.app.js"></script>
-  <script src="/js/trading.js"></script>
-</body>
 
-</html>
+  </div> <!-- end container -->
+</div>
+<!-- end wrapper -->
