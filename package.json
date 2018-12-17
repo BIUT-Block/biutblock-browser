@@ -19,11 +19,13 @@
   "dependencies": {
     "@sec-block/secjs-core": "^1.0.15",
     "@sec-block/secjs-rpc": "^1.0.2",
+    "@sec-block/secjs-util": "^1.1.20",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-partials": "^0.3.0",
     "http-errors": "^1.7.1",
+    "jayson": "^2.1.0",
     "morgan": "^1.9.1",
     "socket.io": "^2.2.0"
   }
