@@ -1,0 +1,84 @@
+ <div class="wrapper">
+  <div class="container-fluid">
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <ol class="breadcrumb m-0 p-0">
+          <li class="breadcrumb-item"><a href="/tokenblockchain">Token Blockchain</a></li>
+          <li class="breadcrumb-item active">Account Details</li>
+        </ol>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="m-t-20 card-box">
+          <div class="accountList">
+            <label class="publicListTit accountListTit text-left">Address:</label>
+            <div class="publicListTxt accountListTxt">
+              <span id="address">0x<%= address %></span>
+              <span type="button" id="copyBtn" class="btn btn-rounded copyBtn">Copy Address</span>
+            </div>
+          </div>
+          <div class="accountList">
+            <label class="publicListTit accountListTit text-left">Transactions:</label>
+            <div class="publicListTxt accountListTxt">
+              <div class="accountMoney">
+                <span class="mdi mdi-arrow-up"></span>
+                <span id="income"><%= income %></span>
+              </div>
+              <div class="accountMoney">
+                <span class="mdi mdi-arrow-down"></span>
+                <span id="spending"><%= spend %></span>
+              </div>
+            </div>
+          </div>
+          <div class="accountList">
+            <label class="publicListTit accountListTit text-left">Balance:</label>
+            <span class="publicListTxt accountListTxt" id="balance"><%= balance %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="card-box">
+          <h4 class="header-title">Transactions Sum <span id="total"><%= txArray.length %></span></h4>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+              <thead>
+                <tr>
+                  <th>TxHash</th>
+                  <th>Time Stamp</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% txArray.forEach(tx => { %>
+                  <tr>
+                    <td><a href="/tokentxdetails?hash=<%= tx.TxHash %>">0x<%= tx.TxHash %></a></td>
+                    <td><%= tx.TimeStamp %></td>
+                    <td><a href="/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom %></a>
+                    <% if (tx.TxFrom === address) { %>
+                    <span class="accountOut">Out</span></td>
+                    <% } else { %>
+                    <span class="accountInto">In</span></td>
+                    <% } %>
+                    <td><a href="/accountdetails?address=<%= tx.TxTo %>">0x<%= tx.TxTo %></a></td>
+                    <td><%= tx.Value %></td>
+                    <td><%= tx.TxReceiptStatus %></td>
+                  </tr>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end container -->
+</div>
+<!-- end wrapper -->

@@ -1,41 +1,173 @@
 const express = require('express')
 const router = express.Router()
 const SECCore = require('../src/main').secCore
+const iplocation = require('iplocation').default
 
 /* GET home page. */
 
 router.get('/', function (req, res, next) {
-  res.render('index', { title: 'SEC Blockchain Explorer V1.1' })
+  res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
 })
 
 router.get('/tokenblockchain', function (req, res, next) {
-  res.render('tokenblockchain', { title: 'SEC Blockchain - Token Blockchain' })
+  let pageNumber = parseInt(req.query.pageNumber || 1)
+  let pageSize = parseInt(req.query.pageSize || 50)
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let totalNumber = data.length
+    let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+    res.render('tokenblockchain', {
+      page: 'tokenblockchain',
+      title: 'SEC Blockchain - Token Blockchain',
+      pageNumber: pageNumber,
+      totalNumber: totalNumber,
+      blockchain: blockchain
+    })
+  })
+})
+
+router.get('/tokenblockchain-pagination', function (req, res, next) {
+  let pageNumber = parseInt(req.query.pageNumber || 1)
+  let pageSize = parseInt(req.query.pageSize || 50)
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+    res.json(blockchain)
+  })
 })
 
 router.get('/tokenblockdetails', function (req, res, next) {
   SECCore.APIs.getTokenBlock(req.query.hash, (err, block) => {
     if (err) next(err)
+    if (typeof block.Transactions !== 'object') {
+      block = JSON.parse(block)
+    }
     res.render('tokenblockdetails', {
+      page: 'tokenblockdetails',
       title: 'SEC Blockchain - Token Block Details',
       block: block
     })
   })
 })
 
+router.get('/tokentxlist', function (req, res, next) {
+  let pageNumber = parseInt(req.query.pageNumber || 1)
+  let pageSize = parseInt(req.query.pageSize || 50)
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let transactions = []
+    data.reverse().forEach(block => {
+      transactions = transactions.concat(block.Transactions)
+    })
+    let totalNumber = transactions.length
+    let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+    res.render('tokentxlist', {
+      page: 'tokentxlist',
+      title: 'SEC Blockchain - Token Tx List',
+      pageNumber: pageNumber,
+      totalNumber: totalNumber,
+      transactions: _transactions
+    })
+  })
+})
+
+router.get('/tokentxlist-pagination', function (req, res, next) {
+  let pageNumber = parseInt(req.query.pageNumber || 1)
+  let pageSize = parseInt(req.query.pageSize || 50)
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let transactions = []
+    data.reverse().forEach(block => {
+      transactions = transactions.concat(block.Transactions)
+    })
+    let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+    res.json(_transactions)
+  })
+})
+
+router.get('/tokentxdetails', function (req, res, next) {
+  SECCore.APIs.getTokenTx(req.query.hash, (transaction) => {
+    res.render('tokentxdetails', {
+      page: 'tokentxdetails',
+      title: 'SEC Blockchain - Token Tx Details',
+      transaction: transaction
+    })
+  })
+})
+
 router.get('/transactionblockchain', function (req, res, next) {
-  res.render('transactionblockchain', { title: 'SEC Blockchain - Transaction Blockchain' })
+  res.render('transactionblockchain', { page: 'transactionblockchain', title: 'SEC Blockchain - Transaction Blockchain' })
+})
+
+router.get('/transactionblockdetails', function (req, res, next) {
+  res.render('transactionblockdetails', { page: 'transactionblockdetails', title: 'SEC Blockchain - Transaction Block Details' })
 })
 
 router.get('/contract', function (req, res, next) {
-  res.render('contract', { title: 'SEC Blockchain Smart Contract' })
+  res.render('contract', { page: 'contract', title: 'SEC Blockchain Smart Contract' })
+})
+
+router.get('/contractdetails', function (req, res, next) {
+  res.render('contractdetails', { page: 'contractdetails', title: 'SEC Blockchain Smart Contract Details' })
 })
 
 router.get('/nodeinfo', function (req, res, next) {
-  res.render('nodeinfo', { title: 'SEC Blockchain Node Informations' })
+  let nodes = SECCore.CenterController.ndp.getPeers()
+  let locations = []
+  let flag = 0
+  nodes.forEach(node => {
+    iplocation(node.address, [], (err, result) => {
+      if (err) next(err)
+      locations.push(result)
+      flag++
+      if (flag === nodes.length) {
+        console.log(locations)
+        res.render('nodeinfo', {
+          page: 'nodeinfo',
+          title: 'SEC Blockchain Node Informations',
+          nodes: nodes,
+          locations: locations
+        })
+      }
+    })
+  })
 })
 
 router.get('/secwallet', function (req, res, next) {
-  res.render('secwallet', { title: 'SEC Blockchain Wallet Client' })
+  res.render('secwallet', { page: 'secwallet', title: 'SEC Blockchain Wallet APP' })
+})
+
+router.get('/account', function (req, res, next) {
+  res.render('account', { page: 'account', title: 'SEC Blockchain Account' })
+})
+
+router.get('/accountdetails', function (req, res, next) {
+  let address = req.query.address || ''
+  SECCore.APIs.getTokenTxForUser(address, (err, txArray) => {
+    if (err) next(err)
+    let income = 0
+    let spend = 0
+    txArray.forEach(tx => {
+      if (tx.TxFrom === address) {
+        spend++
+      }
+      if (tx.TxTo === address) {
+        income++
+      }
+    })
+    SECCore.APIs.calAccBalance(address, (err, balance) => {
+      if (err) next(err)
+      res.render('accountdetails', {
+        page: 'accountdetails',
+        title: 'SEC Blockchain Account Details',
+        address: address,
+        txArray: txArray,
+        balance: balance,
+        income: income,
+        spend: spend
+      })
+    })
+  })
 })
 
 // -------------------------  OLD VERSION BROWSER  ------------------------

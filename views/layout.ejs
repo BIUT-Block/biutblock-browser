@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title><%= title %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no" />
+    <meta content="A fully featured admin theme which can be used to build
+      CRM, CMS, etc." name="description" />
+    <meta content="Coderthemes" name="author" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="shortcut icon" href="/favicon.ico">
+    <!-- App css -->
+    <link href="/assets/css/bootstrap.min.css" rel="stylesheet"
+      type="text/css" />
+    <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
+    <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
+    <link href="/css/public.css" rel="stylesheet" type="text/css" />
+  </head>
+
+  <body>
+    <!-- Navigation Bar-->
+    <header id="topnav">
+      <div class="topbar-main">
+        <div class="container-fluid">
+          <!-- Logo container-->
+          <div class="logo">
+            <!-- Text Logo -->
+            <a href="/" class="logo">
+              <span class="logo-small">
+                <img src="/images/headerLogo.png" alt="" width="40px"
+                  height="40px">
+              </span>
+            </a>
+          </div>
+          <!-- End Logo container-->
+          <div class="menu-extras topbar-custom">
+            <ul class="list-inline float-right mb-0">
+              <li class="menu-item list-inline-item">
+                <!-- Mobile menu toggle-->
+                <a class="navbar-toggle nav-link">
+                  <div class="lines">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                  </div>
+                </a>
+                <!-- End mobile menu toggle-->
+              </li>
+            </ul>
+          </div>
+          <!-- end menu-extras -->
+          <div class="clearfix"></div>
+        </div> <!-- end container -->
+      </div>
+      <!-- end topbar-main -->
+
+      <div class="navbar-custom">
+        <div class="container-fluid">
+          <div id="navigation">
+            <!-- Navigation Menu-->
+            <ul class="navigation-menu clearfix">
+              <li class="has-submenu">
+                <a href="#">
+                  <img src="/images/logo.png" alt="SEC - logo" title="SEC"
+                    class="headerLogo" width="20px" height="20px">
+                  <span class="headerTit">SEC Explorer</span>
+                </a>
+              </li>
+              <li class="has-submenu <%= page==='home' ? 'active' : '' %>">
+                <a href="/">Home</a>
+              </li>
+              <li class="has-submenu <%= page==='tokenblockchain' ? 'active' : '' %>">
+                <a href="/tokenblockchain">Tokenchain</a>
+                <ul class="submenu" id="submenuList">
+                    <li><a href="/tokenblockchain">Blockchain</a></li>
+                    <li><a href="/tokentxlist">Transactions</a></li>
+                    <!-- <li><a href="/account">Accounts</a></li> -->
+                    <li><a href="/nodeinfo">Nodes</a></li>
+                </ul>
+              </li>
+              <li class="has-submenu <%= page==='transactionblockchain' ? 'active' : '' %>" title="Coming soon">
+                <a href="#">Transactionchain (Coming soon)</a>
+              </li>
+              <li class="has-submenu <%= page==='contract' ? 'active' : '' %>">
+                <a href="#">Contract (Coming soon)</a>
+              </li>
+              <li class="has-submenu <%= page==='secwallet' ? 'active' : '' %>">
+                <a href="/secwallet">Wallet Download</a>
+              </li>
+              <li class="has-submenu">
+                <div class="hide-phone app-search">
+                  <form role="search" class="">
+                    <input type="text" placeholder="Search..."
+                      class="form-control">
+                    <a href=""><i class="fa fa-search"></i></a>
+                  </form>
+                </div>
+              </li>
+            </ul>
+            <!-- End navigation menu -->
+          </div> <!-- end #navigation -->
+        </div> <!-- end container -->
+      </div> <!-- end navbar-custom -->
+    </header>
+    <!-- End Navigation Bar-->
+
+    <%- body %>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-6 text-left">
+            <img src="/images/footerLogo.png" alt="SEC" class="footerImg" />
+            <p class="ft14">The next generation of block-chain protocols in the e-commerce domain based on social</p>
+          </div>
+          <div class="col-lg-6 text-left">
+            <h4 class="footerTit footerTitT">How to find us</h4>
+            <ul class="footerList">
+              <li>
+                <a href="http://secblock.io/" id="secLogo">
+                  <div class="footerFlex">
+                    <img src="/images/sec.png" id="secLogoImg" alt=""
+                      class="icon_min" width="24px"
+                      height="24px">
+                    Home
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://weibo.com/SECblock" id="footerWeibo">
+                  <div class="footerFlex">
+                    <img src="/images/weibo.png" id="footerWeiboImg" alt=""
+                      class="icon_min" width="24px"
+                      height="24px">
+                    Weibo
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.facebook.com/SECblock">
+                  <div class="footerFlex">
+                    <span class="ion-social-facebook icon_min"></span>
+                    Facebook
+                  </div>
+                </a>
+
+              </li>
+              <li>
+                <a href="https://twitter.com/SECblock">
+
+                  <div class="footerFlex">
+                    <span class="ion-social-twitter icon_min"></span>
+                    Twitter
+                  </div>
+                </a>
+              </li>
+              <li>
+                <a href="https://www.reddit.com/user/SECblock">
+                  <div class="footerFlex">
+                    <span class="ion-social-reddit icon_min"></span>
+                    Reddit
+                  </div>
+                </a>
+
+              </li>
+              <li>
+                <a href="t.me/SECBlockChinese">
+
+                  <div class="footerFlex">
+                    <span class="mdi mdi-telegram icon_min"></span>
+                    Telegram
+                  </div>
+                </a>
+              </li>
+            </ul>
+            <p class="footerTxt">Copyright © 2018 SEC-Block</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- End Footer -->
+    <script src="/assets/js/jquery.min.js"></script>
+    <script src="/assets/js/bootstrap.min.js"></script>
+    <script src="/assets/js/jquery.app.js"></script>
+    <script src="/assets/js/socket.io.js"></script>
+    <script src="/assets/js/pagination.min.js"></script>
+    <script src="/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
+    <% if (page==="account") { %><script src="/js/account.js"></script><% } %>
+    <% if (page==="accountdetails") { %><script src="/js/accountdetails.js"></script><% } %>
+    <% if (page==="contract") { %><script src="/js/contract.js"></script><% } %>
+    <% if (page==="contractdetails") { %><script src="/js/contractdetails.js"></script><% } %>
+    <% if (page==="home") { %><script src="/js/home.js"></script><% } %>
+    <% if (page==="nodeinfo") { %>
+    <script src="/plugins/jvectormap/jquery-jvectormap-2.0.2.min.js"></script>
+    <script src="/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
+    <script src="/plugins/jvectormap/gdp-data.js"></script>
+    <script src="/js/nodeinfo.js"></script>
+    <% } %>
+    <% if (page==="tokenblockchain") { %><script src="/js/tokenblockchain.js"></script><% } %>
+    <% if (page==="tokenblockchaindetails") { %><script src="/js/tokenblockchaindetails.js"></script><% } %>
+    <% if (page==="tokentxlist") { %><script src="/js/tokentxlist.js"></script><% } %>
+    <% if (page==="tokentxdetails") { %><script src="/js/tokentxdetails.js"></script><% } %>
+    <% if (page==="secwallet") { %><script src="/js/secwallet.js"></script><% } %>
+    <script src="/js/custom.js"></script>
+  </body>
+
+</html>

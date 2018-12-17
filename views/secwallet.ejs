@@ -1,126 +1,24 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8" />
-  <title><%= title %></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-  <meta content="SEC-Blockchain Explorer" name="description" />
-  <meta content="Coderthemes" name="author" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-
-  <link rel="shortcut icon" href="assets/images/favicon.ico">
-
-
-  <!-- App css -->
-  <link href="/assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-  <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
-  <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
-
-  <link href="/css/public.css" rel="stylesheet" type="text/css" />
-
-</head>
-
-<body>
-  <!-- Navigation Bar-->
-  <header id="topnav">
-    <div class="topbar-main">
-      <div class="container-fluid">
-        <div class="logo">
-          <a href="/index.html" class="logo">
-            <span class="logo-large">SEC Explorer</span>
-          </a>
-        </div>
-        <div class="menu-extras topbar-custom">
-          <ul class="list-inline float-right">
-            <li class="menu-item list-inline-item">
-              <a class="navbar-toggle nav-link">
-                <div class="lines">
-                  <span></span>
-                  <span></span>
-                  <span></span>
-                </div>
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div class="clearfix"></div>
-      </div> <!-- end container -->
-    </div>
-    <!-- end topbar-main -->
-
-    <div class="navbar-custom">
-      <div class="container-fluid">
-        <div id="navigation">
-          <!-- Navigation Menu-->
-          <ul class="navigation-menu">
-            <li class="has-submenu active">
-              <a href="/">首页</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/tokenblockchain">区块链</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/contract">合约</a>
-            </li>
-            <li class="has-submenu" title="敬请期待">
-              <a href="/transactionblockchain">交易链</a>
-            </li>
-            <li class="has-submenu">
-              <a href="/secwallet">钱包下载</a>
-            </li>
-          </ul>
-          <!-- End navigation menu -->
-        </div> <!-- end #navigation -->
-      </div> <!-- end container -->
-    </div> <!-- end navbar-custom -->
-  </header>
-  <!-- End Navigation Bar-->
-
-  <div class="wrapper">
-    <div class="container-fluid">
-      <div class="row m-b-30">
-        <div class="col-lg-4 m-t-30 downCntMl">
-          <div class="card downCnt">
-            <div class="card-body text-center">
-              <div class="downImg">需要ui的配合制作两张图片，一个安卓一个ios，放在这儿，边框去掉就好了</div>
-              <h4 class="m-t-30">SEC_wallet v1.0_64bit -32bit</h4>
-              <p class="card-text">
-                更新于 2018-11-15 15:02:22
-              </p>
-              <button type="button" class="btn btn-primary m-t-20 downBtn">下 载</button>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-4 m-t-30">
-          <div class="card downCnt">
-            <div class="card-body text-center">
-              <div class="downImg"></div>
-              <h4 class="m-t-30">SEC_wallet.dmg</h4>
-              <p class="card-text">更新于 2018-11-15 15:02:22</p>
-              <button type="button" class="btn btn-primary m-t-20 downBtn">下 载</button>
-            </div>
-          </div>
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-4 text-center downLeft">
+        <div class="card-box downCnt">
+          <img src="/images/windows.png" alt="windows"
+            class="downImg">
+          <h4 class="downTit" id="filename-win">Loading</h4>
+          <p class="downTxt" id="updated-win">Loading</p>
+          <a href="" class="btn downBtn" id="download-win">Download</a>
         </div>
       </div>
-    </div> <!-- end container -->
-  </div>
-  <!-- end wrapper -->
-
-
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          Copyright © 2018 SEC-Block
+      <div class="col-lg-4 text-center">
+        <div class="card-box downCnt">
+          <img src="/images/ios.png" alt="IOS" class="downImg">
+          <h4 class="downTit" id="filename-mac">Loading</h4>
+          <p class="downTxt" id="updated-mac">Loading</p>
+          <a href="" class="btn downBtn" id="download-mac">Download</a>
         </div>
       </div>
     </div>
-  </footer>
-  <script src="/assets/js/jquery.min.js"></script>
-  <script src="/assets/js/bootstrap.min.js"></script>
-  <script src="/assets/js/jquery.app.js"></script>
-</body>
-
-</html>
+  </div> <!-- end container -->
+</div>
+<!-- end wrapper -->
