@@ -10,6 +10,7 @@ $('#pagination').pagination({
       $('#tx-table').append(`
       <tr>
         <td><a href="/tokentxdetails?hash=${tx.TxHash}">0x${tx.TxHash}</a></td>
+        <td><a href="/tokenblockdetailsbynumber?number=${tx.BlockNumber}">${tx.BlockNumber}</a></td>
         <td><a href="/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom}</a></td>
         <td><a href="/accountdetails?address=${tx.TxTo}">0x${tx.TxTo}</a></td>
         <td>${tx.Value} SEC</td>

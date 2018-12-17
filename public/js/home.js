@@ -30,7 +30,7 @@ $(document).ready(() => {
     })
     indexList({
       onlineNode: 24,
-      currentHeight: data.BlockSum,
+      currentHeight: data.BlockSum - 1,
       accountNumber: data.TransactionsSum,
       current: data.TPS,
       peak: 318,
@@ -72,7 +72,7 @@ function blockList (token) {
     <a href="/tokenblockdetails?hash=${token.Hash}">
       <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
         <div class="inbox-item-text" style="display: flex;justify-content: space-between;font-weight: bold;">
-          Height: ${token.Number + 1}
+          Height: ${token.Number}
           <span>
             Rewards：0 SEC
           </span>
