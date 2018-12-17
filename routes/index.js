@@ -50,6 +50,21 @@ router.get('/tokenblockdetails', function (req, res, next) {
   })
 })
 
+router.get('/tokenblockdetailsbynumber', function (req, res, next) {
+  SECCore.APIs.getTokenBlockchain(parseInt(req.query.number), parseInt(req.query.number), (err, block) => {
+    block = block[0]
+    if (err) next(err)
+    if (typeof block.Transactions !== 'object') {
+      block = JSON.parse(block)
+    }
+    res.render('tokenblockdetails', {
+      page: 'tokenblockdetails',
+      title: 'SEC Blockchain - Token Block Details',
+      block: block
+    })
+  })
+})
+
 router.get('/tokentxlist', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 50)
@@ -57,7 +72,13 @@ router.get('/tokentxlist', function (req, res, next) {
     if (err) next(err)
     let transactions = []
     data.reverse().forEach(block => {
-      transactions = transactions.concat(block.Transactions)
+      let _transactions = block.Transactions.map(el => {
+        let _transaction = Object.assign({}, el)
+        _transaction.BlockNumber = block.Number
+        _transaction.BlockTimeStamp = block.TimeStamp
+        return _transaction
+      })
+      transactions = transactions.concat(_transactions)
     })
     let totalNumber = transactions.length
     let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
@@ -78,7 +99,13 @@ router.get('/tokentxlist-pagination', function (req, res, next) {
     if (err) next(err)
     let transactions = []
     data.reverse().forEach(block => {
-      transactions = transactions.concat(block.Transactions)
+      let _transactions = block.Transactions.map(el => {
+        let _transaction = Object.assign({}, el)
+        _transaction.BlockNumber = block.Number
+        _transaction.BlockTimeStamp = block.TimeStamp
+        return _transaction
+      })
+      transactions = transactions.concat(_transactions)
     })
     let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
     res.json(_transactions)
@@ -168,6 +195,87 @@ router.get('/accountdetails', function (req, res, next) {
       })
     })
   })
+})
+
+router.get('/search', function (req, res, next) {
+  let keyword = req.query.search
+  keyword = keyword.substring(0, 2) === '0x' ? keyword.substring(2) : keyword
+  if (isNaN(keyword)) {
+    if (keyword.length === 64) {
+      SECCore.APIs.getTokenBlock(keyword, (err, block) => {
+        if (!err) {
+          if (typeof block.Transactions !== 'object') {
+            block = JSON.parse(block)
+          }
+          res.render('tokenblockdetails', {
+            page: 'tokenblockdetails',
+            title: 'SEC Blockchain - Token Block Details',
+            block: block
+          })
+        } else {
+          SECCore.APIs.getTokenTx(keyword, transaction => {
+            if (transaction) {
+              res.render('tokentxdetails', {
+                page: 'tokentxdetails',
+                title: 'SEC Blockchain - Token Tx Details',
+                transaction: transaction
+              })
+            } else {
+              return next(new Error('Wrong Input Block Hash or Tx Hash'))
+            }
+          })
+        }
+      })
+    } else if (keyword.length === 40) {
+      SECCore.APIs.getTokenTxForUser(keyword, (err, txArray) => {
+        if (err) next(err)
+        if (txArray.length === 0) {
+          return next(new Error('Wrong User Address'))
+        }
+        let income = 0
+        let spend = 0
+        txArray.forEach(tx => {
+          if (tx.TxFrom === keyword) {
+            spend++
+          }
+          if (tx.TxTo === keyword) {
+            income++
+          }
+        })
+        SECCore.APIs.calAccBalance(keyword, (err, balance) => {
+          if (err) next(err)
+          res.render('accountdetails', {
+            page: 'accountdetails',
+            title: 'SEC Blockchain Account Details',
+            address: keyword,
+            txArray: txArray,
+            balance: balance,
+            income: income,
+            spend: spend
+          })
+        })
+      })
+    } else {
+      return next(new Error('Wrong Input parameter'))
+    }
+  } else {
+    SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+      if (err) next(err)
+      if (parseInt(keyword) < data.length) {
+        let block = data[parseInt(keyword)]
+        if (typeof block.Transactions !== 'object') {
+          block = JSON.parse(block)
+        }
+        res.render('tokenblockdetails', {
+          page: 'tokenblockdetails',
+          title: 'SEC Blockchain - Token Block Details',
+          block: block
+        })
+      } else {
+        return next(new Error('Block Height too Big'))
+      }
+    })
+  }
 })
 
 // -------------------------  OLD VERSION BROWSER  ------------------------
