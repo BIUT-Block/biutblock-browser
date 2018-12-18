@@ -13,7 +13,7 @@
         <div class="card-box">
           <% for (key in transaction) { %>
           <div>
-            <label class="publicListTit tradingListTit text-left"><%= key %>:</label>
+            <label class="publicListTit tradingListTit text-left"><%= key %>: </label>
             <span class="publicListTxt tradingListTxt" id="hashValues"><%= typeof transaction[key] === 'object' ? JSON.stringify(transaction[key]) : transaction[key] %></span>
           </div>
           <% } %>
