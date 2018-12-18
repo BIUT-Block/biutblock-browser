@@ -9,6 +9,15 @@ router.get('/', function (req, res, next) {
   res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
 })
 
+router.get('/tokenpool', function (req, res, next) {
+  res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
+})
+
+router.get('/transactionpool', function (req, res, next) {
+  if (req.query.ID) res.json(SECCore.CenterController.BlockChain.TxPoolDict[req.query.ID].getAllTxFromPool().reverse())
+  else res.json({})
+})
+
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 50)
