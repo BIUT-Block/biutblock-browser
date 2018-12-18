@@ -1,5 +1,7 @@
 const jayson = require('jayson')
+const ip = require("ip")
 const SECUtils = require('@sec-block/secjs-util')
+
 // let client = jayson.client.http({
 //   host: '35.158.171.46',
 //   // host: '13.209.3.183',
@@ -165,27 +167,50 @@ const SECUtils = require('@sec-block/secjs-util')
 // ------------------------------------  pressure test  ------------------------------------ //
 // -------------------------------------------------------------------------------------------------- //
 
+let ipList = [
+  '35.158.171.46',
+  '54.250.166.137',
+  '35.180.32.134',
+  '13.209.3.183',
+  '13.209.77.5',
+  '35.180.63.62',
+  '35.177.62.42',
+  '52.221.195.12',
+  '18.203.81.15',
+  '54.153.12.8',
+  '54.208.221.197',
+  '13.238.159.210',
+  '54.233.151.90',
+  '35.182.132.252',
+  '13.230.242.85',
+  '13.230.10.37',
+  '13.124.250.204',
+  '35.180.97.48',
+  '52.29.47.99',
+  '34.213.27.238',
+  '52.66.249.199',
+  '18.136.204.121',
+  '52.15.229.1'
+]
+
+let myIp = ip.address()
+let index = ipList.indexOf(myIp)
+let nextIp = ''
+if (index === -1) {
+  nextIp = myIp
+} else if (index < ipList.length - 1) {
+  nextIp = ipList[index + 1]
+} else {
+  nextIp = ipList[0]
+}
+
+
 let client1 = jayson.client.http({
-  host: '35.158.171.46',
-  // host: '13.209.3.183',
-  // host: '35.180.32.134',
-  // host: '54.250.166.137',
-  port: 3002
-})
-let client2 = jayson.client.http({
-  host: '13.209.3.183',
-  port: 3002
-})
-let client3 = jayson.client.http({
-  host: '35.180.32.134',
-  port: 3002
-})
-let client4 = jayson.client.http({
-  host: '54.250.166.137',
+  host: myIp,
   port: 3002
 })
 
-const interval = 66
+const interval = 100
 
 function sendTx1 () {
   const userInfo = {
@@ -227,35 +252,7 @@ function sendTx1 () {
     console.log(response)
   })
 }
-// function sendTx2 () {
-//   client2.request('sec_sendRawTransaction', request, (err, response) => {
-//     if (err) console.log(err)
-//     console.log('Seoul:')
-//     console.log(response)
-//   })
-// }
-// function sendTx3 () {
-//   client3.request('sec_sendRawTransaction', request, (err, response) => {
-//     if (err) console.log(err)
-//     console.log('Paris:')
-//     console.log(response)
-//   })
-// }
-// function sendTx4 () {
-//   client4.request('sec_sendRawTransaction', request, (err, response) => {
-//     if (err) console.log(err)
-//     console.log('Tokyto:')
-//     console.log(response)
-//   })
-// }
 
 let stop = setInterval(sendTx1, interval)
-// setInterval(sendTx2, interval)
-// setInterval(sendTx3, interval)
-// setInterval(sendTx4, interval)
 
-// sendTx1()
 setTimeout(() => { clearInterval(stop) }, 5 * 60 * 1000)
-// sendTx2()
-// sendTx3()
-// sendTx4()
