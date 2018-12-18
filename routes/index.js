@@ -1,10 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const SECCore = require('../src/main').secCore
-const iplocation = require('iplocation').default
+const geoip = require('geoip-lite')
 
 /* GET home page. */
-
 router.get('/', function (req, res, next) {
   res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
 })
@@ -149,24 +148,20 @@ router.get('/contractdetails', function (req, res, next) {
 
 router.get('/nodeinfo', function (req, res, next) {
   let nodes = SECCore.CenterController.ndp.getPeers()
-  let locations = []
-  let flag = 0
-  nodes.forEach(node => {
-    iplocation(node.address, [], (err, result) => {
-      if (err) next(err)
-      locations.push(result)
-      flag++
-      if (flag === nodes.length) {
-        console.log(locations)
-        res.render('nodeinfo', {
-          page: 'nodeinfo',
-          title: 'SEC Blockchain Node Informations',
-          nodes: nodes,
-          locations: locations
-        })
-      }
-    })
+  res.render('nodeinfo', {
+    page: 'nodeinfo',
+    title: 'SEC Blockchain Node Informations',
+    nodes: nodes
   })
+})
+
+router.get('/nodeinfoapi', function (req, res, next) {
+  let nodes = SECCore.CenterController.ndp.getPeers()
+  let locations = []
+  nodes.forEach(node => {
+    locations.push(geoip.lookup(node.address))
+  })
+  res.json(locations)
 })
 
 router.get('/secwallet', function (req, res, next) {
