@@ -17,6 +17,17 @@ router.get('/transactionpool', function (req, res, next) {
   else res.json({})
 })
 
+router.get('/tokenblockhashlist', function (req, res, next) {
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) return next(err)
+    let HashList = []
+    data.forEach(block => {
+      HashList.push(block.Hash)
+    })
+    res.json(HashList)
+  })
+})
+
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 50)
