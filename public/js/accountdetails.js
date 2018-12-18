@@ -12,7 +12,6 @@ $(function () {
       range.selectNodeContents(text)
       selection.removeAllRanges()
       selection.addRange(range)
-      $('#copyBtn').html('Copied').css({ 'background': '#434f5c', 'color': '#98a6ad' })
     }
     document.execCommand('Copy')
   })

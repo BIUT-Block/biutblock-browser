@@ -1,4 +1,4 @@
-/* global $ io */
+/* global $ io TimeDiff */
 $(document).ready(() => {
   const socket = io.connect(window.location.protocol + '//' + window.location.host + '/home')
   let currenttpsBuffer = []
@@ -67,6 +67,7 @@ function indexList (data) {
 
 // 区块列表 table
 function blockList (token) {
+  let timeDiff = TimeDiff(new Date(token.TimeStamp), new Date())
   $('#token-block-chain-list').append(`
   <ul class="inbox-item">
     <a href="/tokenblockdetails?hash=${token.Hash}">
@@ -80,7 +81,7 @@ function blockList (token) {
         <div class="inbox-item-text m-t-5" style="display: flex;justify-content: space-between;">
           Transactions: ${token.Transactions.length}
           <span>
-          Time: ${new Date(token.TimeStamp).toLocaleString()}
+          Time: ${timeDiff}
           </span>
         </div>
         <div class="inbox-item-text m-t-5">
@@ -101,17 +102,17 @@ function tradingList (trans) {
         <div class="inbox-item-text" style="display: flex;justify-content: space-between;font-weight: bold;">
           TxHash: 0x${trans.TxHash}
           <div>
-            Value: ${trans.Value} SEC
+            Status: ${trans.TxReceiptStatus}
           </div>
         </div>
         <div class="inbox-item-text m-t-5" style="display: flex;justify-content: space-between;">
           From: 0x${trans.TxFrom}
-          <div>
-            Status: ${trans.TxReceiptStatus}
-          </div>
         </div>
         <div class="inbox-item-text m-t-5">
           To: 0x${trans.TxTo}
+        </div>
+        <div class="inbox-item-text m-t-5">
+          Value: ${trans.Value} SEC
         </div>
       </li>
     </a>

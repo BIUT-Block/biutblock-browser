@@ -1,5 +1,5 @@
 
-/* global $ totalNumber */
+/* global $ totalNumber TimeDiff */
 $('#pagination').pagination({
   dataSource: '/tokenblockchain-pagination',
   locator: 'items',
@@ -11,10 +11,10 @@ $('#pagination').pagination({
       $('#blockchain-table').append(`
         <tr>
           <td><a href="/tokenblockdetails?hash=${block.Hash}">${block.Number}</a></td>
-          <td><a href="/tokenblockdetails?hash=${block.Hash}">0x${block.Hash}</a></td>
+          <td>${TimeDiff(new Date(block.TimeStamp), new Date())}</a></td>
           <td>${block.Transactions.length}</td>
           <td>0x${block.Beneficiary}</td>
-          <td>${new Date(block.TimeStamp).toLocaleString()}</td>
+          <td>${JSON.stringify(block).length}</td>
         </tr>
       `)
     })
