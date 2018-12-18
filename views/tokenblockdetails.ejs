@@ -21,7 +21,7 @@
           </div>
           <div class="p-t-10">
             <label class="publicListTit text-left">Time Stamp:</label>
-            <span class="publicListTxt" id="time"><%= block.TimeStamp %></span>
+            <span class="publicListTxt" id="time"><%= new Date(block.TimeStamp).toLocaleString() %></span>
           </div>
           <div class="p-t-10">
             <label class="publicListTit text-left">Parent Hash:</label>
@@ -69,7 +69,7 @@
           </div>
           <div class="p-t-10">
             <label class="publicListTit text-left">Block Reward:</label>
-            <span class="publicListTxt" id="reward">0 SEC</span>
+            <span class="publicListTxt" id="reward"><%= block.Transactions[0] ? block.Transactions[0].Value : 0 %> SEC</span>
           </div>
           <div class="p-t-10">
             <label class="publicListTit text-left">Beneficiary:</label>

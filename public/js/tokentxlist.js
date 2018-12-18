@@ -1,4 +1,4 @@
-/* global $ totalNumber */
+/* global $ totalNumber TimeDiff */
 $('#pagination').pagination({
   dataSource: '/tokentxlist-pagination',
   locator: 'items',
@@ -14,7 +14,7 @@ $('#pagination').pagination({
         <td><a href="/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom}</a></td>
         <td><a href="/accountdetails?address=${tx.TxTo}">0x${tx.TxTo}</a></td>
         <td>${tx.Value} SEC</td>
-        <td>${tx.TimeStamp}</td>
+        <td>${TimeDiff(new Date(tx.TimeStamp), new Date())}</td>
         <td>${tx.TxReceiptStatus}</td>
       </tr>
       `)

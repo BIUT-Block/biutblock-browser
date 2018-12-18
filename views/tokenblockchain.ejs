@@ -17,25 +17,25 @@
               <thead>
                 <tr>
                   <th>Height</th>
-                  <th>Block Hash</th>
+                  <th>Time Stamp</th>
                   <th>Transactions</th>
                   <th>Beneficiary</th>
-                  <th>Time Stamp</th>
+                  <th>Block Size (Byte)</th>
                 </tr>
               </thead>
               <tbody id="blockchain-table">
                 <% blockchain.forEach((block)=>{ %>
                 <tr>
                   <td><a href="/tokenblockdetails?hash=<%= block.Hash %>"><%= block.Number %></a></td>
-                  <td><a href="/tokenblockdetails?hash=<%= block.Hash %>">0x<%= block.Hash %></a></td>
+                  <td><%= new Date(block.TimeStamp).toLocaleString() %></td>
                   <td><%= block.Transactions.length %></td>
                   <td>0x<%= block.Beneficiary %></td>
-                  <td><%= new Date(block.TimeStamp).toLocaleString() %></td>
+                  <td><%= JSON.stringify(block).length %></td>
                 </tr>
                 <% }) %>
               </tbody>
             </table>
-            <div class="page" id="pagination">
+            <div id="pagination" style="margin-bottom: 20px">
             </div>
           </div>
         </div>
