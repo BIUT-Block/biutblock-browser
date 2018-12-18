@@ -22,7 +22,9 @@ router.get('/tokenblockhashlist', function (req, res, next) {
     if (err) return next(err)
     let HashList = []
     data.forEach(block => {
-      HashList.push(block.Hash)
+      HashList.push({
+        Hash: block.Hash,
+        Number: block.Number})
     })
     res.json(HashList)
   })
