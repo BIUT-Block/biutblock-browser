@@ -75,7 +75,7 @@ function blockList (token) {
         <div class="inbox-item-text" style="display: flex;justify-content: space-between;font-weight: bold;">
           Height: ${token.Number}
           <span>
-            Rewards：0 SEC
+            Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
           </span>
         </div>
         <div class="inbox-item-text m-t-5" style="display: flex;justify-content: space-between;">
