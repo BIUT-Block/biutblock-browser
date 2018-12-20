@@ -61,7 +61,7 @@
                 <% txArray.forEach(tx => { %>
                   <tr>
                     <td><a href="/tokentxdetails?hash=<%= tx.TxHash %>">0x<%= tx.TxHash %></a></td>
-                    <td><%= tx.TimeStamp %></td>
+                    <td><%= new Date(tx.TimeStamp).toLocaleString() %></td>
                     <td><a href="/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom %></a>
                     <% if (tx.TxFrom === address) { %>
                     <span class="accountOut">Out</span></td>
