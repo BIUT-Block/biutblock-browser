@@ -12,9 +12,9 @@
       <div class="col-lg-12">
         <div class="card-box">
           <% for (key in transaction) { %>
-          <div>
+          <div class="p-t-10">
             <label class="publicListTit tradingListTit text-left"><%= key %>: </label>
-            <span class="publicListTxt tradingListTxt" id="hashValues"><%= typeof transaction[key] === 'object' ? JSON.stringify(transaction[key]) : transaction[key] %></span>
+            <span class="publicListTxt tradingListTxt" id="hashValues"><%= typeof transaction[key] === 'object' ? JSON.stringify(transaction[key]) : key === 'TimeStamp' ? new Date(transaction[key]).toLocaleString() : transaction[key] %></span>
           </div>
           <% } %>
         </div>
