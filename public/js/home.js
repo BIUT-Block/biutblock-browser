@@ -34,7 +34,7 @@ $(document).ready(() => {
       accountNumber: data.TransactionsSum,
       current: data.TPS,
       peak: 318,
-      price: '0.056 USD'
+      price: '0.056 SEC'
     })
 
     if (currenttpsBuffer.length < 11) {
@@ -70,26 +70,30 @@ function blockList (token) {
   let timeDiff = TimeDiff(new Date(token.TimeStamp), new Date())
   $('#token-block-chain-list').append(`
   <ul class="inbox-item">
-    <a href="/tokenblockdetails?hash=${token.Hash}">
-      <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
-        <div class="inbox-item-text" style="display: flex;justify-content: space-between;font-weight: bold;">
-          Height: ${token.Number}
-          <span>
-            Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
-          </span>
-        </div>
-        <div class="inbox-item-text m-t-5" style="display: flex;justify-content: space-between;">
-          Transactions: ${token.Transactions.length}
-          <span>
-          Time: ${timeDiff}
-          </span>
-        </div>
-        <div class="inbox-item-text m-t-5">
-          Beneficiary: 0x${token.Beneficiary}
-        </div>
-      </li>
-    </a>
-  </ul>
+              <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
+                <div class="inbox-item-text inboxFlex">
+
+                  <div class="inboxTit">
+                    Height: <a href="#">${token.Number}</a>
+                  </div>
+                  <span class="inboxTxtB inboxTxt">
+                    Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
+                  </span>
+                </div>
+                <div class="inbox-item-text m-t-5 inboxFlex">
+                  <div class="inboxTit">
+                    Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+                  </div>
+
+                  <span class="inboxTit">
+                    Time: ${timeDiff}
+                  </span>
+                </div>
+                <div class="inbox-item-text m-t-5 inboxTit">
+                  Beneficiary: <a href="#">0x${token.Beneficiary}</a>
+                </div>
+              </li>
+            </ul>
   `)
 }
 
@@ -97,26 +101,28 @@ function blockList (token) {
 function tradingList (trans) {
   $('#token-trans-list').append(`
   <ul class="inbox-item">
-    <a href="/tokentxdetails?hash=${trans.TxHash}">
-      <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
-        <div class="inbox-item-text" style="display: flex;justify-content: space-between;font-weight: bold;">
-          TxHash: 0x${trans.TxHash}
-          <div>
-            Status: ${trans.TxReceiptStatus}
-          </div>
-        </div>
-        <div class="inbox-item-text m-t-5" style="display: flex;justify-content: space-between;">
-          From: 0x${trans.TxFrom}
-        </div>
-        <div class="inbox-item-text m-t-5">
-          To: 0x${trans.TxTo}
-        </div>
-        <div class="inbox-item-text m-t-5">
-          Value: ${trans.Value} SEC
-        </div>
-      </li>
-    </a>
-  </ul>
+              <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
+                <div class="inbox-item-text inboxFlex">
+                  <div class="inboxTit">
+                    TxHash: <a href="#" class="inboxTxtB">0x${trans.TxHash.substring(0,16)}...</a>
+                  </div>
+                  <span style="font-weight: bold;">
+                    Value: <span class="inboxTxt">${trans.Value} SEC</span>
+                  </span>
+                </div>
+                <div class="inbox-item-text m-t-5 inboxFlex">
+                  <div  class="inboxTit">
+                    From: <a href="#">0x${trans.TxFrom.substring(0,16)}...</a>
+                  </div>
+                  <span class="inboxTit">
+                    Status: <span class="inboxTxt">${trans.TxReceiptStatus}</span>
+                  </span>
+                </div>
+                <div class="inbox-item-text m-t-5 inboxTit">
+                  To: <a href="#">0x${trans.TxTo}</a>
+                </div>
+              </li>
+            </ul>
   `)
 }
 

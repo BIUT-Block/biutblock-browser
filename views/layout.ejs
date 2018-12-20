@@ -32,11 +32,12 @@
               <span class="logo-small">
                 <img src="/images/headerLogo.png" alt="" width="40px"
                   height="40px">
+                <span class="headerTit">SEC Explorer</span>
               </span>
             </a>
           </div>
           <!-- End Logo container-->
-          <div class="menu-extras topbar-custom">
+          <div class="menu-extras topbar-custom clearfix">
             <ul class="list-inline float-right mb-0">
               <li class="menu-item list-inline-item">
                 <!-- Mobile menu toggle-->
@@ -52,7 +53,6 @@
             </ul>
           </div>
           <!-- end menu-extras -->
-          <div class="clearfix"></div>
         </div> <!-- end container -->
       </div>
       <!-- end topbar-main -->
@@ -90,7 +90,7 @@
               <li class="has-submenu <%= page==='secwallet' ? 'active' : '' %>">
                 <a href="/secwallet">Wallet Download</a>
               </li>
-              <li class="has-submenu">
+              <li id="last_submenu">
                 <div class="hide-phone app-search">
                   <form id="search-form" role="search" action="/search" class="">
                     <input type="text" name="search" placeholder="Input Parameter"
@@ -115,7 +115,8 @@
         <div class="row">
           <div class="col-lg-6 text-left">
             <img src="/images/footerLogo.png" alt="SEC" class="footerImg" />
-            <p class="ft14">The next generation of block-chain protocols in the e-commerce domain based on social</p>
+            <p class="ft14">The next generation of block-chain<br/> 
+              protocols in the e-commerce domain based on social</p>
           </div>
           <div class="col-lg-6 text-left">
             <h4 class="footerTit footerTitT">How to find us</h4>
