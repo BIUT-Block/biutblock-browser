@@ -24,7 +24,8 @@ router.get('/tokenblockhashlist', function (req, res, next) {
     data.forEach(block => {
       HashList.push({
         Hash: block.Hash,
-        Number: block.Number})
+        Number: block.Number
+      })
     })
     res.json(HashList)
   })
@@ -172,7 +173,11 @@ router.get('/nodeinfoapi', function (req, res, next) {
   let nodes = SECCore.CenterController.ndp.getPeers()
   let locations = []
   nodes.forEach(node => {
-    locations.push(geoip.lookup(node.address))
+    node.id = node.id.toString('hex')
+    locations.push({
+      location: geoip.lookup(node.address),
+      node: node
+    })
   })
   res.json(locations)
 })
