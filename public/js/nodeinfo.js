@@ -10,11 +10,24 @@ $(document).ready(() => {
 function initLocation () {
   $.get('/nodeinfoapi', locations => {
     let markers = []
-    locations.forEach(location => {
-      markers.push({
-        latLng: location.ll,
-        name: location.city
-      })
+    $('#nodes-table').html('')
+    locations.forEach(info => {
+      if (info.location) {
+        console.log(info.location)
+        markers.push({
+          latLng: info.location.ll,
+          name: info.location.city
+        })
+        $('#nodes-table').append(`
+        <tr>
+          <td>${info.node.id.substring(0, 16)}...</td>
+          <td>${info.node.address}</td>
+          <td>${info.location.country}</td>
+          <td>${info.location.city}</td>
+          <td>${info.location.timezone}</td>
+        </tr>
+        `)
+      }
     })
     $('#world-map-markers').vectorMap({
       map: 'world_mill_en',
@@ -52,11 +65,23 @@ function refreshLocation () {
   vectorMap.removeAllMarkers()
   $.get('/nodeinfoapi', locations => {
     let markers = []
-    locations.forEach(location => {
-      markers.push({
-        latLng: location.ll,
-        name: location.city
-      })
+    $('#nodes-table').html('')
+    locations.forEach(info => {
+      if (info.location) {
+        markers.push({
+          latLng: info.location.ll,
+          name: info.location.city
+        })
+        $('#nodes-table').append(`
+        <tr>
+          <td>${info.node.id.substring(0, 16)}...</td>
+          <td>${info.node.address}</td>
+          <td>${info.location.country}</td>
+          <td>${info.location.city}</td>
+          <td>${info.location.timezone}</td>
+        </tr>
+        `)
+      }
     })
     vectorMap.addMarkers(markers)
   })

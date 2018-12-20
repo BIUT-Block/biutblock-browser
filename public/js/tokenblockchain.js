@@ -13,7 +13,7 @@ $('#pagination').pagination({
           <td><a href="/tokenblockdetails?hash=${block.Hash}">${block.Number}</a></td>
           <td>${TimeDiff(new Date(block.TimeStamp), new Date())}</a></td>
           <td>${block.Transactions.length}</td>
-          <td>0x${block.Beneficiary}</td>
+          <td><a href="/accountdetails?address=${block.Beneficiary}">0x${block.Beneficiary}</a></td>
           <td>${JSON.stringify(block).length}</td>
         </tr>
       `)
