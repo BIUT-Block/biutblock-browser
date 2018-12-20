@@ -1,6 +1,7 @@
 /* global $ */
 $(function () {
   $('#copyBtn').on('click', function () {
+    
     let text = document.getElementById('address')
     if (document.body.createTextRange) {
       let range = document.body.createTextRange()
@@ -13,6 +14,6 @@ $(function () {
       selection.removeAllRanges()
       selection.addRange(range)
     }
-    document.execCommand('Copy')
+    $('#copyBtn').html("Copied").addClass('copyActive');
   })
 })
