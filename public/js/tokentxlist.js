@@ -10,8 +10,8 @@ $('#pagination').pagination({
       $('#tx-table').append(`
       <tr>
         <td><a href="/tokentxdetails?hash=${tx.TxHash}">0x${tx.TxHash.substring(0, 16)}...</a></td>
-        <td><a href="/tokenblockdetailsbynumber?number=${tx.BlockNumber}">${tx.BlockNumber}...</a></td>
-        <td><a href="/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom.substring(0, 16)}</a></td>
+        <td><a href="/tokenblockdetailsbynumber?number=${tx.BlockNumber}">${tx.BlockNumber}</a></td>
+        <td><a href="/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom.substring(0, 16)}...</a></td>
         <td><a href="/accountdetails?address=${tx.TxTo}">0x${tx.TxTo.substring(0, 16)}...</a></td>
         <td>${tx.Value} SEC</td>
         <td>${TimeDiff(new Date(tx.TimeStamp), new Date())}</td>
