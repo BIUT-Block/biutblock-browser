@@ -5,7 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  // host: '35.158.171.46',
+  host: '35.177.62.42',
   // host: '35.180.32.134', // paris
   port: 3002
 })
@@ -32,7 +32,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['1000000000100000000010000000001000000000', 'latest'] // account address
+    const request = ['fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -95,7 +95,7 @@ class MobileAppRpcClient {
   sec_freeCharge () {
     const request = [{
       to: 'fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd',
-      value: '100000000'
+      value: '100000000000000000'
     }]
     client.request('sec_freeCharge', request, (err, response) => {
       if (err) console.log(err)
