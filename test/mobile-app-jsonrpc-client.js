@@ -19,10 +19,10 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    this.sec_getBalance()
+    // this.sec_getBalance()
     // this.sec_sendRawTransaction()
     // this.sec_getTransactions()
-    // this.sec_freeCharge()
+    this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
     // this.sec_startNetworkEvent()
