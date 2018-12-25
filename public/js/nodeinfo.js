@@ -18,16 +18,16 @@ function initLocation () {
           latLng: info.location.ll,
           name: info.location.city
         })
-        $('#nodes-table').append(`
+      }
+      $('#nodes-table').append(`
         <tr>
           <td>${info.node.id.substring(0, 16)}...</td>
           <td>${info.node.address}</td>
-          <td>${info.location.country}</td>
-          <td>${info.location.city}</td>
-          <td>${info.location.timezone}</td>
+          <td>${info.location ? info.location.country : ''}</td>
+          <td>${info.location ? info.location.city : ''}</td>
+          <td>${info.location ? info.location.timezone : ''}</td>
         </tr>
         `)
-      }
     })
     $('#world-map-markers').vectorMap({
       map: 'world_mill_en',
@@ -72,16 +72,16 @@ function refreshLocation () {
           latLng: info.location.ll,
           name: info.location.city
         })
-        $('#nodes-table').append(`
+      }
+      $('#nodes-table').append(`
         <tr>
           <td>${info.node.id.substring(0, 16)}...</td>
           <td>${info.node.address}</td>
-          <td>${info.location.country}</td>
-          <td>${info.location.city}</td>
-          <td>${info.location.timezone}</td>
+          <td>${info.location ? info.location.country : ''}</td>
+          <td>${info.location ? info.location.city : ''}</td>
+          <td>${info.location ? info.location.timezone : ''}</td>
         </tr>
         `)
-      }
     })
     vectorMap.addMarkers(markers)
   })
