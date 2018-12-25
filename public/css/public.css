@@ -393,12 +393,12 @@ input:-ms-input-placeholder {
 .pagination  ul .active a {background-color: #77b3a7;border-color: #77b3a7;}
 
 .scrollbar::-webkit-scrollbar-track{border-radius: 10px;}
-.scrollbar::-webkit-scrollbar{width: 6px;}
+.scrollbar::-webkit-scrollbar {width: 6px;}
 .scrollbar::-webkit-scrollbar-thumb{border-radius: 10px;background-color: #98a6ad;}
-	
-.inbox-item a {color:#40ad97!important;}
+
+.inbox-item a {color:#40ad97!important;font-size: 13px;}
 .inbox-item a:hover {color:#00d6b2!important;}
-.inbox-item .inboxTit {color:#757e82!important;}
-.inbox-item .inboxTxt {color:#98a6ad!important;}
-.inbox-item .inboxTxtB {font-weight: bold!important;}
+.inbox-item .inboxTit {color:#757e82!important;font-size: 13px;}
+.inbox-item .inboxTxt {color:#98a6ad!important;font-size: 13px;}
+.inbox-item .inboxTxtB {font-weight: bold!important;font-size: 13px;}
 .inbox-item .inboxFlex  {display: flex!important;justify-content: space-between!important;}
