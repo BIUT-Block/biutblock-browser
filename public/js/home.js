@@ -1,5 +1,6 @@
 /* global $ io TimeDiff */
 $(document).ready(() => {
+ 
   const socket = io.connect(window.location.protocol + '//' + window.location.host + '/home')
   let currenttpsBuffer = []
   let transactionsBuffer = []
@@ -54,6 +55,7 @@ $(document).ready(() => {
     transactionssparkline(transactionsBuffer)
   })
 })
+
 
 // 节点列表数据
 function indexList (data) {
