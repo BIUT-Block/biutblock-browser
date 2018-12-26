@@ -20,7 +20,7 @@
   },
   "homepage": "https://github.com/SEC-block/secblock-browser#README",
   "dependencies": {
-    "@sec-block/secjs-node": "^1.0.27",
+    "@sec-block/secjs-node": "^1.0.28",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
