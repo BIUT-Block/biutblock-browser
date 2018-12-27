@@ -73,7 +73,7 @@
                 <a href="/">Home</a>
               </li>
               <li class="has-submenu <%= page==='tokenblockchain' ? 'active' : '' %>">
-                <a href="/tokenblockchain">Tokenchain</a>
+                <a href="/tokenblockchain">Token Chain</a>
                 <ul class="submenu" id="submenuList">
                     <li><a href="/tokenblockchain">Blockchain</a></li>
                     <li><a href="/tokentxlist">Transactions</a></li>
@@ -82,7 +82,7 @@
                 </ul>
               </li>
               <li class="has-submenu <%= page==='transactionblockchain' ? 'active' : '' %>" title="Coming soon">
-                <a href="#">Transactionchain (Coming soon)</a>
+                <a href="#">Transaction Chain (Coming soon)</a>
               </li>
               <li class="has-submenu <%= page==='contract' ? 'active' : '' %>">
                 <a href="#">Contract (Coming soon)</a>
@@ -93,7 +93,7 @@
               <li id="last_submenu">
                 <div class="hide-phone app-search">
                   <form id="search-form" role="search" action="/search" class="">
-                    <input type="text" name="search" placeholder="Input Parameter"
+                    <input type="text" name="search" placeholder="Search by Address / Txhash / Block / Token"
                       class="form-control">
                     <a href="javascript:$('#search-form').submit();"><i class="fa fa-search"></i></a>
                   </form>
@@ -208,6 +208,17 @@
     <% if (page==="tokentxdetails") { %><script src="/js/tokentxdetails.js"></script><% } %>
     <% if (page==="secwallet") { %><script src="/js/secwallet.js"></script><% } %>
     <script src="/js/custom.js"></script>
+    <script>
+    $(window).resize(function () {         
+      if ($(window).width() < 1400 && $(window).width() > 767 ) {
+        $("#topnav .app-search").addClass('hiddenCnt')
+        $("#navigation .has-submenu:first-child").css("margin-right","0")
+      } else {
+        $("#topnav .app-search").removeClass('hiddenCnt')
+        $("#navigation .has-submenu:first-child").css("margin-right","10%")
+      }
+    });
+</script>
   </body>
 
 </html>

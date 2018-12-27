@@ -55,6 +55,7 @@ $(document).ready(() => {
   })
 })
 
+
 // 节点列表数据
 function indexList (data) {
   $('#onlineNode').html(data.onlineNode)
@@ -63,6 +64,8 @@ function indexList (data) {
   $('#current').html(data.current)
   $('#peak').html(data.peak)
   $('#price').html(data.price)
+
+  $('#Transactions').html(data.price)//总交易数
 }
 
 // 区块列表 table
@@ -74,21 +77,21 @@ function blockList (token) {
         <div class="inbox-item-text inboxFlex">
           <div class="inboxTit">
             Height: <a href="/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
-          </div>
-          <span class="inboxTxtB inboxTxt">
-            Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
-          </span>
-        </div>
-        <div class="inbox-item-text m-t-5 inboxFlex">
-          <div class="inboxTit">
-            Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+            <span class="inboxTit" style="margin-left:50px;">
+              Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+            </span>
           </div>
           <span class="inboxTit">
             Time: ${timeDiff}
           </span>
         </div>
-        <div class="inbox-item-text m-t-5 inboxTit">
+        <div class="inbox-item-text m-t-5">
           Beneficiary: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
+        </div>
+        <div class="inbox-item-text m-t-5 inboxTit">
+          <span class="inboxTxtB inboxTxt">
+            Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
+          </span>
         </div>
       </li>
     </ul>
@@ -105,19 +108,19 @@ function tradingList (trans) {
           TxHash: <a href="/tokentxdetails?hash=${trans.TxHash}" class="inboxTxtB">0x${trans.TxHash.substring(0, 16)}...</a>
         </div>
         <span style="font-weight: bold;">
-          Value: <span class="inboxTxt">${trans.Value} SEC</span>
+          Status: <span class="inboxTxt">${trans.TxReceiptStatus}</span>
         </span>
       </div>
       <div class="inbox-item-text m-t-5 inboxFlex">
         <div  class="inboxTit">
           From: <a href="/accountdetails?address=${trans.TxFrom}">0x${trans.TxFrom.substring(0, 16)}...</a>
+          <span style="margin-left: 30px;">
+            To: <a href="/accountdetails?address=${trans.TxTo}">0x${trans.TxTo}</a>
+          </span>
         </div>
-        <span class="inboxTit">
-          Status: <span class="inboxTxt">${trans.TxReceiptStatus}</span>
-        </span>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        To: <a href="/accountdetails?address=${trans.TxTo}">0x${trans.TxTo}</a>
+        Value: <span class="inboxTxt">${trans.Value} SEC</span>
       </div>
     </li>
   </ul>
