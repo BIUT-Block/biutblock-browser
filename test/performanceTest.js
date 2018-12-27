@@ -51,7 +51,7 @@ function sendTx1 () {
   })
 }
 
-const interval = 40
+const interval = 32
 const duration = 3 * 60 * 1000 // ms
 // 8tps, 3*180*8 = 4320
 
