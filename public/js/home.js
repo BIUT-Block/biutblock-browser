@@ -65,7 +65,7 @@ function indexList (data) {
   $('#peak').html(data.peak)
   $('#price').html(data.price)
 
-  $('#Transactions').html(data.price)//总交易数
+  $('#TransactionsNumber').html(data.price)//总交易数
 }
 
 // 区块列表 table
@@ -89,7 +89,7 @@ function blockList (token) {
           Beneficiary: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
         </div>
         <div class="inbox-item-text m-t-5 inboxTit">
-          <span class="inboxTxtB inboxTxt">
+          <span class="inboxTxt">
             Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
           </span>
         </div>
@@ -107,7 +107,7 @@ function tradingList (trans) {
         <div class="inboxTit">
           TxHash: <a href="/tokentxdetails?hash=${trans.TxHash}" class="inboxTxtB">0x${trans.TxHash.substring(0, 16)}...</a>
         </div>
-        <span style="font-weight: bold;">
+        <span>
           Status: <span class="inboxTxt">${trans.TxReceiptStatus}</span>
         </span>
       </div>
@@ -115,7 +115,7 @@ function tradingList (trans) {
         <div  class="inboxTit">
           From: <a href="/accountdetails?address=${trans.TxFrom}">0x${trans.TxFrom.substring(0, 16)}...</a>
           <span style="margin-left: 30px;">
-            To: <a href="/accountdetails?address=${trans.TxTo}">0x${trans.TxTo}</a>
+            To: <a href="/accountdetails?address=${trans.TxTo}">0x${trans.TxTo.substring(0, 16)}...</a>
           </span>
         </div>
       </div>
