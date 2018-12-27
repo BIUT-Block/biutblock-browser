@@ -290,7 +290,11 @@ a:hover {
   color: #fff!important;
 }
 
-#topnav .navigation-menu > li > a {padding-right: 0;}
+#topnav .navigation-menu > li > a {
+  padding-right: 0;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
 
 #topnav .navigation-menu>li>a {
   padding-top: 30px;
@@ -307,6 +311,9 @@ a:hover {
 
 #topnav .has-submenu.active .submenu>li>a {
   color: rgba(255, 255, 255, 0.7)!important
+}
+#topnav .app-search .form-control {
+  width: 390px;
 }
 
 #topnav .app-search a {
@@ -398,7 +405,7 @@ input:-ms-input-placeholder {
 
 .inbox-item a {color:#40ad97!important;font-size: 13px;}
 .inbox-item a:hover {color:#00d6b2!important;}
-.inbox-item .inboxTit {color:#757e82!important;font-size: 13px;}
+.inbox-item .inboxTit {color:#98a6ad!important;font-size: 13px;}
 .inbox-item .inboxTxt {color:#98a6ad!important;font-size: 13px;}
 .inbox-item .inboxTxtB {font-weight: bold!important;font-size: 13px;}
 .inbox-item .inboxFlex  {display: flex!important;justify-content: space-between!important;}

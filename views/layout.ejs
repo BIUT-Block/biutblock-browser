@@ -74,19 +74,30 @@
               </li>
               <li class="has-submenu <%= page==='tokenblockchain' ? 'active' : '' %>">
                 <a href="/tokenblockchain">Token Chain</a>
-                <ul class="submenu" id="submenuList">
+                <!-- <ul class="submenu" id="submenuList">
                     <li><a href="/tokenblockchain">Blockchain</a></li>
                     <li><a href="/tokentxlist">Transactions</a></li>
-                    <!-- <li><a href="/account">Accounts</a></li> -->
+                    <li><a href="/account">Accounts</a></li>
                     <li><a href="/nodeinfo">Nodes</a></li>
-                </ul>
+                </ul> -->
               </li>
-              <li class="has-submenu <%= page==='transactionblockchain' ? 'active' : '' %>" title="Coming soon">
+              
+              <li class="has-submenu">
+                <a href="#">Blockchain</a>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Transactions</a>
+              </li>
+              <li class="has-submenu">
+                <a href="#">Nodes</a>
+              </li>
+
+              <!-- <li class="has-submenu <%= page==='transactionblockchain' ? 'active' : '' %>" title="Coming soon">
                 <a href="#">Transaction Chain (Coming soon)</a>
               </li>
               <li class="has-submenu <%= page==='contract' ? 'active' : '' %>">
                 <a href="#">Contract (Coming soon)</a>
-              </li>
+              </li> -->
               <li class="has-submenu <%= page==='secwallet' ? 'active' : '' %>">
                 <a href="/secwallet">Wallet Download</a>
               </li>
