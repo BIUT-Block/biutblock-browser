@@ -312,9 +312,6 @@ a:hover {
 #topnav .has-submenu.active .submenu>li>a {
   color: rgba(255, 255, 255, 0.7)!important
 }
-#topnav .app-search .form-control {
-  width: 390px;
-}
 
 #topnav .app-search a {
   color: #98a6ad!important;
