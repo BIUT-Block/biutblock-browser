@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <ol class="breadcrumb m-0 p-0">
-          <li class="breadcrumb-item"><a href="/tokenblockchain">Token Blockchain</a></li>
+          <li class="breadcrumb-item"><a href="/tokenblockchain">Token Blocks</a></li>
           <li class="breadcrumb-item active">Block</li>
         </ol>
       </div>
@@ -30,14 +30,6 @@
           <div class="cardPt2">
             <label class="publicListTit text-left">Difficulty:</label>
             <span class="publicListTxt" id="difficulty"><%= block.Difficulty %></span>
-          </div>
-          <div class="cardPt2">
-            <label class="publicListTit text-left">Gas Used:</label>
-            <span class="publicListTxt" id="gasUsed"><%= block.GasUsed %></span>
-          </div>
-          <div class="cardPt2">
-            <label class="publicListTit text-left">Gas Limit:</label>
-            <span class="publicListTxt" id="gasLimit"><%= block.GasLimit %></span>
           </div>
           <div class="cardPt2">
             <label class="publicListTit text-left">Extra Data:</label>
@@ -72,7 +64,7 @@
             <span class="publicListTxt" id="reward"><%= block.Transactions[0] ? block.Transactions[0].Value : 0 %> SEC</span>
           </div>
           <div class="cardPt2">
-            <label class="publicListTit text-left">Beneficiary:</label>
+            <label class="publicListTit text-left">Mined by:</label>
             <span class="publicListTxt" id="beneficiary">0x<%= block.Beneficiary %></span>
           </div>
         </div>
@@ -81,7 +73,7 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div class="card-box">
-          <h4 class="header-title">Transactions Sum <span id="total"><%= block.Transactions.length %></span></h4>
+          <h4 class="header-title">Total of <span id="total"><%= block.Transactions.length %></span> Txns in the block</h4>
           <div class="table-responsive">
             <table class="table table-hover table-bordered table-striped">
               <thead>

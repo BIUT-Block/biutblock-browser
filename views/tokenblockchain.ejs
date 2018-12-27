@@ -3,24 +3,24 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <ol class="breadcrumb m-0 p-0">
-          <li class="breadcrumb-item"><a href="/tokenblockchain">Token Blockchain</a></li>
-          <li class="breadcrumb-item active">Blockchain</li>
+          <li class="breadcrumb-item"><a href="/tokenblockchain">Token Blocks</a></li>
+          <li class="breadcrumb-item active">Blocks</li>
         </ol>
       </div>
     </div>
     <div class="row m-t-20">
       <div class="col-md-12 col-xs-12">
         <div class="card-box">
-          <h4 class="header-title">Blocks Sum: <span id="total"><%= totalNumber %></span></h4>
+          <h4 class="header-title">Total of <span id="total"><%= totalNumber %></span> Blocks</h4>
           <div class="table-responsive">
             <table class="table table-hover table-bordered table-striped">
               <thead>
                 <tr>
                   <th>Height</th>
-                  <th>Time Stamp</th>
+                  <th>Age</th>
                   <th>Transactions</th>
-                  <th>Beneficiary</th>
-                  <th>Block Size (Byte)</th>
+                  <th>Mined by</th>
+                  <th>Block Size (Bytes)</th>
                 </tr>
               </thead>
               <tbody id="blockchain-table">
