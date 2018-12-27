@@ -5,7 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '35.177.62.42',
+  host: '35.158.171.46',
   // host: '35.180.32.134', // paris
   port: 3002
 })
