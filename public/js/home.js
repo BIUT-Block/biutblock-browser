@@ -31,7 +31,8 @@ $(document).ready(() => {
     indexList({
       onlineNode: data.Nodes.length,
       currentHeight: data.BlockSum - 1,
-      accountNumber: data.TransactionsSum,
+      accountNumber: data.accountNumber,
+      totalTransactions: data.TransactionsSum,
       current: data.TPS,
       peak: 318,
       price: '0.056 SEC'
@@ -55,17 +56,15 @@ $(document).ready(() => {
   })
 })
 
-
 // 节点列表数据
 function indexList (data) {
   $('#onlineNode').html(data.onlineNode)
   $('#currentHeight').html(data.currentHeight)
   $('#accountNumber').html(data.accountNumber)
+  $('#totalTransactions').html(data.totalTransactions)
   $('#current').html(data.current)
   $('#peak').html(data.peak)
   $('#price').html(data.price)
-
-  $('#TransactionsNumber').html(data.price)//总交易数
 }
 
 // 区块列表 table
@@ -86,11 +85,11 @@ function blockList (token) {
           </span>
         </div>
         <div class="inbox-item-text m-t-5">
-          Beneficiary: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
+          Mined by: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
         </div>
         <div class="inbox-item-text m-t-5 inboxTit">
           <span class="inboxTxt">
-            Rewards：${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
+            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
           </span>
         </div>
       </li>
@@ -108,7 +107,7 @@ function tradingList (trans) {
           TxHash: <a href="/tokentxdetails?hash=${trans.TxHash}" class="inboxTxtB">0x${trans.TxHash.substring(0, 16)}...</a>
         </div>
         <span>
-          Status: <span class="inboxTxt">${trans.TxReceiptStatus}</span>
+          <span class="inboxTxt">${trans.TxReceiptStatus}</span>
         </span>
       </div>
       <div class="inbox-item-text m-t-5 inboxFlex">
@@ -120,7 +119,7 @@ function tradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        Value: <span class="inboxTxt">${trans.Value} SEC</span>
+        <span class="inboxTxt">${trans.Value} SEC</span>
       </div>
     </li>
   </ul>
