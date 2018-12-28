@@ -15,7 +15,7 @@
           <% if (key !== "TxReceiptStatus" && key.substring(0, 3) !== "Gas") { %>
           <div class="cardPt2">
             <label class="publicListTit tradingListTit text-left"><%= key === "BlockNumber" ? "Block Height" : key %>: </label>
-            <span class="publicListTxt tradingListTxt" id="hashValues"><%= typeof transaction[key] === 'object' ? JSON.stringify(transaction[key]) : key === 'TimeStamp' ? new Date(transaction[key]).toLocaleString() : key === ('TxHash' || 'TxFrom' || 'TxTo') ? '0x' + transaction[key] : transaction[key] %></span>
+            <span class="publicListTxt tradingListTxt" id="hashValues"><%= typeof transaction[key] === 'object' ? JSON.stringify(transaction[key]) : key === 'TimeStamp' ? new Date(transaction[key]).toLocaleString() : key === 'TxHash' || key === 'TxFrom' || key === 'TxTo' ? '0x' + transaction[key] : transaction[key] %></span>
           </div>
           <% } %>
           <% } %>
