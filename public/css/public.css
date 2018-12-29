@@ -406,3 +406,7 @@ input:-ms-input-placeholder {
 .inbox-item .inboxTxt {color:#98a6ad!important;font-size: 13px;}
 .inbox-item .inboxTxtB {font-weight: bold!important;font-size: 13px;}
 .inbox-item .inboxFlex  {display: flex!important;justify-content: space-between!important;}
+
+#topnav .navigation-menu > li .submenu li a {
+  color: rgba(255, 255, 255, 0.7)!important
+}
