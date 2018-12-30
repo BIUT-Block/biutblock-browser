@@ -35,7 +35,7 @@ $(document).ready(() => {
       totalTransactions: data.TransactionsSum,
       current: data.TPS,
       peak: 318,
-      price: '0.056 SEC'
+      price: data.price + ' ETH'
     })
 
     if (currenttpsBuffer.length < 11) {
