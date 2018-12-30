@@ -1,4 +1,5 @@
 const _ = require('lodash')
+const request = require('request')
 const SECCore = require('../src/main').secCore
 
 module.exports = function (socket) {
@@ -36,13 +37,19 @@ function pushInfos (socket) {
         }
       })
     })
-    socket.emit('TokenBlockchain', {
-      BlockSum: data.length,
-      TPS: _.random(20, 30),
-      Nodes: SECCore.CenterController.ndp.getPeers(),
-      blockchain: _.takeRight(data, 50).reverse(),
-      TransactionsSum: TransactionsSum,
-      accountNumber: Accounts.length
+    request({ url: 'https://api.fcoin.com/v2/market/ticker/seceth', method: 'GET', json: true }, function (error, response, body) {
+      if (error) {
+        console.err(error)
+      }
+      socket.emit('TokenBlockchain', {
+        BlockSum: data.length,
+        TPS: _.random(20, 30),
+        Nodes: SECCore.CenterController.ndp.getPeers(),
+        price: _.get(body, 'data.ticker[0]', '0.00031'),
+        blockchain: _.takeRight(data, 50).reverse(),
+        TransactionsSum: TransactionsSum,
+        accountNumber: Accounts.length
+      })
     })
   })
 }
