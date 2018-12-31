@@ -173,7 +173,6 @@ router.get('/nodeinfoapi', function (req, res, next) {
   let nodes = SECCore.CenterController.nodesIPSync.getNodesTable()
   let locations = []
   nodes.forEach(node => {
-    node.id = node.id.toString('hex')
     locations.push({
       location: geoip.lookup(node.address),
       node: node
