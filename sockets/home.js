@@ -44,7 +44,7 @@ function pushInfos (socket) {
       socket.emit('TokenBlockchain', {
         BlockSum: data.length,
         TPS: _.random(20, 30),
-        Nodes: SECCore.CenterController.ndp.getPeers(),
+        Nodes: SECCore.CenterController.nodesIPSync.getNodesTable(),
         price: _.get(body, 'data.ticker[0]', '0.00031'),
         blockchain: _.takeRight(data, 50).reverse(),
         TransactionsSum: TransactionsSum,
