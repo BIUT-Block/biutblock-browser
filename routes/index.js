@@ -8,29 +8,6 @@ router.get('/', function (req, res, next) {
   res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
 })
 
-router.get('/tokenpool', function (req, res, next) {
-  res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
-})
-
-router.get('/transactionpool', function (req, res, next) {
-  if (req.query.ID) res.json(SECCore.CenterController.BlockChain.TxPoolDict[req.query.ID].getAllTxFromPool().reverse())
-  else res.json({})
-})
-
-router.get('/tokenblockhashlist', function (req, res, next) {
-  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
-    if (err) return next(err)
-    let HashList = []
-    data.forEach(block => {
-      HashList.push({
-        Hash: block.Hash,
-        Number: block.Number
-      })
-    })
-    res.json(HashList)
-  })
-})
-
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 50)
@@ -299,87 +276,65 @@ router.get('/search', function (req, res, next) {
   }
 })
 
-// -------------------------  OLD VERSION BROWSER  ------------------------
-// router.get('/', function (req, res, next) {
-//   res.render('index', { title: 'SEC Blockchain Explorer Test V 0.1' })
-// })
+// ----------------------------  FOR DEBUGING  ----------------------------
+router.get('/tokenpool', function (req, res, next) {
+  res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
+})
 
-// router.get('/transactionchain', function (req, res, next) {
-//   res.render('transactionblockchain', { title: 'SEC Blockchain Explorer Test V 0.1' })
-// })
+router.get('/transactionpool', function (req, res, next) {
+  if (req.query.ID) res.json(SECCore.CenterController.BlockChain.TxPoolDict[req.query.ID].getAllTxFromPool().reverse())
+  else res.json({})
+})
 
-// router.get('/nodeinfo', function (req, res, next) {
-//   res.render('nodeinfo', { title: 'SEC Blockchain Node Informations' })
-// })
+router.get('/tokenblockhashlist', function (req, res, next) {
+  SECCore.APIs.getWholeTokenBlockchain((err, data) => {
+    if (err) return next(err)
+    let HashList = []
+    data.forEach(block => {
+      HashList.push({
+        Hash: block.Hash,
+        Number: block.Number
+      })
+    })
+    res.json(HashList)
+  })
+})
 
-// router.get('/tokenpool', function (req, res, next) {
-//   res.render('tokenpool', { title: 'SEC Blockchain Token Pool' })
-// })
+router.get('/ndptable', function (req, res, next) {
+  let peers = SECCore.CenterController.ndp.getPeers()
+  res.json(peers.map(peer => { return { id: peer.id.toString('hex'), address: peer.address } }))
+})
 
-// router.get('/transactionpool', function (req, res, next) {
-//   res.render('transactionpool', { title: 'SEC Blockchain Transaction Pool' })
-// })
-
-// router.get('/tokenblock', function (req, res, next) {
-//   SECCore.APIs.getTokenBlock(req.query.hash, (err, block) => {
-//     if (err) next(err)
-//     res.render('tokenblockdetails', {
-//       title: 'Token Block Details',
-//       block: block
-//     })
-//   })
-// })
-
-// router.get('/transactionblock', function (req, res, next) {
-//   console.log(req.query.id)
-//   SECCore.APIs.getTransactionBlock(req.query.id, req.query.hash, (err, block) => {
-//     if (err) next(err)
-//     res.render('transactionblockdetails', {
-//       title: 'Transaction Block Details',
-//       ID: req.query.id,
-//       block: block
-//     })
-//   })
-// })
-
-// router.get('/tokentx', function (req, res, next) {
-//   SECCore.APIs.getTokenTx(req.query.hash, (transaction) => {
-//     res.render('tokentransactiondetails', {
-//       title: 'Token Transaction Details',
-//       transaction: transaction
-//     })
-//   })
-// })
-
-// router.get('/tokenpooltx', function (req, res, next) {
-//   SECCore.APIs.getTokenTxInPool(req.query.hash, (transaction) => {
-//     res.render('tokentransactiondetails', {
-//       title: 'Token Transaction Details',
-//       transaction: transaction
-//     })
-//   })
-// })
-
-// router.get('/transactiontx', function (req, res, next) {
-//   SECCore.APIs.getTransactionTx(req.query.id, req.query.hash, (transaction) => {
-//     res.render('transactiontxdetails', {
-//       title: 'Transaction Tx Details',
-//       transaction: transaction
-//     })
-//   })
-// })
-
-// router.get('/transactionpooltx', function (req, res, next) {
-//   SECCore.APIs.getTransactionTxInPool(req.query.id, req.query.hash, (transaction) => {
-//     res.render('transactiontxdetails', {
-//       title: 'Transaction Tx Details',
-//       transaction: transaction
-//     })
-//   })
-// })
-
-// router.get('/secwallet', function (req, res, next) {
-//   res.render('secwallet', { title: 'SEC Wallet' })
-// })
+router.get('/rlptable', function (req, res, next) {
+  let peers = SECCore.CenterController.rlp.getPeers()
+  res.json(peers.map(peer => {
+    return {
+      Address: peer._socket._peername.address,
+      id: peer._id.toString('hex'),
+      remote_id: peer._remoteId.toString('hex'),
+      EIP8: peer._EIP8,
+      eventsCount: peer._eventsCount,
+      Connected: peer._connected,
+      Closed: peer._closed,
+      DisconnectReason: peer._disconnectReason,
+      DisconnectWe: peer._disconnectWe,
+      PingTimeout: peer._pingTimeout,
+      Capabilities: {
+        name: peer._capabilities[0].name,
+        version: peer._capabilities[0].version,
+        length: peer._capabilities[0].length
+      },
+      Socket: {
+        Connection: peer._socket.connecting,
+        Destroyed: peer._socket._destroyed,
+        EventsCount: peer._socket._eventsCount
+      },
+      Protocol: {
+        offset: peer._protocols[0].offset,
+        length: peer._protocols[0].length
+      }
+    }
+  }))
+})
 
 module.exports = router
