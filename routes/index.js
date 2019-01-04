@@ -337,4 +337,24 @@ router.get('/rlptable', function (req, res, next) {
   }))
 })
 
+router.get('/logs', function (req, res, next) {
+  let fs = require('fs')
+  fs.readFile('/home/sec/.pm2/logs/www-out.log', function (err, data) {
+    if (err) {
+      res.send(err)
+    }
+    res.send(data)
+  })
+})
+
+router.get('/errorlogs', function (req, res, next) {
+  let fs = require('fs')
+  fs.readFile('/home/sec/.pm2/logs/www-error.log', function (err, data) {
+    if (err) {
+      res.send(err)
+    }
+    res.send(data)
+  })
+})
+
 module.exports = router
