@@ -339,21 +339,17 @@ router.get('/rlptable', function (req, res, next) {
 
 router.get('/logs', function (req, res, next) {
   let fs = require('fs')
-  fs.readFile('/home/sec/.pm2/logs/www-out.log', function (err, data) {
-    if (err) {
-      res.send(err)
-    }
-    res.send(data)
-  })
-})
-
-router.get('/errorlogs', function (req, res, next) {
-  let fs = require('fs')
-  fs.readFile('/home/sec/.pm2/logs/www-error.log', function (err, data) {
-    if (err) {
-      res.send(err)
-    }
-    res.send(data)
+  fs.readFile('/home/sec/.pm2/logs/www-out.log', function (err, logs) {
+    if (err) return next(err)
+    fs.readFile('/home/sec/.pm2/logs/www-error.log', function (err, errors) {
+      if (err) return next(err)
+      res.render('logs', {
+        page: 'logs',
+        title: 'SEC Blockchain - Logs',
+        logs: logs,
+        errors: errors
+      })
+    })
   })
 })
 
