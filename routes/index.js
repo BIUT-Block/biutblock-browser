@@ -8,6 +8,10 @@ router.get('/', function (req, res, next) {
   res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
 })
 
+router.get('/genesisBlockHash', function (req, res, next) {
+  res.send(SECCore.CenterController.BlockChain.SECTokenBlockChain.getGenesisBlockHash())
+})
+
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 50)
