@@ -27,6 +27,7 @@
               </thead>
               <tbody id="tx-table">
                 <% transactions.forEach(tx=>{ %>
+                <% if (tx.TxFrom.substring(0, 4) !== '0000') { %>
                 <tr>
                   <td><a href="/tokentxdetails?hash=<%= tx.TxHash %>">0x<%= tx.TxHash.substring(0,16) %>...</a></td>
                   <td><a href="/tokenblockdetailsbynumber?number=<%= tx.BlockNumber %>"><%= tx.BlockNumber %></a></td>
@@ -36,6 +37,7 @@
                   <td><%= tx.TimeStamp %></td>
                   <td><%= tx.TxReceiptStatus %></td>
                 </tr>
+                <% } %>
                 <% }) %>
               </tbody>
             </table>
