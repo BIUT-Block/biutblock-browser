@@ -162,15 +162,6 @@ class MobileAppRpcClient {
       console.log(response)
     })
   }
-
-  sec_clearCache () {
-    let request = []
-    client.request('sec_clearCache', request, (err, response) => {
-      if (err) console.log(err)
-      console.log('sec_clearCache')
-      console.log(response)
-    })
-  }
 }
 
 let mobileAppRpcClient = new MobileAppRpcClient()
