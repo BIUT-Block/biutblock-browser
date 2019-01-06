@@ -19,29 +19,34 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    // this.sec_getBalance()
+    this.sec_getBalance()
     // this.sec_sendRawTransaction()
     // this.sec_getTransactions()
-    this.sec_freeCharge()
+    // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
     // this.sec_startNetworkEvent()
     // this.sec_getBlockByHash()
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
+    this.sec_clearCache()
   }
 
   sec_getBalance () {
-    const request = ['fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd', 'latest'] // account address
+    const request = ['ae6eae80c09487acd2a0116f2d18943a94d8f339', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
+      Object.keys(response.result.cache).forEach((key) => {
+        console.log(key)
+        console.log(response.result.cache[key])
+      })
       console.log(response)
     })
   }
 
   sec_getTransactions () {
-    const request = ['fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd'] // account address
+    const request = ['ed311634a60dea93fa7221a9fc23f68be71504c6'] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
@@ -154,6 +159,15 @@ class MobileAppRpcClient {
     client.request('sec_setAddress', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_setAddress')
+      console.log(response)
+    })
+  }
+
+  sec_clearCache () {
+    let request = []
+    client.request('sec_clearCache', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_clearCache')
       console.log(response)
     })
   }
