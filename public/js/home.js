@@ -24,7 +24,7 @@ $(document).ready(() => {
       if (typeof _trans !== 'object') {
         trans = JSON.parse(_trans)
       }
-      if (index < 50) {
+      if (index < 50 && trans.TxFrom.substring(0, 4) !== '0000') {
         tradingList(trans)
       }
     })

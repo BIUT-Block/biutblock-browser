@@ -87,6 +87,7 @@
               </thead>
               <tbody>
                 <% block.Transactions.forEach((Tx) => { %>
+                <% if (Tx.TxFrom.substring(0, 4) !== '0000') { %>
                 <tr>
                   <td><a href="/tokentxdetails?hash=<%= Tx.TxHash %>">0x<%= Tx.TxHash.substring(0,16) %>...</a></td>
                   <td><a href="/accountdetails?address=<%= Tx.TxFrom %>">0x<%= Tx.TxFrom.substring(0,16) %>...</a></td>
@@ -94,6 +95,7 @@
                   <td><%= Tx.Value %></td>
                   <td><%= Tx.TxReceiptStatus %></td>
                 </tr>
+                <% } %>
                 <% }) %>
               </tbody>
             </table>
