@@ -296,6 +296,7 @@ router.get('/tokenblockhashlist', function (req, res, next) {
     let HashList = []
     data.forEach(block => {
       HashList.push({
+        ParentHash: block.ParentHash,
         Hash: block.Hash,
         Number: block.Number
       })
