@@ -1,7 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const SECCore = require('../src/main').secCore
-const geoip = require('geoip-lite')
+const fs = require('fs')
+const GEOIPReader = require('@maxmind/geoip2-node').Reader
+const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
+const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -155,7 +158,7 @@ router.get('/nodeinfoapi', function (req, res, next) {
   let locations = []
   nodes.forEach(node => {
     locations.push({
-      location: geoip.lookup(node.address),
+      location: geoIPReader.city(node.address),
       node: node
     })
   })
