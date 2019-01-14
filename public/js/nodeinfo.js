@@ -15,17 +15,17 @@ function initLocation () {
       if (info.location) {
         console.log(info.location)
         markers.push({
-          latLng: info.location.ll,
-          name: info.location.city
+          latLng: [info.location.location.latitude, info.location.location.longitude],
+          name: info.location.city.names ? info.location.city.names.en : 'Shenzhen'
         })
       }
       $('#nodes-table').append(`
         <tr>
           <td>${info.node.id.substring(0, 16)}...</td>
           <td>${info.node.address}</td>
-          <td>${info.location ? info.location.country : ''}</td>
-          <td>${info.location ? info.location.city : ''}</td>
-          <td>${info.location ? info.location.timezone : ''}</td>
+          <td>${info.location ? info.location.country.names.en : ''}</td>
+          <td>${info.location ? info.location.city.names ? info.location.city.names.en : 'Shenzhen' : ''}</td>
+          <td>${info.location ? info.location.location.timeZone : ''}</td>
         </tr>
         `)
     })
@@ -69,17 +69,17 @@ function refreshLocation () {
     locations.forEach(info => {
       if (info.location) {
         markers.push({
-          latLng: info.location.ll,
-          name: info.location.city
+          latLng: [info.location.location.latitude, info.location.location.longitude],
+          name: info.location.city.names ? info.location.city.names.en : 'Shenzhen'
         })
       }
       $('#nodes-table').append(`
         <tr>
           <td>${info.node.id.substring(0, 16)}...</td>
           <td>${info.node.address}</td>
-          <td>${info.location ? info.location.country : ''}</td>
-          <td>${info.location ? info.location.city : ''}</td>
-          <td>${info.location ? info.location.timezone : ''}</td>
+          <td>${info.location ? info.location.country.names.en : ''}</td>
+          <td>${info.location ? info.location.city.names ? info.location.city.names.en : 'Shenzhen' : ''}</td>
+          <td>${info.location ? info.location.location.timeZone : ''}</td>
         </tr>
         `)
     })
