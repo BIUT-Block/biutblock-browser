@@ -283,6 +283,44 @@ router.get('/search', function (req, res, next) {
   }
 })
 
+router.get('/publishversion', function (req, res, next) {
+  fs.readFile(process.cwd() + '/public/version.json', (err, data) => {
+    if (err) next(err)
+    let info = {}
+    try {
+      info = JSON.parse(data)
+    } catch (err) {
+      console.error(err)
+      info = {}
+    }
+    res.render('publishversion', {
+      page: 'publishversion',
+      title: 'SEC Blockchain - Publish Version',
+      info: info
+    })
+  })
+})
+
+router.get('/publishversionapi', function (req, res, next) {
+  fs.readFile(process.cwd() + '/public/version.json', (err, data) => {
+    if (err) next(err)
+    let info = {}
+    try {
+      info = JSON.parse(data)
+    } catch (err) {
+      console.error(err)
+      info = {}
+    }
+    res.json(info)
+  })
+})
+
+router.post('/publishversion', function (req, res, next) {
+  fs.writeFile(process.cwd() + '/public/version.json', JSON.stringify(req.body), (err) => {
+    if (err) next(err)
+    res.redirect('back')
+  })
+})
 // ----------------------------  FOR DEBUGING  ----------------------------
 router.get('/tokenpool', function (req, res, next) {
   res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
