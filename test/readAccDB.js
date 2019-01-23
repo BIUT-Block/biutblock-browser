@@ -6,6 +6,6 @@ const config = {
 
 let accTree = new SECDatahandler.AccTreeDB(config)
 
-accTree.getAllDB((e, data) => {
+accTree.getRoots((e, data) => {
   console.log(data)
 })
