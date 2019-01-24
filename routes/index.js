@@ -316,9 +316,20 @@ router.get('/publishversionapi', function (req, res, next) {
 })
 
 router.post('/publishversion', function (req, res, next) {
-  fs.writeFile(process.cwd() + '/public/version.json', JSON.stringify(req.body), (err) => {
+  fs.readFile(process.cwd() + '/public/version.json', (err, data) => {
     if (err) next(err)
-    res.redirect('back')
+    let version = {}
+    try {
+      version = JSON.parse(data)
+    } catch (err) {
+      console.error(err)
+      version = {}
+    }
+    version[req.body.platform] = req.body
+    fs.writeFile(process.cwd() + '/public/version.json', JSON.stringify(version), (err) => {
+      if (err) next(err)
+      res.redirect('back')
+    })
   })
 })
 // ----------------------------  FOR DEBUGING  ----------------------------
