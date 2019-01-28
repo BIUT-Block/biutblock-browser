@@ -22,7 +22,7 @@
   "homepage": "https://github.com/SEC-block/secblock-browser#README",
   "dependencies": {
     "@maxmind/geoip2-node": "^0.4.0",
-    "@sec-block/secjs-node": "^1.0.105",
+    "@sec-block/secjs-node": "^1.0.106",
     "cookie-parser": "^1.4.3",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
