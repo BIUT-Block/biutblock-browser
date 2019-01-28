@@ -187,7 +187,7 @@ router.get('/accountdetails', function (req, res, next) {
         income++
       }
     })
-    SECCore.APIs.calAccBalance(address, (err, balance) => {
+    SECCore.APIs.getBalance(address, (err, balance) => {
       if (err) next(err)
       res.render('accountdetails', {
         page: 'accountdetails',
