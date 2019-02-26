@@ -169,6 +169,10 @@ router.get('/secwallet', function (req, res, next) {
   res.render('secwallet', { page: 'secwallet', title: 'SEC Blockchain Wallet APP' })
 })
 
+router.get('/secwallet-mobile', function (req, res, next) {
+  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
+})
+
 router.get('/account', function (req, res, next) {
   res.render('account', { page: 'account', title: 'SEC Blockchain Account' })
 })

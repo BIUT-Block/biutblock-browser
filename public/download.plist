@@ -11,7 +11,7 @@
                     <key>kind</key>
                     <string>software-package</string>
                     <key>url</key>
-                    <string>http://scan.secblock.io/iphone.ipa</string>
+                    <string>http://scan.secblock.io/iphone-wallet.ipa</string>
                 </dict>
                 <dict>
                     <key>kind</key>
