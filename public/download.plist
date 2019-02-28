@@ -33,13 +33,13 @@
             <key>metadata</key>
             <dict>
                 <key>bundle-identifier</key>
-                <string>io.secblock.scan</string>
+                <string>com.tzkg.SECwallet</string>
                 <key>bundle-version</key>
-                <string>2.0</string>
+                <string>1.0.0</string>
                 <key>kind</key>
                 <string>software</string>
                 <key>title</key>
-                <string>packName</string>
+                <string>SEC Wallet</string>
             </dict>
         </dict>
     </array>
