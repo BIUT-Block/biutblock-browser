@@ -18,7 +18,7 @@ module.exports = function (socket) {
 
 function pushInfos (socket) {
   socket.emit('TokenPool', {
-    Transactions: SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse(),
-    HashArray: SECCore.CenterController.BlockChain.TokenPool.getTxHashArrayFromPool().reverse()
+    Transactions: SECCore.CenterController.BlockChain.tokenPool.getAllTxFromPool().reverse(),
+    HashArray: SECCore.CenterController.BlockChain.tokenPool.getTxHashArrayFromPool().reverse()
   })
 }
