@@ -5,8 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  // host: '35.158.171.46',
-  // host: '35.180.32.134', // paris
+  host: '18.197.120.79', // test-frankfurt
   port: 3002
 })
 
@@ -19,8 +18,8 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    // this.sec_getBalance()
-    this.sec_sendRawTransaction()
+    this.sec_getBalance()
+    // this.sec_sendRawTransaction()
     // this.sec_getTransactions()
     // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
@@ -33,7 +32,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['ae6eae80c09487acd2a0116f2d18943a94d8f339', 'latest'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -42,7 +41,7 @@ class MobileAppRpcClient {
   }
 
   sec_getTransactions () {
-    const request = ['ed311634a60dea93fa7221a9fc23f68be71504c6'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8'] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
@@ -57,7 +56,7 @@ class MobileAppRpcClient {
       timestamp: new Date().getTime(), // number
       from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
       to: 'fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd', // 40 bytes address
-      value: '10', // string
+      value: '1000000', // string
       contractAddress: '', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
@@ -97,8 +96,8 @@ class MobileAppRpcClient {
 
   sec_freeCharge () {
     const request = [{
-      to: 'fa9461cc20fbb1b0937aa07ec6afc5e660fe2afd',
-      value: '100000000000000000'
+      to: '83da24368d250db335b6085f1442aa15468a75d8',
+      value: '100000'
     }]
     client.request('sec_freeCharge', request, (err, response) => {
       if (err) console.log(err)
