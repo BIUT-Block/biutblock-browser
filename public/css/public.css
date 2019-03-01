@@ -188,7 +188,7 @@ a:hover {
   width: 100px;
   margin-right: 0;
 }
-
+.addressIpt {background: none;color: #98a6ad;border: 0;width: 340px;}
 .accountListTxt {
   width: calc(100% - 160px);
 }
