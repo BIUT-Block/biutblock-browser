@@ -251,7 +251,7 @@ router.get('/search', function (req, res, next) {
             income++
           }
         })
-        SECCore.APIs.calAccBalance(keyword, (err, balance) => {
+        SECCore.APIs.getBalance(keyword, (err, balance) => {
           if (err) next(err)
           res.render('accountdetails', {
             page: 'accountdetails',
@@ -338,7 +338,7 @@ router.post('/publishversion', function (req, res, next) {
 })
 // ----------------------------  FOR DEBUGING  ----------------------------
 router.get('/tokenpool', function (req, res, next) {
-  res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
+  res.json(SECCore.CenterController.BlockChain.tokenPool.getAllTxFromPool().reverse())
 })
 
 router.get('/transactionpool', function (req, res, next) {
