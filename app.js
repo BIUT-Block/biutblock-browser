@@ -2,6 +2,7 @@ let createError = require('http-errors')
 let express = require('express')
 let partials = require('express-partials')
 let path = require('path')
+let cors = require('core')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
 let indexRouter = require('./routes/index')
@@ -18,7 +19,7 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(partials())
-
+app.use(cors())
 app.use('/', indexRouter)
 
 // catch 404 and forward to error handler
