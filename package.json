@@ -24,6 +24,7 @@
     "@maxmind/geoip2-node": "^0.4.0",
     "@sec-block/secjs-node": "^1.0.102",
     "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-partials": "^0.3.0",
