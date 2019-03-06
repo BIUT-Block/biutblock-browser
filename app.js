@@ -4,11 +4,8 @@ let partials = require('express-partials')
 let path = require('path')
 let cookieParser = require('cookie-parser')
 let logger = require('morgan')
-let cors = require('cors')
-const SECCore = require('./src/main').secCore
 let indexRouter = require('./routes/index')
 let webRouter = require('./routes/web')
-let webRPCServer = require('./src/webAPI')(SECCore)
 let app = express()
 
 // view engine setup
@@ -21,8 +18,6 @@ app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
 app.use(express.static(path.join(__dirname, 'public')))
 app.use(partials())
-app.use(cors({methods: ['POST']}))
-app.use(webRPCServer.middleware())
 
 app.use('/', indexRouter)
 app.use('/web', webRouter)
