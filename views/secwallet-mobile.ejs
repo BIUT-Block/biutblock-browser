@@ -30,6 +30,9 @@
         bottom: 18%;
         left: 15%;
         width: 70%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .button-block a {
         margin-bottom: 20px; 
@@ -47,19 +50,57 @@
         width: 100%;
         bottom: 0;
       }
-    </style>
-  </head>
-  <body>
-    <div class="logo">
-      <img src="/images/logo-mobile.png">
-      <h2>SEC Wallet</h2>
-      <p><small>Version 1.0.0</small></p>
-    </div>
-    <div class="button-block">
-      <a class="btn btn-block btn-large btn-success btn-rounded w-md waves-effect waves-light m-b-5" href="itms-services://?action=download-manifest&url=https://www.secblock.io/download.plist"><i class="fa fa-apple"></i> Download iPhone Wallet APP</a>
-      <a class="btn btn-block btn-primary btn-rounded w-md waves-effect waves-light m-b-5" href="https://www.secblock.io/android-wallet.apk"><i class="fa fa-android"></i> Download Android Wallet APP</a>
-    </div>
-    <img class="cloud-img" src="/images/cloud-mobile.png">
-    <img class="bottom-img" src="/images/img-mobile.png">
-  </body>
-</html>
+      .mask {height: 100vh;position: fixed;top: 0;left: 0;bottom:0;right:0;background-color: rgba(14,14,17,.8);
+      text-align: right;z-index: 9;}
+      mask img {width: 70%;}
+      .disabledUrl {pointer-events: none;}
+      </style>
+    </head>
+    <body>
+      <div class="logo">
+        <img src="/images/logo-mobile.png">
+        <h2>SEC Wallet</h2>
+        <p><small>Version 1.0.0</small></p>
+      </div>
+      <div class="button-block">
+        <a class="btn btn-block btn-large btn-success btn-rounded w-md waves-effect waves-light m-b-5" href="itms-services://?action=download-manifest&url=https://www.secblock.io/download.plist"><i class="fa fa-apple"></i> Download iPhone Wallet APP</a>
+        <a class="btn btn-block btn-primary btn-rounded w-md waves-effect waves-light m-b-5" href="https://www.secblock.io/android-wallet.apk"><i class="fa fa-android"></i> Download Android Wallet APP</a>
+      </div>
+      <img class="cloud-img" src="/images/cloud-mobile.png">
+      <img class="bottom-img" src="/images/img-mobile.png">
+      <div class="mask" id="mask">
+        <img src="arrow.png">
+      </div>
+    </body>
+    <script>
+    window.onload = function (){
+      var ua = navigator.userAgent.toLowerCase();
+      if (ua.match(/MicroMessenger/i) == "micromessenger" || ua.match(/QQ/i) == "qq") {
+        //微信、qq中打开网页
+        console.log("微信打开")
+        document.getElementById("mask").style.display="block";
+      } else {
+        console.log("其他浏览器打开")
+        document.getElementById("mask").style.display="none";
+      }
+      var u = navigator.userAgent;		
+      if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
+        document.getElementById("downloadIPhone").classList.add("disabledUrl");
+        console.log("安卓手机")
+      } else if (u.indexOf('iPhone') > -1) {
+        document.getElementById("downloadAndroid").classList.add("disabledUrl");
+        console.log("ios手机")
+        //苹果手机
+      } else if (u.indexOf('Windows Phone') > -1) {
+        //winphone手机	
+        console.log("windows手机")
+        document.getElementById("downloadIPhone").classList.remove("disabledUrl");
+        document.getElementById("downloadAndroid").classList.remove("disabledUrl");
+      } else {
+        console.log("其他型号打开")
+        document.getElementById("downloadIPhone").classList.remove("disabledUrl");
+        document.getElementById("downloadAndroid").classList.remove("disabledUrl");
+      }
+    }
+    </script>
+  </html>
