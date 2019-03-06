@@ -2,6 +2,7 @@ const express = require('express')
 const router = express.Router()
 const SECCore = require('../src/main').secCore
 const fs = require('fs')
+const request = require('request')
 const GEOIPReader = require('@maxmind/geoip2-node').Reader
 const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
 const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
