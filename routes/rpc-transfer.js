@@ -2,29 +2,31 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 
+/* GET home page. */
 const jsonrpc = '2.0'
 const rpcid = 1
-const rpcServer = 'http://localhost:3002'
 
 router.post('/callrpc', (req, res, next) => {
+  let method = 'sec_freeCharge'
+  let params = req.params
   let bodyRequest = {
-    'method': req.body.method,
+    'method': method,
     'jsonrpc': jsonrpc,
     'id': rpcid,
-    'params': req.body.params
+    'params': params
   }
   request({
     method: 'POST',
-    url: rpcServer,
+    url: 'http://localhost:3002',
     body: JSON.stringify(bodyRequest),
     headers: {
       'Content-Type': 'application/json'
     }
   }, (err, response, body) => {
     if (err) {
-      res.send(err)
+      res.json(err)
     }
-    res.send(response.body)
+    res.json(response)
   })
 })
 
