@@ -7,13 +7,11 @@ const jsonrpc = '2.0'
 const rpcid = 1
 
 router.post('/callrpc', (req, res, next) => {
-  let method = 'sec_freeCharge'
-  let params = req.params
   let bodyRequest = {
-    'method': method,
+    'method': req.body.method,
     'jsonrpc': jsonrpc,
     'id': rpcid,
-    'params': params
+    'params': req.body.params
   }
   request({
     method: 'POST',
