@@ -9,18 +9,16 @@ const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 
 /* GET home page. */
 const jsonrpc = '2.0'
-const rpcid = 1
+const rpcid = '1'
 
-router.post('/rpcfreecharge', (req, res, next) => {
-  console.log(req.body)
-  let method = 'sec_freeCharge'
-  let params = req.params
+router.post('/callrpc', (req, res, next) => {
   let bodyRequest = {
-    'method': method,
+    'method': req.body.method,
     'jsonrpc': jsonrpc,
     'id': rpcid,
-    'params': params
+    'params': req.body.params
   }
+  console.log(bodyRequest)
   request({
     method: 'POST',
     url: 'http://localhost:3002',
@@ -32,7 +30,7 @@ router.post('/rpcfreecharge', (req, res, next) => {
     if (err) {
       res.send(err)
     }
-    res.send(response)
+    res.json(response)
   })
 })
 
