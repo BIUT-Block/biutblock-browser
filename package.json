@@ -1,6 +1,6 @@
 {
   "name": "@sec-block/secblock-browser",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "sec blockchain browser",
   "main": "bin/www",
   "directories": {
