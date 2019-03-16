@@ -22,13 +22,13 @@
   "homepage": "https://github.com/SEC-block/secblock-browser#README",
   "dependencies": {
     "@maxmind/geoip2-node": "^0.4.0",
-    "@sec-block/secjs-node": "^1.0.102",
-    "cookie-parser": "^1.4.3",
+    "@sec-block/secjs-node": "1.0.102",
+    "cookie-parser": "^1.4.4",
     "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-partials": "^0.3.0",
     "flatted": "^2.0.0",
-    "http-errors": "^1.7.1",
+    "http-errors": "^1.7.2",
     "morgan": "^1.9.1",
     "request": "^2.88.0",
     "socket.io": "^2.2.0"

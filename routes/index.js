@@ -169,6 +169,10 @@ router.get('/secwallet', function (req, res, next) {
   res.render('secwallet', { page: 'secwallet', title: 'SEC Blockchain Wallet APP' })
 })
 
+router.get('/secwallet-mobile', function (req, res, next) {
+  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
+})
+
 router.get('/account', function (req, res, next) {
   res.render('account', { page: 'account', title: 'SEC Blockchain Account' })
 })
@@ -187,7 +191,7 @@ router.get('/accountdetails', function (req, res, next) {
         income++
       }
     })
-    SECCore.APIs.calAccBalance(address, (err, balance) => {
+    SECCore.APIs.getBalance(address, (err, balance) => {
       if (err) next(err)
       res.render('accountdetails', {
         page: 'accountdetails',
@@ -247,7 +251,7 @@ router.get('/search', function (req, res, next) {
             income++
           }
         })
-        SECCore.APIs.calAccBalance(keyword, (err, balance) => {
+        SECCore.APIs.getBalance(keyword, (err, balance) => {
           if (err) next(err)
           res.render('accountdetails', {
             page: 'accountdetails',
@@ -316,14 +320,25 @@ router.get('/publishversionapi', function (req, res, next) {
 })
 
 router.post('/publishversion', function (req, res, next) {
-  fs.writeFile(process.cwd() + '/public/version.json', JSON.stringify(req.body), (err) => {
+  fs.readFile(process.cwd() + '/public/version.json', (err, data) => {
     if (err) next(err)
-    res.redirect('back')
+    let version = {}
+    try {
+      version = JSON.parse(data)
+    } catch (err) {
+      console.error(err)
+      version = {}
+    }
+    version[req.body.platform] = req.body
+    fs.writeFile(process.cwd() + '/public/version.json', JSON.stringify(version), (err) => {
+      if (err) next(err)
+      res.redirect('back')
+    })
   })
 })
 // ----------------------------  FOR DEBUGING  ----------------------------
 router.get('/tokenpool', function (req, res, next) {
-  res.json(SECCore.CenterController.BlockChain.TokenPool.getAllTxFromPool().reverse())
+  res.json(SECCore.CenterController.BlockChain.tokenPool.getAllTxFromPool().reverse())
 })
 
 router.get('/transactionpool', function (req, res, next) {
