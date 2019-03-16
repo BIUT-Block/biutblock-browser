@@ -40,4 +40,6 @@ app.use(function (err, req, res, next) {
   res.render('error', {page: 'error', title: 'SEC Error Page'})
 })
 
+app.listen(3003)
+
 module.exports = app
