@@ -29,17 +29,36 @@
               <input class="form-control" type="text" name="link" value="<%= info.link || '' %>">
             </div>
           </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Platform</label>
+            <select name="platform">
+              <option value="android">Android</option>
+              <option value="ios">iOS</option>
+            </select>
+          </div>
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
       <div class="col-md-6">
-        <h3>Current Version</h3>
-        <p>Version: <%= info.version || "" %></p>
+        <% if (info.android) { %>
+        <h3>Current Version <small>Android Platform</small></h3>
+        <p>Version: <%= info.android.version || "" %></p>
         <pre style="background-color: #323b44; font-size: 0.95rem; color: #98a6ad;">Update Describ: 
-<%= info.describ || "" %>
+<%= info.android.describ || "" %>
         </pre>
-        <p>Update Status: <%= info.status || "" %></p>
-        <p>Download Link: <%= info.link || "" %></p>
+        <p>Update Status: <%= info.android.status || "" %></p>
+        <p>Download Link: <%= info.android.link || "" %></p>
+        <hr>
+        <% } %>
+        <% if (info.ios) { %>
+        <h3>Current Version <small>iOS Platform</small></h3>
+        <p>Version: <%= info.ios.version || "" %></p>
+        <pre style="background-color: #323b44; font-size: 0.95rem; color: #98a6ad;">Update Describ: 
+<%= info.ios.describ || "" %>
+        </pre>
+        <p>Update Status: <%= info.ios.status || "" %></p>
+        <p>Download Link: <%= info.ios.link || "" %></p>
+        <% } %>
       </div>
     </div>
   </div>
