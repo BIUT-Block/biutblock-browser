@@ -21,7 +21,7 @@ class MobileAppRpcClient {
     // this.sec_getBalance()
     // this.sec_getTransactions()
     // this.sec_sendRawTransaction()
-    this.sec_freeCharge()
+    // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
     // this.sec_startNetworkEvent()
@@ -29,6 +29,26 @@ class MobileAppRpcClient {
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
     // this.sec_clearCache()
+    this.sec_getNodesTable()
+    // this.sec_getChainHeight()
+  }
+
+  sec_getNodesTable () {
+    const request = []
+    client.request('sec_getNodesTable', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getNodesTable')
+      console.log(JSON.stringify(response))
+    })
+  }
+
+  sec_getChainHeight () {
+    const request = []
+    client.request('sec_getChainHeight', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getChainHeight')
+      console.log(response)
+    })
   }
 
   sec_getBalance () {
