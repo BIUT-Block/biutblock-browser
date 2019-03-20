@@ -17,7 +17,7 @@ router.get('/genesisBlockHash', function (req, res, next) {
 
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
-  let pageSize = parseInt(req.query.pageSize || 50)
+  let pageSize = parseInt(req.query.pageSize || 39)
   SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) next(err)
     let totalNumber = data.length
@@ -34,7 +34,7 @@ router.get('/tokenblockchain', function (req, res, next) {
 
 router.get('/tokenblockchain-pagination', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
-  let pageSize = parseInt(req.query.pageSize || 50)
+  let pageSize = parseInt(req.query.pageSize || 39)
   SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) next(err)
     let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
@@ -73,7 +73,7 @@ router.get('/tokenblockdetailsbynumber', function (req, res, next) {
 
 router.get('/tokentxlist', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
-  let pageSize = parseInt(req.query.pageSize || 50)
+  let pageSize = parseInt(req.query.pageSize || 39)
   SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) next(err)
     let transactions = []
@@ -100,7 +100,7 @@ router.get('/tokentxlist', function (req, res, next) {
 
 router.get('/tokentxlist-pagination', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
-  let pageSize = parseInt(req.query.pageSize || 50)
+  let pageSize = parseInt(req.query.pageSize || 39)
   SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) next(err)
     let transactions = []
