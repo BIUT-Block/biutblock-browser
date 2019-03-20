@@ -4,7 +4,7 @@ $('#pagination').pagination({
   dataSource: '/tokenblockchain-pagination',
   locator: 'items',
   totalNumber: totalNumber,
-  pageSize: 50,
+  pageSize: 39,
   callback: function (blockchain) {
     $('#blockchain-table').html('')
     blockchain.forEach((block) => {
