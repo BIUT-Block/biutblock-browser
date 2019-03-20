@@ -19,8 +19,8 @@ class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
     // this.sec_getBalance()
-    this.sec_sendRawTransaction()
     // this.sec_getTransactions()
+    // this.sec_sendRawTransaction()
     // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
@@ -29,10 +29,30 @@ class MobileAppRpcClient {
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
     // this.sec_clearCache()
+    this.sec_getNodesTable()
+    // this.sec_getChainHeight()
+  }
+
+  sec_getNodesTable () {
+    const request = []
+    client.request('sec_getNodesTable', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getNodesTable')
+      console.log(JSON.stringify(response))
+    })
+  }
+
+  sec_getChainHeight () {
+    const request = []
+    client.request('sec_getChainHeight', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getChainHeight')
+      console.log(response)
+    })
   }
 
   sec_getBalance () {
-    const request = ['83da24368d250db335b6085f1442aa15468a75d8', 'latest'] // account address
+    const request = ['83fcccabb461d8747748430a810fb5b411b7c2a9', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -41,7 +61,7 @@ class MobileAppRpcClient {
   }
 
   sec_getTransactions () {
-    const request = ['83da24368d250db335b6085f1442aa15468a75d8'] // account address
+    const request = ['83fcccabb461d8747748430a810fb5b411b7c2a9'] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
@@ -56,8 +76,7 @@ class MobileAppRpcClient {
       timestamp: new Date().getTime(), // number
       from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
-      value: '10000', // string
-      contractAddress: '', // string
+      value: '12', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
@@ -71,7 +90,6 @@ class MobileAppRpcClient {
       Buffer.from(request[0].from, 'hex'),
       Buffer.from(request[0].to, 'hex'),
       Buffer.from(request[0].value),
-      Buffer.from(request[0].contractAddress),
       Buffer.from(request[0].gasLimit),
       Buffer.from(request[0].gas),
       Buffer.from(request[0].gasPrice),
@@ -97,7 +115,7 @@ class MobileAppRpcClient {
   sec_freeCharge () {
     const request = [{
       to: '83da24368d250db335b6085f1442aa15468a75d8',
-      value: '100000'
+      value: '1000'
     }]
     client.request('sec_freeCharge', request, (err, response) => {
       if (err) console.log(err)
