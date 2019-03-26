@@ -29,8 +29,9 @@ class MobileAppRpcClient {
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
     // this.sec_clearCache()
-    this.sec_getNodesTable()
+    // this.sec_getNodesTable()
     // this.sec_getChainHeight()
+    this._syncFromIp()
   }
 
   sec_getNodesTable () {
@@ -174,6 +175,16 @@ class MobileAppRpcClient {
     client.request('sec_setAddress', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_setAddress')
+      console.log(response)
+    })
+  }
+
+  _syncFromIp () {
+    let request = [{}]
+    request[0].ip = '18.197.120.79'
+    client.request('_syncFromIp', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('_syncFromIp')
       console.log(response)
     })
   }
