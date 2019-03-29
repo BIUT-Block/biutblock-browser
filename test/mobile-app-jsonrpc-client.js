@@ -31,6 +31,7 @@ class MobileAppRpcClient {
     // this.sec_clearCache()
     // this.sec_getNodesTable()
     // this.sec_getChainHeight()
+    // this._setBlock()
     this._syncFromIp()
   }
 
@@ -179,9 +180,33 @@ class MobileAppRpcClient {
     })
   }
 
+  _setBlock () {
+    let request = [{
+      Number: 1,
+      Hash: '1234',
+      ReceiptRoot: '11',
+      LogsBloom: '11',
+      MixHash: '11',
+      StateRoot: '11',
+      TimeStamp: 1537900000,
+      ParentHash: '11',
+      Beneficiary: '11',
+      Difficulty: '1',
+      ExtraData: 'rpc test',
+      Nonce: SECUtils.zeros(8).toString('hex'),
+      Transactions: []
+    }]
+    client.request('_setBlock', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('_setBlock')
+      console.log(response)
+    })
+  }
+
   _syncFromIp () {
     let request = [{}]
-    request[0].ip = '18.197.120.79'
+    request[0].ip = '35.180.100.27'
+    console.log(request)
     client.request('_syncFromIp', request, (err, response) => {
       if (err) console.log(err)
       console.log('_syncFromIp')
