@@ -39,7 +39,7 @@ function pushInfos (socket) {
     })
     request({ url: 'https://api.fcoin.com/v2/market/ticker/seceth', method: 'GET', json: true }, function (error, response, body) {
       if (error) {
-        console.err(error)
+        console.error(error)
       }
       socket.emit('TokenBlockchain', {
         BlockSum: data.length,
