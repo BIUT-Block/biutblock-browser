@@ -5,7 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '18.197.120.79', // test-frankfurt
+  host: '54.250.166.137', // test-frankfurt
   port: 3002
 })
 
@@ -31,8 +31,20 @@ class MobileAppRpcClient {
     // this.sec_clearCache()
     // this.sec_getNodesTable()
     // this.sec_getChainHeight()
+    this.sec_getNodeInfo()
     // this._setBlock()
-    this._syncFromIp()
+    // this._syncFromIp()
+  }
+
+  sec_getNodeInfo () {
+    const request = [{
+      timeServer: 'de.pool.ntp.org'
+    }]
+    client.request('sec_getNodeInfo', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getNodeInfo')
+      console.log(JSON.stringify(response))
+    })
   }
 
   sec_getNodesTable () {
