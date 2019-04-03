@@ -5,7 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '54.250.166.137', // test-frankfurt
+  host: '35.158.171.46', // test-frankfurt
   port: 3002
 })
 
@@ -31,15 +31,23 @@ class MobileAppRpcClient {
     // this.sec_clearCache()
     // this.sec_getNodesTable()
     // this.sec_getChainHeight()
-    this.sec_getNodeInfo()
+    // this.sec_getNodeInfo()
     // this._setBlock()
     // this._syncFromIp()
+    this.sec_debug_getAccTreeAccInfo()
+  }
+
+  sec_debug_getAccTreeAccInfo () {
+    let request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1']
+    client.request('sec_debug_getAccTreeAccInfo', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_debug_getAccTreeAccInfo')
+      console.log(JSON.stringify(response))
+    })
   }
 
   sec_getNodeInfo () {
-    const request = [{
-      timeServer: 'de.pool.ntp.org'
-    }]
+    const request = []
     client.request('sec_getNodeInfo', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getNodeInfo')
@@ -66,7 +74,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['83fcccabb461d8747748430a810fb5b411b7c2a9', 'latest'] // account address
+    const request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
