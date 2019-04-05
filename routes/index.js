@@ -12,7 +12,10 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/genesisBlockHash', function (req, res, next) {
-  res.send(SECCore.CenterController.BlockChain.SECTokenBlockChain.getGenesisBlockHash())
+  SECCore.CenterController.BlockChain.SECTokenBlockChain.getTokenBlockchain(0, 0, (err, blockArray) => {
+    if (err) next(err)
+    res.send(blockArray[0])
+  })
 })
 
 router.get('/tokenblockchain', function (req, res, next) {
