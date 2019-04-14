@@ -344,11 +344,6 @@ router.get('/tokenpool', function (req, res, next) {
   res.json(SECCore.CenterController.BlockChain.tokenPool.getAllTxFromPool().reverse())
 })
 
-router.get('/transactionpool', function (req, res, next) {
-  if (req.query.ID) res.json(SECCore.CenterController.BlockChain.TxPoolDict[req.query.ID].getAllTxFromPool().reverse())
-  else res.json({})
-})
-
 router.get('/tokenblockhashlist', function (req, res, next) {
   SECCore.APIs.getWholeTokenBlockchain((err, data) => {
     if (err) return next(err)

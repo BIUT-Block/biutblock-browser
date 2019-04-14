@@ -5,9 +5,10 @@ const config = {
 }
 const addr = 'e11dea9d6b54bdd177eddc442b7cf10c996022e7'
 
-let accTree = new SECDatahandler.AccTreeDB(config)
+let tokenDB = new SECDatahandler.TokenBlockChainDB(config)
 
-accTree.getAccInfo(addr, (e, data) => {
+tokenDB.findTxForUser(addr, (e, data) => {
   console.log('getAccInfo')
+  console.log(e)
   console.log(data)
 })
