@@ -326,9 +326,9 @@ a:hover {
   padding-top: 10px;
 }
 
-#navigation .has-submenu:first-child {
+/* #navigation .has-submenu:first-child {
   margin-right: 10%;
-}
+} */
 
 
 .clearfix:after {
