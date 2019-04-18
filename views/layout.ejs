@@ -72,11 +72,19 @@
               <li class="has-submenu <%= page==='home' ? 'active' : '' %>">
                 <a href="/">Home</a>
               </li>
-              <li class="has-submenu <%= page==='tokenblockchain' ? 'active' : '' %>">
-                <a href="/tokenblockchain">Blocks</a>
+              <li class="has-submenu <%= page==='sec' ? 'active' : '' %>">
+                <a href="#">SEC</a>
+                <ul class="submenu" id="submenuList">
+                    <li><a href="/tokenblockchain">SEC Blocks</a></li>
+                    <li><a href="/tokentxlist">SEC Transactions</a></li>
+                </ul>
               </li>
-              <li class="has-submenu <%= page==='tokentxlist' ? 'active' : '' %>">
-                <a href="/tokentxlist">Transactions</a>
+              <li class="has-submenu <%= page==='sen' ? 'active' : '' %>">
+                <a href="#">SEN</a>
+                <ul class="submenu" id="submenuList">
+                    <li><a href="/sen/tokenblockchain">SEN Blocks</a></li>
+                    <li><a href="/sen/tokentxlist">SEN Transactions</a></li>
+                </ul>
               </li>
               <li class="has-submenu <%= page==='nodeinfo' ? 'active' : '' %>">
                 <a href="/nodeinfo">Nodes</a>
@@ -195,7 +203,6 @@
     <script src="/assets/js/time-diff.min.js"></script>
     <script src="/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
     <% if (page==="account") { %><script src="/js/account.js"></script><% } %>
-    <% if (page==="accountdetails") { %><script src="/js/accountdetails.js"></script><% } %>
     <% if (page==="contract") { %><script src="/js/contract.js"></script><% } %>
     <% if (page==="contractdetails") { %><script src="/js/contractdetails.js"></script><% } %>
     <% if (page==="home") { %><script src="/js/home.js"></script><% } %>
@@ -205,10 +212,16 @@
     <script src="/plugins/jvectormap/gdp-data.js"></script>
     <script src="/js/nodeinfo.js"></script>
     <% } %>
+    <% if (page==="accountdetails") { %><script src="/js/accountdetails.js"></script><% } %>
     <% if (page==="tokenblockchain") { %><script src="/js/tokenblockchain.js"></script><% } %>
     <% if (page==="tokenblockchaindetails") { %><script src="/js/tokenblockchaindetails.js"></script><% } %>
     <% if (page==="tokentxlist") { %><script src="/js/tokentxlist.js"></script><% } %>
     <% if (page==="tokentxdetails") { %><script src="/js/tokentxdetails.js"></script><% } %>
+    <% if (page==="sen-accountdetails") { %><script src="/js/sen/accountdetails.js"></script><% } %>
+    <% if (page==="sen-tokenblockchain") { %><script src="/js/sen/tokenblockchain.js"></script><% } %>
+    <% if (page==="sen-tokenblockchaindetails") { %><script src="/js/sen/tokenblockchaindetails.js"></script><% } %>
+    <% if (page==="sen-tokentxlist") { %><script src="/js/sen/tokentxlist.js"></script><% } %>
+    <% if (page==="sen-tokentxdetails") { %><script src="/js/sen/tokentxdetails.js"></script><% } %>
     <% if (page==="secwallet") { %><script src="/js/secwallet.js"></script><% } %>
     <script src="/js/custom.js"></script>
     <script>
