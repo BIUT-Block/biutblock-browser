@@ -1,9 +1,9 @@
-const SECNODE = require('@sec-block/secjs-node')
+const Node = require('@sec-block/secjs-node')
 
-exports.secCore = new SECNODE.Core()
-const secRPC = new SECNODE.RPC(exports.secCore)
+exports.Core = new Node.Core()
+const RPC = new Node.RPC(exports.Core)
 
 exports.run = function () {
-  exports.secCore.run()
-  secRPC.runRPCServer()
+  exports.Core.run()
+  RPC.runRPCServer()
 }
