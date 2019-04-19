@@ -5,7 +5,7 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '35.158.171.46', // test-frankfurt
+  host: '18.197.120.79', // test-frankfurt
   port: 3002
 })
 
@@ -20,7 +20,7 @@ class MobileAppRpcClient {
     this.config = config
     // this.sec_getBalance()
     // this.sec_getTransactions()
-    // this.sec_sendRawTransaction()
+    this.sec_sendRawTransaction()
     // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
@@ -34,7 +34,7 @@ class MobileAppRpcClient {
     // this.sec_getNodeInfo()
     // this._setBlock()
     // this._syncFromIp()
-    this.sec_debug_getAccTreeAccInfo()
+    // this.sec_debug_getAccTreeAccInfo()
   }
 
   sec_debug_getAccTreeAccInfo () {
@@ -98,7 +98,7 @@ class MobileAppRpcClient {
       timestamp: new Date().getTime(), // number
       from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
-      value: '12', // string
+      value: '100', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
