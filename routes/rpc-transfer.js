@@ -28,4 +28,26 @@ router.post('/callrpc', (req, res, next) => {
   })
 })
 
+router.post('/callrpc-sen', (req, res, next) => {
+  let bodyRequest = {
+    'method': req.body.method,
+    'jsonrpc': jsonrpc,
+    'id': rpcid,
+    'params': req.body.params
+  }
+  request({
+    method: 'POST',
+    url: 'http://localhost:3003',
+    body: JSON.stringify(bodyRequest),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, (err, response, body) => {
+    if (err) {
+      res.json(err)
+    }
+    res.json(response)
+  })
+})
+
 module.exports = router
