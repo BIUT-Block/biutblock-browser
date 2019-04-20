@@ -5,9 +5,8 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '127.0.0.1',
   // host: '18.197.120.79', // test-frankfurt
-  port: 3002
+  port: 3003
 })
 
 const userInfo = {
@@ -75,7 +74,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1', 'latest'] // account address
+    const request = ['55539686ac8363a7c55dc8867c4c901a6bef5fa1', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -99,11 +98,11 @@ class MobileAppRpcClient {
       timestamp: new Date().getTime(), // number
       from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
-      value: '100', // string
+      value: '10', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
-      txFee: '10',
+      txFee: '1',
       inputData: 'Sec test transaction', // string, user defined extra messages
       data: ''
     }]
