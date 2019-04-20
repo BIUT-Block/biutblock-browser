@@ -5,7 +5,8 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '18.197.120.79', // test-frankfurt
+  host: '127.0.0.1',
+  // host: '18.197.120.79', // test-frankfurt
   port: 3002
 })
 
@@ -102,6 +103,7 @@ class MobileAppRpcClient {
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
+      txFee: '10',
       inputData: 'Sec test transaction', // string, user defined extra messages
       data: ''
     }]
