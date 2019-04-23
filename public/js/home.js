@@ -177,7 +177,7 @@ function senBlockList (token) {
         </div>
         <div class="inbox-item-text m-t-5 inboxTit">
           <span class="inboxTxt">
-            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
+            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEN
           </span>
         </div>
       </li>
@@ -207,7 +207,7 @@ function senTradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} SEC</span>
+        <span class="inboxTxt">${trans.Value} SEN</span>
       </div>
     </li>
   </ul>
