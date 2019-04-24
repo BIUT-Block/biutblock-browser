@@ -116,11 +116,6 @@ function blockList (token) {
         <div class="inbox-item-text m-t-5">
           Mined by: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
         </div>
-        <div class="inbox-item-text m-t-5 inboxTit">
-          <span class="inboxTxt">
-            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
-          </span>
-        </div>
       </li>
     </ul>
   `)
