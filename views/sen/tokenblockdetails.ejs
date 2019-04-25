@@ -73,7 +73,7 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <div class="card-box">
-          <h4 class="header-title">Total of <span id="total"><%= block.Transactions.length %></span> Txns in the block</h4>
+          <h4 class="header-title">Total of <span id="total"><%= block.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length %></span> Txns in the block</h4>
           <div class="table-responsive">
             <table class="table table-hover table-bordered table-striped">
               <thead>
@@ -87,7 +87,7 @@
               </thead>
               <tbody>
                 <% block.Transactions.forEach((Tx) => { %>
-                <% if (Tx.TxFrom.substring(0, 4) !== '0000') { %>
+                <% if ((Tx.TxFrom.substring(0, 4) !== '0000') && (Tx.TxTo.substring(0, 4) !== '0000')) { %>
                 <tr>
                   <td><a href="/sen/tokentxdetails?hash=<%= Tx.TxHash %>">0x<%= Tx.TxHash.substring(0,16) %>...</a></td>
                   <td><a href="/sen/accountdetails?address=<%= Tx.TxFrom %>">0x<%= Tx.TxFrom.substring(0,16) %>...</a></td>
