@@ -59,10 +59,15 @@
               </thead>
               <tbody>
                 <% txArray.forEach(tx => { %>
+                  <% if (tx.Value !== '0') { %>
                   <tr>
                     <td><a href="/sen/tokentxdetails?hash=<%= tx.TxHash %>">0x<%= tx.TxHash.substring(0,16) %>...</a></td>
                     <td><%= new Date(tx.TimeStamp).toLocaleString() %></td>
+                    <% if (tx.TxFrom.substring(0, 4) === '0000') { %>
+                    <td><a href="#">Mining Reward</a>
+                    <% } else { %>
                     <td><a href="/sen/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom.substring(0,16) %>...</a>
+                    <% } %>
                     <% if (tx.TxFrom === address) { %>
                     <span class="accountOut">Out</span></td>
                     <% } else { %>
@@ -72,6 +77,7 @@
                     <td><%= tx.Value %></td>
                     <td><%= tx.TxReceiptStatus %></td>
                   </tr>
+                  <% } %>
                 <% }) %>
               </tbody>
             </table>
