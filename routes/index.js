@@ -342,8 +342,8 @@ router.post('/publishversion', function (req, res, next) {
 // ----------------------------  FOR DEBUGING  ----------------------------
 router.get('/pool', function (req, res, next) {
   res.json({
-    secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().reverse(),
-    senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().reverse()
+    secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().sort(),
+    senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().sort()
   })
 })
 
