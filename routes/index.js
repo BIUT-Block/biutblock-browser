@@ -428,7 +428,7 @@ router.get('/blockchain', function (req, res, next) {
   })
 })
 
-router.get('/account', function (req, res, next) {
+router.get('/accountaddress', function (req, res, next) {
   res.send(SECCore.SECAccount.getAddress())
 })
 
