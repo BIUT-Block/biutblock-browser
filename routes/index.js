@@ -428,6 +428,10 @@ router.get('/blockchain', function (req, res, next) {
   })
 })
 
+router.get('/account', function (req, res, next) {
+  res.send(SECCore.SECAccount.getAddress())
+})
+
 router.get('/tokenblockhashlist', function (req, res, next) {
   SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
     if (err) return next(err)
