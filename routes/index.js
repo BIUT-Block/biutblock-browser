@@ -429,7 +429,7 @@ router.get('/blockchain', function (req, res, next) {
 })
 
 router.get('/accountaddress', function (req, res, next) {
-  res.send(SECCore.SECAccount.getAddress())
+  res.send(SECCore.Account.getAddress())
 })
 
 router.get('/tokenblockhashlist', function (req, res, next) {
