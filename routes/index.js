@@ -340,8 +340,79 @@ router.post('/publishversion', function (req, res, next) {
   })
 })
 // ----------------------------  FOR DEBUGING  ----------------------------
-router.get('/tokenpool', function (req, res, next) {
-  res.json(SECCore.CenterController.BlockChain.tokenPool.getAllTxFromPool().reverse())
+router.get('/pool', function (req, res, next) {
+  res.json({
+    secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().reverse(),
+    senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().reverse()
+  })
+})
+
+router.get('/alltx', function (req, res, next) {
+  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let sectransactions = []
+    data.reverse().forEach(block => {
+      let _transactions = block.Transactions.map(el => {
+        let _transaction = Object.assign({}, el)
+        _transaction.BlockNumber = block.Number
+        _transaction.BlockTimeStamp = block.TimeStamp
+        return _transaction
+      })
+      sectransactions = sectransactions.concat(_transactions)
+    })
+    SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
+      if (err) next(err)
+      let sentransactions = []
+      data.reverse().forEach(block => {
+        let _transactions = block.Transactions.map(el => {
+          let _transaction = Object.assign({}, el)
+          _transaction.BlockNumber = block.Number
+          _transaction.BlockTimeStamp = block.TimeStamp
+          return _transaction
+        })
+        sentransactions = sentransactions.concat(_transactions)
+      })
+      res.json({
+        sectx: sectransactions,
+        sentx: sentransactions
+      })
+    })
+  })
+})
+
+router.get('/alltxwithpool', function (req, res, next) {
+  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
+    if (err) next(err)
+    let sectransactions = []
+    data.reverse().forEach(block => {
+      let _transactions = block.Transactions.map(el => {
+        let _transaction = Object.assign({}, el)
+        _transaction.BlockNumber = block.Number
+        _transaction.BlockTimeStamp = block.TimeStamp
+        return _transaction
+      })
+      sectransactions = sectransactions.concat(_transactions)
+    })
+    SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
+      if (err) next(err)
+      let sentransactions = []
+      data.reverse().forEach(block => {
+        let _transactions = block.Transactions.map(el => {
+          let _transaction = Object.assign({}, el)
+          _transaction.BlockNumber = block.Number
+          _transaction.BlockTimeStamp = block.TimeStamp
+          return _transaction
+        })
+        sentransactions = sentransactions.concat(_transactions)
+      })
+      res.json({
+        secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().reverse(),
+        sectx: sectransactions,
+        senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().reverse(),
+        sentx: sentransactions
+      })
+    })
+  })
 })
 
 router.get('/tokenblockhashlist', function (req, res, next) {
