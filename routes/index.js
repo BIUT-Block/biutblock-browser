@@ -415,6 +415,19 @@ router.get('/alltxwithpool', function (req, res, next) {
   })
 })
 
+router.get('/blockchain', function (req, res, next) {
+  SECCore.secAPIs.getWholeTokenBlockchain((err, secdata) => {
+    if (err) next(err)
+    SECCore.senAPIs.getWholeTokenBlockchain((err, sendata) => {
+      if (err) next(err)
+      res.json({
+        secblockchain: secdata,
+        senblockchain: sendata
+      })
+    })
+  })
+})
+
 router.get('/tokenblockhashlist', function (req, res, next) {
   SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
     if (err) return next(err)
