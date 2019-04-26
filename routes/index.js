@@ -447,6 +447,21 @@ router.get('/tokenblockhashlist', function (req, res, next) {
   })
 })
 
+router.get('/tokenblockhashlist-sen', function (req, res, next) {
+  SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
+    if (err) return next(err)
+    let HashList = []
+    data.forEach(block => {
+      HashList.push({
+        ParentHash: block.ParentHash,
+        Hash: block.Hash,
+        Number: block.Number
+      })
+    })
+    res.json(HashList)
+  })
+})
+
 router.get('/ndptable', function (req, res, next) {
   let peers = SECCore.CenterController.ndp.getPeers()
   res.json(peers.map(peer => { return { id: peer.id.toString('hex'), address: peer.address } }))

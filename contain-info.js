@@ -5,18 +5,14 @@ const chalk = require('chalk')
 
 const Domains = [
   { Node: 'frankfurt', URL: 'http://sec-frankfurt-bootstrap:3001/tokenblockhashlist', Data: [] },
-  { Node: 'seoul', URL: 'http://sec-seoul-bootstrap:3001/tokenblockhashlist', Data: [] },
   { Node: 'tokyo', URL: 'http://sec-tokyo-bootstrap:3001/tokenblockhashlist', Data: [] },
-  { Node: 'paris', URL: 'http://sec-paris-bootstrap:3001/tokenblockhashlist', Data: [] },
-  { Node: 'shenzhen', URL: 'http://sec-shenzhen:3001/tokenblockhashlist', Data: [] }
+  { Node: 'paris', URL: 'http://sec-paris-bootstrap:3001/tokenblockhashlist', Data: [] }
 ]
 
 const report = {
   frankfurt: {},
-  seoul: {},
   tokyo: {},
-  paris: {},
-  shenzhen: {}
+  paris: {}
 }
 
 requestLoop(0)
