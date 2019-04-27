@@ -283,7 +283,11 @@ router.get('/secwallet', function (req, res, next) {
 })
 
 router.get('/secwallet-mobile', function (req, res, next) {
-  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
+  console.log("点击了")
+  console.log(req)
+  console.log(res)
+  console.log(next)
+ //res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
 })
 
 router.get('/account', function (req, res, next) {
