@@ -5,8 +5,8 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  // host: '18.197.120.79', // test-frankfurt
-  port: 3003
+  host: '18.197.120.79', // test-frankfurt
+  port: 3002
 })
 
 const userInfo = {
@@ -18,9 +18,9 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    // this.sec_getBalance()
+    this.sec_getBalance()
     // this.sec_getTransactions()
-    this.sec_sendRawTransaction()
+    // this.sec_sendRawTransaction()
     // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
@@ -38,7 +38,7 @@ class MobileAppRpcClient {
   }
 
   sec_debug_getAccTreeAccInfo () {
-    let request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1']
+    let request = ['83da24368d250db335b6085f1442aa15468a75d8']
     client.request('sec_debug_getAccTreeAccInfo', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_debug_getAccTreeAccInfo')
@@ -74,7 +74,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['55539686ac8363a7c55dc8867c4c901a6bef5fa1', 'latest'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -83,7 +83,7 @@ class MobileAppRpcClient {
   }
 
   sec_getTransactions () {
-    const request = ['83fcccabb461d8747748430a810fb5b411b7c2a9'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8'] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
