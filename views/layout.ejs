@@ -18,9 +18,17 @@
     <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/public.css" rel="stylesheet" type="text/css" />
+    <style>
+        .zoomMessage {position: fixed;right: 0;top: 88px;width: 330px;padding: 16px 40px 16px 16px;
+          background: rgb(235, 245, 253);z-index: 9999;color: #515a6e;font-size: 14px;display: none;
+          border-top-left-radius: 4px;border-bottom-left-radius: 4px;}
+    </style>
   </head>
 
   <body>
+    <section class="zoomMessage" id="zoomMessage">
+      <span>你的浏览器目前处于缩放状态，页面可能会出现错位现象，建议100%大小显示。</span>
+    </section>
     <!-- Navigation Bar-->
     <header id="topnav">
       <div class="topbar-main">
@@ -70,7 +78,7 @@
                 </a>
               </li>
               <li class="has-submenu <%= page==='home' ? 'active' : '' %>">
-                <a href="/">Home</a>
+                <a href="/">SEC Home</a>
               </li>
               <li class="has-submenu <%= page==='sec' ? 'active' : '' %>">
                 <a href="#">SEC</a>
@@ -105,7 +113,7 @@
                 <div class="hide-phone app-search">
                   <form id="search-form" role="search" action="/search" class="">
                     <input style="width:390px" type="text" name="search" placeholder="Search by Address / Txhash / Block"
-                      class="form-control">
+                      class="form-control" onkeyup="this.value=this.value.replace(/(^\s*)/g, '')" autocomplete="off">
                     <a href="javascript:$('#search-form').submit();"><i class="fa fa-search"></i></a>
                   </form>
                 </div>
@@ -133,7 +141,7 @@
             <h4 class="footerTit footerTitT"></h4>
             <ul class="footerList">
               <li>
-                <a href="https://secblock.io/" id="secLogo">
+                <a href="https://secblock.io/" id="secLogo" target="_blank">
                   <div class="footerFlex">
                     <img src="/images/sec.png" id="secLogoImg" alt=""
                       class="icon_min" width="24px"
@@ -143,7 +151,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://weibo.com/SECblock" id="footerWeibo">
+                <a href="https://weibo.com/SECblock" id="footerWeibo" target="_blank">
                   <div class="footerFlex">
                     <img src="/images/weibo.png" id="footerWeiboImg" alt=""
                       class="icon_min" width="24px"
@@ -153,7 +161,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.facebook.com/SECblock">
+                <a href="https://www.facebook.com/SECblock" target="_blank">
                   <div class="footerFlex">
                     <span class="ion-social-facebook icon_min"></span>
                     Facebook
@@ -162,7 +170,7 @@
 
               </li>
               <li>
-                <a href="https://twitter.com/SECblock">
+                <a href="https://twitter.com/SECblock" target="_blank">
 
                   <div class="footerFlex">
                     <span class="ion-social-twitter icon_min"></span>
@@ -171,7 +179,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.reddit.com/user/SECblock">
+                <a href="https://www.reddit.com/user/SECblock" target="_blank">
                   <div class="footerFlex">
                     <span class="ion-social-reddit icon_min"></span>
                     Reddit
@@ -180,7 +188,7 @@
 
               </li>
               <li>
-                <a href="t.me/SECBlockChinese">
+                <a href="t.me/SECBlockChinese" target="_blank">
 
                   <div class="footerFlex">
                     <span class="mdi mdi-telegram icon_min"></span>
@@ -225,15 +233,46 @@
     <% if (page==="secwallet") { %><script src="/js/secwallet.js"></script><% } %>
     <script src="/js/custom.js"></script>
     <script>
-      // $(window).resize(function () {         
-      //   if ($(window).width() < 1400 && $(window).width() > 767 ) {
-      //     $("#topnav .app-search").addClass('hiddenCnt')
-      //     $("#navigation .has-submenu:first-child").css("margin-right","0")
-      //   } else {
-      //     $("#topnav .app-search").removeClass('hiddenCnt')
-      //     $("#navigation .has-submenu:first-child").css("margin-right","10%")
-      //   }
-      // });
+      $(window).resize(function () {         
+        if ($(window).width() < 1400 && $(window).width() > 767 ) {
+          //$("#topnav .app-search").addClass('hiddenCnt')
+          $("#navigation .has-submenu:first-child").css("margin-right","0")
+        } else {
+          //$("#topnav .app-search").removeClass('hiddenCnt')
+          $("#navigation .has-submenu:first-child").css("margin-right","10%")
+        }
+      });
+      window.onresize = function temp() {
+        if (this.detectZoom() != 100) {
+          document.getElementById("zoomMessage").style.display="block"
+        } else {
+          document.getElementById("zoomMessage").style.display="none"
+        }
+      }
+
+      function detectZoom () {
+        var ratio = 0,
+          screen = window.screen,
+          ua = navigator.userAgent.toLowerCase();
+        
+        if (window.devicePixelRatio !== undefined) {
+            ratio = window.devicePixelRatio;
+        }
+        else if (~ua.indexOf('msie')) {
+          if (screen.deviceXDPI && screen.logicalXDPI) {
+            ratio = screen.deviceXDPI / screen.logicalXDPI;
+          }
+        }
+        else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
+          ratio = window.outerWidth / window.innerWidth;
+        }
+          
+        if (ratio){
+          ratio = Math.round(ratio * 100);
+        }
+          
+        return ratio;
+      }
   </script>
   </body>
 

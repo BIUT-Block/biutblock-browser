@@ -31,13 +31,18 @@
         bottom: 18%;
         left: 15%;
         width: 70%;
+      }
+      .button-block a {
+        margin-bottom: 20px;
         display: flex;
         align-items: center;
         justify-content: center;
-        flex-direction:column;
       }
-      .button-block a {
-        margin-bottom: 20px; 
+      .button-block a:last-child {
+        margin-bottom: 0;
+      }
+      .button-block a .fa {
+        margin-right: 6px;
       }
       .cloud-img {
         position: absolute;
@@ -67,10 +72,13 @@
     <div class="button-block">
       <a class="btn btn-block btn-large btn-success btn-rounded w-md
         waves-effect waves-light m-b-5"
+        id="downloadIPhone"
         href="itms-services://?action=download-manifest&url=https://www.secblock.io/download.plist"><i
           class="fa fa-apple"></i> Download iPhone Wallet APP</a>
       <a class="btn btn-block btn-primary btn-rounded w-md waves-effect
-        waves-light m-b-5" href="https://www.secblock.io/android-wallet.apk"><i
+        waves-light m-b-5" 
+        id="downloadAndroid"
+        href="https://www.secblock.io/android-wallet.apk"><i
           class="fa fa-android"></i> Download Android Wallet APP</a>
     </div>
     <img class="cloud-img" src="/images/cloud-mobile.png">
@@ -81,32 +89,62 @@
   </body>
   <script>
     window.onload = function (){
-      var ua = navigator.userAgent.toLowerCase();
-      if (ua.match(/MicroMessenger/i) == "micromessenger" || ua.match(/QQ/i) == "qq") {
-        //微信、qq中打开网页
-        console.log("微信打开")
-        document.getElementById("mask").style.display="block";
-      } else {
-        console.log("其他浏览器打开")
-        document.getElementById("mask").style.display="none";
+      var browser = {
+        versions: function () {
+          var u = navigator.userAgent, app = navigator.appVersion;
+          return {         //移动终端浏览器版本信息
+            trident: u.indexOf('Trident') > -1, //IE内核
+            presto: u.indexOf('Presto') > -1, //opera内核
+            webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+            gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+            mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+            ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+            android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1 || u.indexOf('Adr') > -1, //android终端或uc浏览器
+            iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+            iPad: u.indexOf('iPad') > -1, //是否iPad
+            webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+          };
+        }(),
+        language: (navigator.browserLanguage || navigator.language).toLowerCase()
       }
-      var u = navigator.userAgent;		
-      if (u.indexOf('Android') > -1 || u.indexOf('Linux') > -1) {
-        document.getElementById("downloadIPhone").classList.add("disabledUrl");
-        console.log("安卓手机")
-      } else if (u.indexOf('iPhone') > -1) {
-        document.getElementById("downloadAndroid").classList.add("disabledUrl");
-        console.log("ios手机")
-        //苹果手机
-      } else if (u.indexOf('Windows Phone') > -1) {
-        //winphone手机	
-        console.log("windows手机")
-        document.getElementById("downloadIPhone").classList.remove("disabledUrl");
-        document.getElementById("downloadAndroid").classList.remove("disabledUrl");
+      if (browser.versions.mobile) {//判断是否是移动设备打开。browser代码在下面
+          var ua = navigator.userAgent.toLowerCase();//获取判断用的对象			
+          if (ua.match(/MicroMessenger/i) == "micromessenger") {
+            //在微信中打开
+            document.getElementById("mask").style.display="block";
+            //alert("微信打开")
+            return true
+          } else if (ua.match(/WeiBo/i) == "weibo") {
+              //在新浪微博客户端打开
+            document.getElementById("mask").style.display="block";
+            //alert("微博打开")
+            return true
+          } else if (/MQQBrowser/i.test(navigator.userAgent) && /QQ/i.test(navigator.userAgent.split("MQQBrowser"))) {
+              //在QQ空间打开
+            document.getElementById("mask").style.display="block";
+            //alert("qq打开")
+            return true
+          } else {
+            document.getElementById("mask").style.display="none";
+          } 
+          
+          if (browser.versions.ios) {
+              //是否在IOS浏览器打开
+            document.getElementById("downloadAndroid").setAttribute('style', 'pointer-events: none');
+            //alert("ios手机打开")
+            return true
+          } else if(browser.versions.android){
+              //是否在安卓浏览器打开
+            document.getElementById("downloadIPhone").setAttribute('style', 'pointer-events: none');
+            //alert("安卓手机打开")
+            return true
+          } else {
+            document.getElementById("downloadIPhone").setAttribute('style', 'pointer-events: auto');
+            document.getElementById("downloadAndroid").setAttribute('style', 'pointer-events: auto');
+          }
       } else {
-        console.log("其他型号打开")
-        document.getElementById("downloadIPhone").classList.remove("disabledUrl");
-        document.getElementById("downloadAndroid").classList.remove("disabledUrl");
+          //否则就是PC浏览器打开
+        document.getElementById("mask").style.display="none";
       }
     }
     </script>
