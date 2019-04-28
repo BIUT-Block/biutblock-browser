@@ -339,6 +339,29 @@ router.post('/publishversion', function (req, res, next) {
     })
   })
 })
+
+router.post('/iplocation', function (req, res, next) {
+  let ips = req.body.ips
+  console.log(req.body)
+  if (Array.isArray(ips)) {
+    let locations = []
+    ips.forEach(ip => {
+      locations.push({
+        location: geoIPReader.city(ip),
+        ip: ip
+      })
+    })
+    res.json(locations)
+  } else if (typeof ips === 'string') {
+    res.json({
+      location: geoIPReader.city(ips),
+      ip: ips
+    })
+  } else {
+    res.send('invalid input type')
+  }
+})
+
 // ----------------------------  FOR DEBUGING  ----------------------------
 router.get('/pool', function (req, res, next) {
   res.json({
