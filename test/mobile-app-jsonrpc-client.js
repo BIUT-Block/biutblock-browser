@@ -7,7 +7,7 @@ const SECUtils = require('@sec-block/secjs-util')
 let client = jayson.client.http({
   // host: '18.197.120.79', // test-frankfurt
   host: '35.180.100.27', // test-paris
-  port: 3002
+  port: 3003
 })
 
 const userInfo = {
