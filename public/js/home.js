@@ -143,7 +143,7 @@ function tradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} SEC</span>
+        <span class="inboxTxt">${trans.Value} BIUT</span>
       </div>
     </li>
   </ul>
@@ -202,7 +202,7 @@ function senTradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} SEN</span>
+        <span class="inboxTxt">${trans.Value} BIU</span>
       </div>
     </li>
   </ul>

@@ -3,8 +3,8 @@
     <div class="row">
       <div class="col-md-12 col-xs-12">
         <ol class="breadcrumb m-0 p-0">
-          <li class="breadcrumb-item"><a href="/sen/tokenblockchain">SEN Blocks</a></li>
-          <li class="breadcrumb-item active">SEN Transactions</li>
+          <li class="breadcrumb-item"><a href="/sen/tokenblockchain">BIU Blocks</a></li>
+          <li class="breadcrumb-item active">BIU Transactions</li>
         </ol>
       </div>
     </div>
@@ -33,7 +33,7 @@
                   <td><a href="/sen/tokenblockdetailsbynumber?number=<%= tx.BlockNumber %>"><%= tx.BlockNumber %></a></td>
                   <td><a href="/sen/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom.substring(0,16) %>...</a></td>
                   <td><a href="/sen/accountdetails?address=<%= tx.TxTo %>">0x<%= tx.TxTo.substring(0,16) %>...</a></td>
-                  <td><%= tx.Value %> SEN</td>
+                  <td><%= tx.Value %> BIU</td>
                   <td><%= tx.TimeStamp %></td>
                   <td><%= tx.TxReceiptStatus %></td>
                 </tr>
