@@ -120,6 +120,9 @@ a:hover {
 .indexList {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #485561;
+  margin-bottom: .8rem;
+  padding-bottom: .8rem;
 }
 
 .indexList a {
@@ -188,7 +191,7 @@ a:hover {
   width: 100px;
   margin-right: 0;
 }
-.addressIpt {background: none;color: #98a6ad;border: 0;width: 340px;}
+.addressIpt {color: #98a6ad;display: inline-block;width: 340px;}
 .accountListTxt {
   width: calc(100% - 160px);
 }
@@ -344,6 +347,7 @@ a:hover {
 }
 
 .wrapper {margin-bottom: 240px!important;padding-top: 110px!important;}
+.wrapper-down {margin-bottom: 185px!important;padding-top: 110px!important;}
 
 
 .hiddenCnt {display: none!important;}
@@ -363,7 +367,8 @@ a:hover {
   .wrapper {
 		padding-top: 82px!important;
 		margin-bottom: 380px!important;
-	  }
+    }
+  .wrapper-down {margin-bottom: 270px!important;}
   #topnav .navigation-menu>li>a {
     padding-top: 15px;
     padding-bottom: 0px;

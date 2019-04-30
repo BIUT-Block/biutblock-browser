@@ -283,7 +283,15 @@ router.get('/secwallet', function (req, res, next) {
 })
 
 router.get('/secwallet-mobile', function (req, res, next) {
+<<<<<<< HEAD
   res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'BIUT Blockchain Wallet APP', layout: null })
+=======
+  console.log("点击了")
+  console.log(req)
+  console.log(res)
+  console.log(next)
+ //res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
+>>>>>>> 449ad69daf78c4456b4330207e8cbc9436ad4f46
 })
 
 router.get('/account', function (req, res, next) {

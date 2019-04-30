@@ -34,7 +34,7 @@
                   <td><a href="/sen/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom.substring(0,16) %>...</a></td>
                   <td><a href="/sen/accountdetails?address=<%= tx.TxTo %>">0x<%= tx.TxTo.substring(0,16) %>...</a></td>
                   <td><%= tx.Value %> BIU</td>
-                  <td><%= tx.TimeStamp %></td>
+                  <td><%= new Date(tx.TimeStamp).toLocaleString() %></td>
                   <td><%= tx.TxReceiptStatus %></td>
                 </tr>
                 <% } %>

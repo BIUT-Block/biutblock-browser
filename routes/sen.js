@@ -18,7 +18,7 @@ router.get('/tokenblockchain', function (req, res, next) {
     let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
     res.render('sen/tokenblockchain', {
       page: 'sen-tokenblockchain',
-      title: 'SEN Blockchain - Token Blockchain',
+      title: 'BIU Blockchain - Token Blockchain',
       pageNumber: pageNumber,
       totalNumber: totalNumber,
       blockchain: blockchain
@@ -44,7 +44,7 @@ router.get('/tokenblockdetails', function (req, res, next) {
     }
     res.render('sen/tokenblockdetails', {
       page: 'sen-tokenblockdetails',
-      title: 'SEN Blockchain - Token Block Details',
+      title: 'BIU Blockchain - Token Block Details',
       block: block
     })
   })
@@ -59,7 +59,7 @@ router.get('/tokenblockdetailsbynumber', function (req, res, next) {
     }
     res.render('sen/tokenblockdetails', {
       page: 'sen-tokenblockdetails',
-      title: 'SEN Blockchain - Token Block Details',
+      title: 'BIU Blockchain - Token Block Details',
       block: block
     })
   })
@@ -84,7 +84,7 @@ router.get('/tokentxlist', function (req, res, next) {
     let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
     res.render('sen/tokentxlist', {
       page: 'sen-tokentxlist',
-      title: 'SEN Blockchain - Token Tx List',
+      title: 'BIU Blockchain - Token Tx List',
       pageNumber: pageNumber,
       totalNumber: totalNumber,
       transactions: _transactions
@@ -116,7 +116,7 @@ router.get('/tokentxdetails', function (req, res, next) {
   SECCore.senAPIs.getTokenTx(req.query.hash, (transaction) => {
     res.render('sen/tokentxdetails', {
       page: 'sen-tokentxdetails',
-      title: 'SEN Blockchain - Token Tx Details',
+      title: 'BIU Blockchain - Token Tx Details',
       transaction: transaction
     })
   })
@@ -140,7 +140,7 @@ router.get('/accountdetails', function (req, res, next) {
       if (err) next(err)
       res.render('sen/accountdetails', {
         page: 'sen-accountdetails',
-        title: 'SEN Blockchain Account Details',
+        title: 'BIU Blockchain Account Details',
         address: address,
         txArray: txArray,
         balance: balance,
@@ -163,7 +163,7 @@ router.get('/search', function (req, res, next) {
           }
           res.render('sen/tokenblockdetails', {
             page: 'sen-tokenblockdetails',
-            title: 'SEN Blockchain - Token Block Details',
+            title: 'BIU Blockchain - Token Block Details',
             block: block
           })
         } else {
@@ -171,7 +171,7 @@ router.get('/search', function (req, res, next) {
             if (transaction) {
               res.render('sen/tokentxdetails', {
                 page: 'sen-tokentxdetails',
-                title: 'SEN Blockchain - Token Tx Details',
+                title: 'BIU Blockchain - Token Tx Details',
                 transaction: transaction
               })
             } else {
@@ -200,7 +200,7 @@ router.get('/search', function (req, res, next) {
           if (err) next(err)
           res.render('sen/accountdetails', {
             page: 'sen-accountdetails',
-            title: 'SEN Blockchain Account Details',
+            title: 'BIU Blockchain Account Details',
             address: keyword,
             txArray: txArray,
             balance: balance,
@@ -222,7 +222,7 @@ router.get('/search', function (req, res, next) {
         }
         res.render('sen/tokenblockdetails', {
           page: 'sen-tokenblockdetails',
-          title: 'SEN Blockchain - Token Block Details',
+          title: 'BIU Blockchain - Token Block Details',
           block: block
         })
       } else {
