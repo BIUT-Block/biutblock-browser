@@ -172,7 +172,7 @@ function senBlockList (token) {
         </div>
         <div class="inbox-item-text m-t-5 inboxTit">
           <span class="inboxTxt">
-            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEN
+            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} BIU
           </span>
         </div>
       </li>
