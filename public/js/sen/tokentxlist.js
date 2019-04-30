@@ -14,7 +14,7 @@ $('#pagination').pagination({
           <td><a href="/sen/tokenblockdetailsbynumber?number=${tx.BlockNumber}">${tx.BlockNumber}</a></td>
           <td><a href="/sen/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom.substring(0, 16)}...</a></td>
           <td><a href="/sen/accountdetails?address=${tx.TxTo}">0x${tx.TxTo.substring(0, 16)}...</a></td>
-          <td>${tx.Value} SEN</td>
+          <td>${tx.Value} BIU</td>
           <td>${TimeDiff(new Date(tx.TimeStamp), new Date())}</td>
           <td>${tx.TxReceiptStatus}</td>
         </tr>
