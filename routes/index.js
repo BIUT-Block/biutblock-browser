@@ -8,7 +8,7 @@ const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { page: 'home', title: 'SEC Blockchain Explorer V1.1' })
+  res.render('index', { page: 'home', title: 'BIUT Blockchain Explorer V1.1' })
 })
 
 router.get('/genesisBlockHash', function (req, res, next) {
@@ -27,7 +27,7 @@ router.get('/tokenblockchain', function (req, res, next) {
     let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
     res.render('tokenblockchain', {
       page: 'tokenblockchain',
-      title: 'SEC Blockchain - Token Blockchain',
+      title: 'BIUT Blockchain - Token Blockchain',
       pageNumber: pageNumber,
       totalNumber: totalNumber,
       blockchain: blockchain
@@ -53,7 +53,7 @@ router.get('/tokenblockdetails', function (req, res, next) {
     }
     res.render('tokenblockdetails', {
       page: 'tokenblockdetails',
-      title: 'SEC Blockchain - Token Block Details',
+      title: 'BIUT Blockchain - Token Block Details',
       block: block
     })
   })
@@ -68,7 +68,7 @@ router.get('/tokenblockdetailsbynumber', function (req, res, next) {
     }
     res.render('tokenblockdetails', {
       page: 'tokenblockdetails',
-      title: 'SEC Blockchain - Token Block Details',
+      title: 'BIUT Blockchain - Token Block Details',
       block: block
     })
   })
@@ -93,7 +93,7 @@ router.get('/tokentxlist', function (req, res, next) {
     let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
     res.render('tokentxlist', {
       page: 'tokentxlist',
-      title: 'SEC Blockchain - Token Tx List',
+      title: 'BIUT Blockchain - Token Tx List',
       pageNumber: pageNumber,
       totalNumber: totalNumber,
       transactions: _transactions
@@ -125,7 +125,7 @@ router.get('/tokentxdetails', function (req, res, next) {
   SECCore.secAPIs.getTokenTx(req.query.hash, (transaction) => {
     res.render('tokentxdetails', {
       page: 'tokentxdetails',
-      title: 'SEC Blockchain - Token Tx Details',
+      title: 'BIUT Blockchain - Token Tx Details',
       transaction: transaction
     })
   })
@@ -149,7 +149,7 @@ router.get('/accountdetails', function (req, res, next) {
       if (err) next(err)
       res.render('accountdetails', {
         page: 'accountdetails',
-        title: 'SEC Blockchain Account Details',
+        title: 'BIUT Blockchain Account Details',
         address: address,
         txArray: txArray,
         balance: balance,
@@ -161,26 +161,26 @@ router.get('/accountdetails', function (req, res, next) {
 })
 
 router.get('/transactionblockchain', function (req, res, next) {
-  res.render('transactionblockchain', { page: 'transactionblockchain', title: 'SEC Blockchain - Transaction Blockchain' })
+  res.render('transactionblockchain', { page: 'transactionblockchain', title: 'BIUT Blockchain - Transaction Blockchain' })
 })
 
 router.get('/transactionblockdetails', function (req, res, next) {
-  res.render('transactionblockdetails', { page: 'transactionblockdetails', title: 'SEC Blockchain - Transaction Block Details' })
+  res.render('transactionblockdetails', { page: 'transactionblockdetails', title: 'BIUT Blockchain - Transaction Block Details' })
 })
 
 router.get('/contract', function (req, res, next) {
-  res.render('contract', { page: 'contract', title: 'SEC Blockchain Smart Contract' })
+  res.render('contract', { page: 'contract', title: 'BIUT Blockchain Smart Contract' })
 })
 
 router.get('/contractdetails', function (req, res, next) {
-  res.render('contractdetails', { page: 'contractdetails', title: 'SEC Blockchain Smart Contract Details' })
+  res.render('contractdetails', { page: 'contractdetails', title: 'BIUT Blockchain Smart Contract Details' })
 })
 
 router.get('/nodeinfo', function (req, res, next) {
   let nodes = SECCore.CenterController.nodesIPSync.getNodesTable()
   res.render('nodeinfo', {
     page: 'nodeinfo',
-    title: 'SEC Blockchain Node Informations',
+    title: 'BIUT Blockchain Node Informations',
     nodes: nodes
   })
 })
@@ -197,7 +197,7 @@ router.get('/search', function (req, res, next) {
           }
           res.render('tokenblockdetails', {
             page: 'tokenblockdetails',
-            title: 'SEC Blockchain - Token Block Details',
+            title: 'BIUT Blockchain - Token Block Details',
             block: block
           })
         } else {
@@ -205,7 +205,7 @@ router.get('/search', function (req, res, next) {
             if (transaction) {
               res.render('tokentxdetails', {
                 page: 'tokentxdetails',
-                title: 'SEC Blockchain - Token Tx Details',
+                title: 'BIUT Blockchain - Token Tx Details',
                 transaction: transaction
               })
             } else {
@@ -234,7 +234,7 @@ router.get('/search', function (req, res, next) {
           if (err) next(err)
           res.render('accountdetails', {
             page: 'accountdetails',
-            title: 'SEC Blockchain Account Details',
+            title: 'BIUT Blockchain Account Details',
             address: keyword,
             txArray: txArray,
             balance: balance,
@@ -256,7 +256,7 @@ router.get('/search', function (req, res, next) {
         }
         res.render('tokenblockdetails', {
           page: 'tokenblockdetails',
-          title: 'SEC Blockchain - Token Block Details',
+          title: 'BIUT Blockchain - Token Block Details',
           block: block
         })
       } else {
@@ -279,15 +279,15 @@ router.get('/nodeinfoapi', function (req, res, next) {
 })
 
 router.get('/secwallet', function (req, res, next) {
-  res.render('secwallet', { page: 'secwallet', title: 'SEC Blockchain Wallet APP' })
+  res.render('secwallet', { page: 'secwallet', title: 'BIUT Blockchain Wallet APP' })
 })
 
 router.get('/secwallet-mobile', function (req, res, next) {
-  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'SEC Blockchain Wallet APP', layout: null })
+  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'BIUT Blockchain Wallet APP', layout: null })
 })
 
 router.get('/account', function (req, res, next) {
-  res.render('account', { page: 'account', title: 'SEC Blockchain Account' })
+  res.render('account', { page: 'account', title: 'BIUT Blockchain Account' })
 })
 
 router.get('/publishversion', function (req, res, next) {
@@ -302,7 +302,7 @@ router.get('/publishversion', function (req, res, next) {
     }
     res.render('publishversion', {
       page: 'publishversion',
-      title: 'SEC Blockchain - Publish Version',
+      title: 'BIUT Blockchain - Publish Version',
       info: info
     })
   })
@@ -530,7 +530,7 @@ router.get('/logs', function (req, res, next) {
       if (err) return next(err)
       res.render('logs', {
         page: 'logs',
-        title: 'SEC Blockchain - Logs',
+        title: 'BIUT Blockchain - Logs',
         logs: logs,
         errors: errors
       })
