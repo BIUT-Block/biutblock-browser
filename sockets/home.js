@@ -4,7 +4,7 @@ const SECCore = require('../src/main').Core
 
 module.exports = function (socket) {
   const ClientIP = socket.request.connection.remoteAddress
-  console.log('Client: ' + ClientIP + ' Connected to SEC Block Node')
+  console.log('Client: ' + ClientIP + ' Connected to BIUT Block Node')
 
   pushInfos(socket)
 
@@ -13,7 +13,7 @@ module.exports = function (socket) {
   }, 10000)
 
   socket.on('disconnect', function () {
-    console.log('Client: ' + ClientIP + ' Disconnected to SEC Block Node')
+    console.log('Client: ' + ClientIP + ' Disconnected to BIUT Block Node')
     clearInterval(pushInfoLoop)
   })
 }
