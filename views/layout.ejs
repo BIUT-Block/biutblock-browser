@@ -40,7 +40,7 @@
               <span class="logo-small">
                 <img src="/images/headerLogo.png" alt="" width="40px"
                   height="40px">
-                <span class="headerTit">SEC Explorer</span>
+                <span class="headerTit">BIUT Explorer</span>
               </span>
             </a>
           </div>
@@ -72,19 +72,19 @@
             <ul class="navigation-menu">
               <li class="has-submenu">
                 <a href="/">
-                  <img src="/images/logo.png" alt="SEC - logo" title="SEC"
-                    class="headerLogo" width="20px" height="20px">
-                  <span class="headerTit">SEC Explorer</span>
+                  <img src="/images/logo.png" alt="BIUT - logo" title="BIUT"
+                    class="headerLogo" width="24px" height="24px">
+                  <span class="headerTit">BIUT Explorer</span>
                 </a>
               </li>
               <li class="has-submenu <%= page==='home' ? 'active' : '' %>">
-                <a href="/">SEC Home</a>
+                <a href="/">BIUT Home</a>
               </li>
               <li class="has-submenu <%= page==='sec' ? 'active' : '' %>">
-                <a href="#">SEC</a>
+                <a href="#">BIUT</a>
                 <ul class="submenu" id="submenuList">
-                    <li><a href="/tokenblockchain">SEC Blocks</a></li>
-                    <li><a href="/tokentxlist">SEC Transactions</a></li>
+                    <li><a href="/tokenblockchain">BIUT Blocks</a></li>
+                    <li><a href="/tokentxlist">BIUT Transactions</a></li>
                 </ul>
               </li>
               <li class="has-submenu <%= page==='sen' ? 'active' : '' %>">
@@ -113,7 +113,7 @@
                 <div class="hide-phone app-search">
                   <form id="search-form" role="search" action="/search" class="">
                     <input style="width:390px" type="text" name="search" placeholder="Search by Address / Txhash / Block"
-                      class="form-control" onkeyup="this.value=this.value.replace(/(^\s*)/g, '')" autocomplete="off">
+                      class="form-control" onkeyup="this.value=this.value.replace(/(^\s*)/g, '')" autocomplete="off" max-length="66"/>
                     <a href="javascript:$('#search-form').submit();"><i class="fa fa-search"></i></a>
                   </form>
                 </div>
@@ -133,7 +133,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6 text-left">
-            <img src="/images/footerLogo.png" alt="SEC" class="footerImg" />
+            <img src="/images/footerLogo.png" alt="BIUT" class="footerImg" />
             <p class="ft14">The next generation of blockchain<br/> 
               protocols in the e-commerce domain based on social trust</p>
           </div>
@@ -146,7 +146,7 @@
                     <img src="/images/sec.png" id="secLogoImg" alt=""
                       class="icon_min" width="24px"
                       height="24px">
-                    Home
+                      BIUT Home
                   </div>
                 </a>
               </li>
@@ -197,7 +197,7 @@
                 </a>
               </li>
             </ul>
-            <p class="footerTxt">Copyright © 2018 SEC-Block</p>
+            <p class="footerTxt">Copyright © 2018 BIUT-Block</p>
           </div>
         </div>
       </div>
