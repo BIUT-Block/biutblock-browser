@@ -1,12 +1,20 @@
 /* global $ io TimeDiff */
 let secTxSum = 0
 let senTxSum = 0
+let secHeight = 0
+let senHeight = 0
+let senAccount = 0
+let onlineNode = 0
+let currentTPS = 0
 $(document).ready(() => {
   const socket = io.connect(window.location.protocol + '//' + window.location.host + '/home')
   let currenttpsBuffer = []
   let transactionsBuffer = []
   socket.on('TokenBlockchain', (data) => {
     secTxSum = data.TransactionsSum
+    onlineNode = data.Nodes.length
+    currentTPS = data.TPS
+    secHeight = data.BlockSum - 1
     let TokenBlockchain = data.blockchain
     $('#token-block-chain-list').html('')
     $('#token-trans-list').html('')
@@ -31,14 +39,7 @@ $(document).ready(() => {
         tradingList(trans)
       }
     })
-    indexList({
-      onlineNode: data.Nodes.length,
-      currentHeight: data.BlockSum - 1,
-      accountNumber: data.accountNumber,
-      current: data.TPS,
-      peak: 318,
-      price: data.price + ' ETH'
-    })
+    indexList()
 
     if (currenttpsBuffer.length < 11) {
       currenttpsBuffer.push(parseInt(data.TPS))
@@ -58,6 +59,9 @@ $(document).ready(() => {
   })
   socket.on('SEN_TokenBlockchain', (data) => {
     senTxSum = data.TransactionsSum
+    senHeight = data.BlockSum - 1
+    senAccount = data.accountNumber
+    indexList()
     let TokenBlockchain = data.blockchain
     $('#sen-token-block-chain-list').html('')
     $('#sen-token-trans-list').html('')
@@ -86,14 +90,13 @@ $(document).ready(() => {
 })
 
 // 节点列表数据
-function indexList (data) {
-  $('#onlineNode').html(data.onlineNode)
-  $('#currentHeight').html(data.currentHeight)
-  $('#accountNumber').html(data.accountNumber)
+function indexList () {
+  $('#onlineNode').html(onlineNode)
+  $('#currentHeight').html(`${secHeight} | ${senHeight} `)
+  $('#accountNumber').html(senAccount)
   $('#totalTransactions').html(`${secTxSum} | ${senTxSum} `)
-  $('#current').html(data.current)
-  $('#peak').html(data.peak)
-  $('#price').html(data.price)
+  $('#current').html(currentTPS)
+  $('#peak').html(33118)
 }
 
 // 区块列表 table
@@ -106,15 +109,12 @@ function blockList (token) {
           <div class="inboxTit">
             Height: <a href="/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
             <span class="inboxTit" style="margin-left:50px;">
-              Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+              Transactions: <span class="inboxTxt">${token.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length}</span>
             </span>
           </div>
           <span class="inboxTit">
             Time: ${timeDiff}
           </span>
-        </div>
-        <div class="inbox-item-text m-t-5">
-          Mined by: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
         </div>
       </li>
     </ul>
@@ -160,7 +160,7 @@ function senBlockList (token) {
           <div class="inboxTit">
             Height: <a href="/sen/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
             <span class="inboxTit" style="margin-left:50px;">
-              Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+              Transactions: <span class="inboxTxt">${token.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length}</span>
             </span>
           </div>
           <span class="inboxTit">
