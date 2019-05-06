@@ -186,7 +186,7 @@ router.get('/nodeinfo', function (req, res, next) {
 })
 
 router.get('/search', function (req, res, next) {
-  let keyword = req.query.search
+  let keyword = req.query.search.replace(/\s/g, '')
   keyword = keyword.substring(0, 2) === '0x' ? keyword.substring(2) : keyword
   if (isNaN(keyword)) {
     if (keyword.length === 64) {
@@ -237,7 +237,7 @@ router.get('/search', function (req, res, next) {
             title: 'BIUT Blockchain Account Details',
             address: keyword,
             txArray: txArray,
-            balance: balance,
+            balance: balance + '',
             income: income,
             spend: spend
           })
@@ -249,7 +249,7 @@ router.get('/search', function (req, res, next) {
   } else {
     SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
       if (err) next(err)
-      if (parseInt(keyword) < data.length) {
+      if ((parseInt(keyword) < data.length) && (parseInt(keyword) > -1)) {
         let block = data[parseInt(keyword)]
         if (typeof block.Transactions !== 'object') {
           block = JSON.parse(block)
