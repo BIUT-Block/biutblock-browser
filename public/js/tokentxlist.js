@@ -3,7 +3,7 @@ $('#pagination').pagination({
   dataSource: '/tokentxlist-pagination',
   locator: 'items',
   totalNumber: totalNumber,
-  pageSize: 39,
+  pageSize: 25,
   callback: function (Transactions) {
     $('#tx-table').html('')
     Transactions.forEach(tx => {
