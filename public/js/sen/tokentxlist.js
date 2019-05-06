@@ -14,7 +14,7 @@ $('#pagination').pagination({
           <td><a href="/sen/tokenblockdetailsbynumber?number=${tx.BlockNumber}">${tx.BlockNumber}</a></td>
           <td><a href="/sen/accountdetails?address=${tx.TxFrom}">0x${tx.TxFrom.substring(0, 16)}...</a></td>
           <td><a href="/sen/accountdetails?address=${tx.TxTo}">0x${tx.TxTo.substring(0, 16)}...</a></td>
-          <td>${tx.Value} SEN</td>
+          <td>${ this.getPointNum(tx.Value, 8)} SEN</td>
           <td>${TimeDiff(new Date(tx.TimeStamp), new Date())}</td>
           <td>${tx.TxReceiptStatus}</td>
         </tr>
@@ -23,3 +23,11 @@ $('#pagination').pagination({
     })
   }
 })
+
+function getPointNum(num,n){  
+  let str = String(num);
+  let index = str.indexOf(".");
+  let str1 = str.substring(0,index+n+1);
+  str1 = Number(str1);
+  return str1;
+}
