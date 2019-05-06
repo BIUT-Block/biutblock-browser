@@ -143,7 +143,7 @@ function tradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} BIUT</span>
+        <span class="inboxTxt"> ${ this.getPointNum(trans.Value, 8)} BIUT</span>
       </div>
     </li>
   </ul>
@@ -172,7 +172,7 @@ function senBlockList (token) {
         </div>
         <div class="inbox-item-text m-t-5 inboxTit">
           <span class="inboxTxt">
-            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEN
+            Block Reward: ${token.Transactions[0] ? this.getPointNum(token.Transactions[0].Value, 8) : 0} SEN
           </span>
         </div>
       </li>
@@ -202,7 +202,7 @@ function senTradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} SEN</span>
+        <span class="inboxTxt">${ this.getPointNum(trans.Value, 8) } SEN</span>
       </div>
     </li>
   </ul>
@@ -233,4 +233,12 @@ function transactionssparkline (transactionsBuffer) {
     highlightLineColor: 'rgba(0,0,0,.1)',
     highlightSpotColor: 'rgba(0,0,0,.2)'
   })
+}
+
+function getPointNum(num,n){  
+  let str = String(num);
+  let index = str.indexOf(".");
+  let str1 = str.substring(0,index+n+1);
+  str1 = Number(str1);
+  return str1;
 }
