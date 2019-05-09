@@ -3,7 +3,7 @@ const SECCore = require('../src/main').Core
 
 module.exports = function (socket) {
   const ClientIP = socket.request.connection.remoteAddress
-  console.log('Client: ' + ClientIP + ' Connected to SEC Block Node')
+  console.log('Client: ' + ClientIP + ' Connected to BIUT Block Node')
   socket.on('Request', ID => {
     SECCore.secAPIs.getWholeTransactionBlockchain(ID, (err, data) => {
       if (err) console.error(err)
@@ -20,6 +20,6 @@ module.exports = function (socket) {
   })
 
   socket.on('disconnect', function () {
-    console.log('Client: ' + ClientIP + ' Disconnected to SEC Block Node')
+    console.log('Client: ' + ClientIP + ' Disconnected to BIUT Block Node')
   })
 }
