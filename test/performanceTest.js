@@ -24,7 +24,7 @@ function sendTx1 () {
     gasLimit: '0', // string, temporarily set to 0
     gas: '0', // string, temporarily set to 0
     gasPrice: '0', // string, temporarily set to 0
-    inputData: 'Sec test transaction', // string, user defined extra messages
+    inputData: 'BIUT test transaction', // string, user defined extra messages
     data: ''
   }]
   const tokenTxBuffer = [

@@ -375,7 +375,7 @@ $(window).load(function () {
 
   setTimeout(function () {
     if (!$('.login-content')[0]) {
-      notify('Welcome back to SEC Blockchain Explorer', 'default');
+      notify('Welcome back to BIUT Blockchain Explorer', 'default');
     }
   }, 1000)
 });

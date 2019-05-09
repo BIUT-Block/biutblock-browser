@@ -104,7 +104,7 @@ class MobileAppRpcClient {
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
       txFee: '1',
-      inputData: 'Sec test transaction', // string, user defined extra messages
+      inputData: 'BIUT test transaction', // string, user defined extra messages
       data: ''
     }]
 
