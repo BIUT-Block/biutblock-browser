@@ -1,4 +1,4 @@
-const Node = require('@sec-block/secjs-node')
+const Node = require('@biut-block/biutjs-node')
 
 exports.Core = new Node.Core()
 const RPC = new Node.RPC(exports.Core)
