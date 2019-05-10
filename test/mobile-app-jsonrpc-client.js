@@ -1,5 +1,5 @@
 const jayson = require('jayson')
-const SECUtils = require('@sec-block/secjs-util')
+const SECUtils = require('@biut-block/biutjs-util')
 
 /**
  * rpc server port 3002
