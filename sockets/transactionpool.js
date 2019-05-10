@@ -1,4 +1,4 @@
-const SECCore = require('../src/main').secCore
+const SECCore = require('../src/main').Core
 
 module.exports = socket => {
   const ClientIP = socket.request.connection.remoteAddress

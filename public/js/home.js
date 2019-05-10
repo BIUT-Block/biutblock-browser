@@ -1,9 +1,20 @@
 /* global $ io TimeDiff */
+let secTxSum = 0
+let senTxSum = 0
+let secHeight = 0
+let senHeight = 0
+let senAccount = 0
+let onlineNode = 0
+let currentTPS = 0
 $(document).ready(() => {
   const socket = io.connect(window.location.protocol + '//' + window.location.host + '/home')
   let currenttpsBuffer = []
   let transactionsBuffer = []
   socket.on('TokenBlockchain', (data) => {
+    secTxSum = data.TransactionsSum
+    onlineNode = data.Nodes.length
+    currentTPS = data.TPS
+    secHeight = data.BlockSum - 1
     let TokenBlockchain = data.blockchain
     $('#token-block-chain-list').html('')
     $('#token-trans-list').html('')
@@ -28,15 +39,7 @@ $(document).ready(() => {
         tradingList(trans)
       }
     })
-    indexList({
-      onlineNode: data.Nodes.length,
-      currentHeight: data.BlockSum - 1,
-      accountNumber: data.accountNumber,
-      totalTransactions: data.TransactionsSum,
-      current: data.TPS,
-      peak: 318,
-      price: data.price + ' ETH'
-    })
+    indexList()
 
     if (currenttpsBuffer.length < 11) {
       currenttpsBuffer.push(parseInt(data.TPS))
@@ -54,17 +57,46 @@ $(document).ready(() => {
     })
     transactionssparkline(transactionsBuffer)
   })
+  socket.on('SEN_TokenBlockchain', (data) => {
+    senTxSum = data.TransactionsSum
+    senHeight = data.BlockSum - 1
+    senAccount = data.accountNumber
+    indexList()
+    let TokenBlockchain = data.blockchain
+    $('#sen-token-block-chain-list').html('')
+    $('#sen-token-trans-list').html('')
+    let transactions = []
+    TokenBlockchain.forEach((_token, index) => {
+      let token = _token
+      if (typeof _token !== 'object') {
+        token = JSON.parse(_token)
+      }
+      transactions = transactions.concat(token.Transactions)
+      if (index < 20) {
+        senBlockList(token)
+      }
+    })
+
+    transactions.forEach((_trans, index) => {
+      let trans = _trans
+      if (typeof _trans !== 'object') {
+        trans = JSON.parse(_trans)
+      }
+      if (index < 50 && trans.TxFrom.substring(0, 4) !== '0000') {
+        senTradingList(trans)
+      }
+    })
+  })
 })
 
 // 节点列表数据
-function indexList (data) {
-  $('#onlineNode').html(data.onlineNode)
-  $('#currentHeight').html(data.currentHeight)
-  $('#accountNumber').html(data.accountNumber)
-  $('#totalTransactions').html(data.totalTransactions)
-  $('#current').html(data.current)
-  $('#peak').html(data.peak)
-  $('#price').html(data.price)
+function indexList () {
+  $('#onlineNode').html(onlineNode)
+  $('#currentHeight').html(`${secHeight} | ${senHeight} `)
+  $('#accountNumber').html(senAccount)
+  $('#totalTransactions').html(`${secTxSum} | ${senTxSum} `)
+  $('#current').html(currentTPS)
+  $('#peak').html(33118)
 }
 
 // 区块列表 table
@@ -77,19 +109,11 @@ function blockList (token) {
           <div class="inboxTit">
             Height: <a href="/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
             <span class="inboxTit" style="margin-left:50px;">
-              Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
+              Transactions: <span class="inboxTxt">${token.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length}</span>
             </span>
           </div>
           <span class="inboxTit">
             Time: ${timeDiff}
-          </span>
-        </div>
-        <div class="inbox-item-text m-t-5">
-          Mined by: <a href="/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
-        </div>
-        <div class="inbox-item-text m-t-5 inboxTit">
-          <span class="inboxTxt">
-            Block Reward: ${token.Transactions[0] ? token.Transactions[0].Value : 0} SEC
           </span>
         </div>
       </li>
@@ -119,7 +143,66 @@ function tradingList (trans) {
         </div>
       </div>
       <div class="inbox-item-text m-t-5 inboxTit">
-        <span class="inboxTxt">${trans.Value} SEC</span>
+        <span class="inboxTxt"> ${getPointNum(trans.Value, 8)} BIUT</span>
+      </div>
+    </li>
+  </ul>
+  `)
+}
+
+// 区块列表 table
+function senBlockList (token) {
+  let timeDiff = TimeDiff(new Date(token.TimeStamp), new Date())
+  $('#sen-token-block-chain-list').append(`
+  <ul class="inbox-item">
+      <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
+        <div class="inbox-item-text inboxFlex">
+          <div class="inboxTit">
+            Height: <a href="/sen/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
+            <span class="inboxTit" style="margin-left:50px;">
+              Transactions: <span class="inboxTxt">${token.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length}</span>
+            </span>
+          </div>
+          <span class="inboxTit">
+            Time: ${timeDiff}
+          </span>
+        </div>
+        <div class="inbox-item-text m-t-5">
+          Mined by: <a href="/sen/accountdetails?address=${token.Beneficiary}">0x${token.Beneficiary}</a>
+        </div>
+        <div class="inbox-item-text m-t-5 inboxTit">
+          <span class="inboxTxt">
+            Block Reward: ${token.Transactions[0] ? getPointNum(token.Transactions[0].Value, 8) : 0} BIU
+          </span>
+        </div>
+      </li>
+    </ul>
+  `)
+}
+
+// 交易列表 table
+function senTradingList (trans) {
+  $('#sen-token-trans-list').append(`
+  <ul class="inbox-item">
+    <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
+      <div class="inbox-item-text inboxFlex">
+        <div class="inboxTit">
+          TxHash: <a href="/sen/tokentxdetails?hash=${trans.TxHash}" class="inboxTxtB">0x${trans.TxHash.substring(0, 16)}...</a>
+        </div>
+        <span>
+          <span class="inboxTxt">${trans.TxReceiptStatus}</span>
+        </span>
+      </div>
+      <div class="inbox-item-text m-t-5 inboxFlex">
+        <div  class="inboxTit">
+          From: <a href="/sen/accountdetails?address=${trans.TxFrom}">0x${trans.TxFrom.substring(0, 16)}...</a>
+          <span style="margin-left: 30px;">
+            To: <a href="/sen/accountdetails?address=${trans.TxTo}">0x${trans.TxTo.substring(0, 16)}...</a>
+          </span>
+        </div>
+      </div>
+      <div class="inbox-item-text m-t-5 inboxTit">
+        <span class="inboxTxt">${getPointNum(trans.Value, 8)} BIU</span>
       </div>
     </li>
   </ul>
@@ -150,4 +233,12 @@ function transactionssparkline (transactionsBuffer) {
     highlightLineColor: 'rgba(0,0,0,.1)',
     highlightSpotColor: 'rgba(0,0,0,.2)'
   })
+}
+
+function getPointNum (num, n) {
+  let str = String(num)
+  let index = str.indexOf('.')
+  let str1 = str.substring(0, index + n + 1)
+  str1 = Number(str1)
+  return str1
 }

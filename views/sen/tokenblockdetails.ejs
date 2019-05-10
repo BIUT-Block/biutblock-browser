@@ -1,0 +1,108 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <ol class="breadcrumb m-0 p-0">
+          <li class="breadcrumb-item"><a href="/sen/tokenblockchain">BIU Blocks</a></li>
+          <li class="breadcrumb-item active">BIU Block</li>
+        </ol>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="m-t-20 card-box">
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Hash: </label>
+            <span class="publicListTxt" id="hashValues">0x<%= block.Hash %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Height: </label>
+            <span class="publicListTxt" id="heightBlock"><%= block.Number %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Time Stamp:</label>
+            <span class="publicListTxt" id="time"><%= new Date(block.TimeStamp).toLocaleString() %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Parent Hash:</label>
+            <span class="publicListTxt" id="fatherHash">0x<%= block.ParentHash %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Difficulty:</label>
+            <span class="publicListTxt" id="difficulty"><%= block.Difficulty %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Extra Data:</label>
+            <span class="publicListTxt" id="extraData"><%= block.ExtraData %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Transactions Root: </label>
+            <span class="publicListTxt" id="transactionsRoot">0x<%= block.TransactionsRoot %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Receipt Root:</label>
+            <span class="publicListTxt" id="receiptRoot">0x<%= block.ReceiptRoot %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Logs Bloom:</label>
+            <span class="publicListTxt" id="logsBloom"><%= block.LogsBloom %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Mix Hash:</label>
+            <span class="publicListTxt" id="mixHash">0x<%= block.MixHash %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">State Root:</label>
+            <span class="publicListTxt" id="stateRoot">0x<%= block.StateRoot %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Nonce:</label>
+            <span class="publicListTxt" id="nonce"><%= block.Nonce %></span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Block Reward:</label>
+            <span class="publicListTxt" id="reward"><%= block.Transactions[0] ? block.Transactions[0].Value : 0 %> BIU</span>
+          </div>
+          <div class="cardPt2">
+            <label class="publicListTit text-left">Mined by:</label>
+            <span class="publicListTxt" id="beneficiary">0x<%= block.Beneficiary %></span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12 col-xs-12">
+        <div class="card-box">
+          <h4 class="header-title">Total of <span id="total"><%= block.Transactions.filter(tx => { return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000' }).length %></span> Txns in the block</h4>
+          <div class="table-responsive">
+            <table class="table table-hover table-bordered table-striped">
+              <thead>
+                <tr>
+                  <th>TxHash</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Value</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% block.Transactions.forEach((Tx) => { %>
+                <% if ((Tx.TxFrom.substring(0, 4) !== '0000') && (Tx.TxTo.substring(0, 4) !== '0000')) { %>
+                <tr>
+                  <td><a href="/sen/tokentxdetails?hash=<%= Tx.TxHash %>">0x<%= Tx.TxHash.substring(0,16) %>...</a></td>
+                  <td><a href="/sen/accountdetails?address=<%= Tx.TxFrom %>">0x<%= Tx.TxFrom.substring(0,16) %>...</a></td>
+                  <td><a href="/sen/accountdetails?address=<%= Tx.TxTo %>">0x<%= Tx.TxTo.substring(0,16) %>...</a></td>
+                  <td><%= Tx.Value %></td>
+                  <td><%= Tx.TxReceiptStatus %></td>
+                </tr>
+                <% } %>
+                <% }) %>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div> <!-- end container -->
+</div>
+<!-- end wrapper -->

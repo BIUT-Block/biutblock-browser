@@ -1,7 +1,7 @@
 /* global $ */
 $(document).ready(() => {
   $('#secLogo').mouseover(function () {
-    $('#secLogoImg').attr('src', '/images/secActive.png')
+    $('#secLogoImg').attr('src', '/images/logo.png')
   })
   $('#secLogo').mouseout(function () {
     $('#secLogoImg').attr('src', '/images/sec.png')
