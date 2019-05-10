@@ -6,6 +6,7 @@ const path = require('path')
 const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const indexRouter = require('./routes/index')
+const SENRouter = require('./routes/sen')
 const RPCTransfer = require('./routes/rpc-transfer')
 
 let app = express()
@@ -22,6 +23,7 @@ app.use(partials())
 app.use(cors())
 
 app.use('/', indexRouter)
+app.use('/sen', SENRouter)
 app.use('/rpctransfer', RPCTransfer)
 
 // catch 404 and forward to error handler
@@ -37,7 +39,7 @@ app.use(function (err, req, res, next) {
 
   // render the error page
   res.status(err.status || 500)
-  res.render('error', {page: 'error', title: 'SEC Error Page'})
+  res.render('error', {page: 'error', title: 'BIUT Error Page'})
 })
 
 module.exports = app

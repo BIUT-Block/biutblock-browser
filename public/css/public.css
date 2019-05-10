@@ -79,7 +79,8 @@ a:hover {
 }
 
 .footerImg {
-  padding-bottom: 35px;
+  max-width: 120px;
+  padding-bottom: 10px;
 }
 
 .footerTxt {
@@ -120,6 +121,9 @@ a:hover {
 .indexList {
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #485561;
+  margin-bottom: .8rem;
+  padding-bottom: .8rem;
 }
 
 .indexList a {
@@ -188,7 +192,7 @@ a:hover {
   width: 100px;
   margin-right: 0;
 }
-.addressIpt {background: none;color: #98a6ad;border: 0;width: 340px;}
+.addressIpt {color: #98a6ad;display: inline-block;}
 .accountListTxt {
   width: calc(100% - 160px);
 }
@@ -326,9 +330,9 @@ a:hover {
   padding-top: 10px;
 }
 
-#navigation .has-submenu:first-child {
+/* #navigation .has-submenu:first-child {
   margin-right: 10%;
-}
+} */
 
 
 .clearfix:after {
@@ -344,6 +348,7 @@ a:hover {
 }
 
 .wrapper {margin-bottom: 240px!important;padding-top: 110px!important;}
+.wrapper-down {margin-bottom: 185px!important;padding-top: 110px!important;}
 
 
 .hiddenCnt {display: none!important;}
@@ -363,7 +368,8 @@ a:hover {
   .wrapper {
 		padding-top: 82px!important;
 		margin-bottom: 380px!important;
-	  }
+    }
+  .wrapper-down {margin-bottom: 270px!important;}
   #topnav .navigation-menu>li>a {
     padding-top: 15px;
     padding-bottom: 0px;
@@ -409,4 +415,8 @@ input:-ms-input-placeholder {
 
 #topnav .navigation-menu > li .submenu li a {
   color: rgba(255, 255, 255, 0.7)!important
+}
+
+@media (min-width: 992px) {
+  .col-lg-2 {max-width: 20%!important;flex: 0 0 20%;}
 }

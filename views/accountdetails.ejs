@@ -16,7 +16,8 @@
           <div class="accountList">
             <label class="publicListTit accountListTit text-left">Address:</label>
             <div class="publicListTxt accountListTxt">
-              <input id="address" class="addressIpt" value="0x<%= address %>"/>
+              <!-- <input id="address" class="addressIpt" value="0x<%= address %>"/> -->
+              <span id="address" class="addressIpt">0x<%= address %></span>
               <span id="copyBtn" class="btn btn-rounded copyBtn">Copy Address</span>
             </div>
           </div>
@@ -59,10 +60,15 @@
               </thead>
               <tbody>
                 <% txArray.forEach(tx => { %>
+                  <% if (tx.Value !== '0') { %>
                   <tr>
                     <td><a href="/tokentxdetails?hash=<%= tx.TxHash %>">0x<%= tx.TxHash.substring(0,16) %>...</a></td>
                     <td><%= new Date(tx.TimeStamp).toLocaleString() %></td>
+                    <% if (tx.TxFrom.substring(0, 4) === '0000') { %>
+                    <td><a href="#">Mining Reward</a>
+                    <% } else { %>
                     <td><a href="/accountdetails?address=<%= tx.TxFrom %>">0x<%= tx.TxFrom.substring(0,16) %>...</a>
+                    <% } %>
                     <% if (tx.TxFrom === address) { %>
                     <span class="accountOut">Out</span></td>
                     <% } else { %>
@@ -72,6 +78,7 @@
                     <td><%= tx.Value %></td>
                     <td><%= tx.TxReceiptStatus %></td>
                   </tr>
+                  <% } %>
                 <% }) %>
               </tbody>
             </table>

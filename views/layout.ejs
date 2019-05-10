@@ -18,9 +18,17 @@
     <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/public.css" rel="stylesheet" type="text/css" />
+    <style>
+        .zoomMessage {position: fixed;right: 0;top: 88px;width: 330px;padding: 16px 40px 16px 16px;
+          background: rgb(235, 245, 253);z-index: 9999;color: #515a6e;font-size: 14px;display: none;
+          border-top-left-radius: 4px;border-bottom-left-radius: 4px;}
+    </style>
   </head>
 
   <body>
+    <section class="zoomMessage" id="zoomMessage">
+      <span>你的浏览器目前处于缩放状态，页面可能会出现错位现象，建议100%大小显示。</span>
+    </section>
     <!-- Navigation Bar-->
     <header id="topnav">
       <div class="topbar-main">
@@ -32,7 +40,7 @@
               <span class="logo-small">
                 <img src="/images/headerLogo.png" alt="" width="40px"
                   height="40px">
-                <span class="headerTit">SEC Explorer</span>
+                <span class="headerTit">BIUT Explorer</span>
               </span>
             </a>
           </div>
@@ -64,24 +72,32 @@
             <ul class="navigation-menu">
               <li class="has-submenu">
                 <a href="/">
-                  <img src="/images/logo.png" alt="SEC - logo" title="SEC"
-                    class="headerLogo" width="20px" height="20px">
-                  <span class="headerTit">SEC Explorer</span>
+                  <img src="/images/logo.png" alt="BIUT - logo" title="BIUT"
+                    class="headerLogo" width="24px" height="24px">
+                  <span class="headerTit">BIUT Explorer</span>
                 </a>
               </li>
               <li class="has-submenu <%= page==='home' ? 'active' : '' %>">
-                <a href="/">Home</a>
+                <a href="/">BIUT Home</a>
               </li>
-              <li class="has-submenu <%= page==='tokenblockchain' ? 'active' : '' %>">
-                <a href="/tokenblockchain">Blocks</a>
+              <li class="has-submenu <%= page==='sec' ? 'active' : '' %>">
+                <a href="#">BIUT</a>
+                <ul class="submenu" id="submenuList">
+                    <li><a href="/tokenblockchain">BIUT Blocks</a></li>
+                    <li><a href="/tokentxlist">BIUT Transactions</a></li>
+                </ul>
               </li>
-              <li class="has-submenu <%= page==='tokentxlist' ? 'active' : '' %>">
-                <a href="/tokentxlist">Transactions</a>
+              <li class="has-submenu <%= page==='sen' ? 'active' : '' %>">
+                <a href="#">BIU</a>
+                <ul class="submenu" id="submenuList">
+                    <li><a href="/sen/tokenblockchain">BIU Blocks</a></li>
+                    <li><a href="/sen/tokentxlist">BIU Transactions</a></li>
+                </ul>
               </li>
               <li class="has-submenu <%= page==='nodeinfo' ? 'active' : '' %>">
                 <a href="/nodeinfo">Nodes</a>
               </li>
-              <li class="has-submenu <%= page==='secwallet' ? 'active' : '' %>">
+              <!-- <li class="has-submenu <%= page==='secwallet' ? 'active' : '' %>">
                 <a href="/secwallet">Wallet Download</a>
               </li>
               <li class="has-submenu">
@@ -92,12 +108,12 @@
                     <li><a target="_blank" href="/browser-guide.pdf">浏览器使用教程</a></li>
                     <li><a target="_blank" href="/wallet-guide.pdf">客户端钱包使用教程</a></li>
                 </ul>
-              </li>
+              </li> -->
               <li id="last_submenu">
                 <div class="hide-phone app-search">
                   <form id="search-form" role="search" action="/search" class="">
-                    <input style="width:390px" type="text" name="search" placeholder="Search by Address / Txhash / Block / Token"
-                      class="form-control">
+                    <input style="width:390px" type="text" name="search" placeholder="Search by Address / Txhash / Block"
+                      class="form-control" onkeyup="this.value=this.value.replace(/(^\s*)/g, '')" autocomplete="off" max-length="66"/>
                     <a href="javascript:$('#search-form').submit();"><i class="fa fa-search"></i></a>
                   </form>
                 </div>
@@ -117,7 +133,7 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-6 text-left">
-            <img src="/images/footerLogo.png" alt="SEC" class="footerImg" />
+            <img src="/images/footerLogo.png" alt="BIUT" class="footerImg" />
             <p class="ft14">The next generation of blockchain<br/> 
               protocols in the e-commerce domain based on social trust</p>
           </div>
@@ -125,17 +141,17 @@
             <h4 class="footerTit footerTitT"></h4>
             <ul class="footerList">
               <li>
-                <a href="http://secblock.io/" id="secLogo">
+                <a href="https://secblock.io/" id="secLogo" target="_blank">
                   <div class="footerFlex">
                     <img src="/images/sec.png" id="secLogoImg" alt=""
                       class="icon_min" width="24px"
                       height="24px">
-                    Home
+                      BIUT Home
                   </div>
                 </a>
               </li>
               <li>
-                <a href="https://weibo.com/SECblock" id="footerWeibo">
+                <a href="https://weibo.com/SECblock" id="footerWeibo" target="_blank">
                   <div class="footerFlex">
                     <img src="/images/weibo.png" id="footerWeiboImg" alt=""
                       class="icon_min" width="24px"
@@ -145,7 +161,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.facebook.com/SECblock">
+                <a href="https://www.facebook.com/SECblock" target="_blank">
                   <div class="footerFlex">
                     <span class="ion-social-facebook icon_min"></span>
                     Facebook
@@ -154,7 +170,7 @@
 
               </li>
               <li>
-                <a href="https://twitter.com/SECblock">
+                <a href="https://twitter.com/SECblock" target="_blank">
 
                   <div class="footerFlex">
                     <span class="ion-social-twitter icon_min"></span>
@@ -163,7 +179,7 @@
                 </a>
               </li>
               <li>
-                <a href="https://www.reddit.com/user/SECblock">
+                <a href="https://www.reddit.com/user/SECblock" target="_blank">
                   <div class="footerFlex">
                     <span class="ion-social-reddit icon_min"></span>
                     Reddit
@@ -172,7 +188,7 @@
 
               </li>
               <li>
-                <a href="t.me/SECBlockChinese">
+                <a href="t.me/SECBlockChinese" target="_blank">
 
                   <div class="footerFlex">
                     <span class="mdi mdi-telegram icon_min"></span>
@@ -181,7 +197,7 @@
                 </a>
               </li>
             </ul>
-            <p class="footerTxt">Copyright © 2018 SEC-Block</p>
+            <p class="footerTxt">Copyright © 2018 BIUT-Block</p>
           </div>
         </div>
       </div>
@@ -195,7 +211,6 @@
     <script src="/assets/js/time-diff.min.js"></script>
     <script src="/plugins/jquery-sparkline/jquery.sparkline.min.js"></script>
     <% if (page==="account") { %><script src="/js/account.js"></script><% } %>
-    <% if (page==="accountdetails") { %><script src="/js/accountdetails.js"></script><% } %>
     <% if (page==="contract") { %><script src="/js/contract.js"></script><% } %>
     <% if (page==="contractdetails") { %><script src="/js/contractdetails.js"></script><% } %>
     <% if (page==="home") { %><script src="/js/home.js"></script><% } %>
@@ -205,23 +220,60 @@
     <script src="/plugins/jvectormap/gdp-data.js"></script>
     <script src="/js/nodeinfo.js"></script>
     <% } %>
+    <% if (page==="accountdetails") { %><script src="/js/accountdetails.js"></script><% } %>
     <% if (page==="tokenblockchain") { %><script src="/js/tokenblockchain.js"></script><% } %>
     <% if (page==="tokenblockchaindetails") { %><script src="/js/tokenblockchaindetails.js"></script><% } %>
     <% if (page==="tokentxlist") { %><script src="/js/tokentxlist.js"></script><% } %>
     <% if (page==="tokentxdetails") { %><script src="/js/tokentxdetails.js"></script><% } %>
+    <% if (page==="sen-accountdetails") { %><script src="/js/sen/accountdetails.js"></script><% } %>
+    <% if (page==="sen-tokenblockchain") { %><script src="/js/sen/tokenblockchain.js"></script><% } %>
+    <% if (page==="sen-tokenblockchaindetails") { %><script src="/js/sen/tokenblockchaindetails.js"></script><% } %>
+    <% if (page==="sen-tokentxlist") { %><script src="/js/sen/tokentxlist.js"></script><% } %>
+    <% if (page==="sen-tokentxdetails") { %><script src="/js/sen/tokentxdetails.js"></script><% } %>
     <% if (page==="secwallet") { %><script src="/js/secwallet.js"></script><% } %>
     <script src="/js/custom.js"></script>
     <script>
-    $(window).resize(function () {         
-      if ($(window).width() < 1400 && $(window).width() > 767 ) {
-        $("#topnav .app-search").addClass('hiddenCnt')
-        $("#navigation .has-submenu:first-child").css("margin-right","0")
-      } else {
-        $("#topnav .app-search").removeClass('hiddenCnt')
-        $("#navigation .has-submenu:first-child").css("margin-right","10%")
+      $(window).resize(function () {         
+        if ($(window).width() < 1400 && $(window).width() > 767 ) {
+          //$("#topnav .app-search").addClass('hiddenCnt')
+          $("#navigation .has-submenu:first-child").css("margin-right","0")
+        } else {
+          //$("#topnav .app-search").removeClass('hiddenCnt')
+          $("#navigation .has-submenu:first-child").css("margin-right","10%")
+        }
+      });
+      window.onresize = function temp() {
+        if (this.detectZoom() != 100) {
+          document.getElementById("zoomMessage").style.display="block"
+        } else {
+          document.getElementById("zoomMessage").style.display="none"
+        }
       }
-    });
-</script>
+
+      function detectZoom () {
+        var ratio = 0,
+          screen = window.screen,
+          ua = navigator.userAgent.toLowerCase();
+        
+        if (window.devicePixelRatio !== undefined) {
+            ratio = window.devicePixelRatio;
+        }
+        else if (~ua.indexOf('msie')) {
+          if (screen.deviceXDPI && screen.logicalXDPI) {
+            ratio = screen.deviceXDPI / screen.logicalXDPI;
+          }
+        }
+        else if (window.outerWidth !== undefined && window.innerWidth !== undefined) {
+          ratio = window.outerWidth / window.innerWidth;
+        }
+          
+        if (ratio){
+          ratio = Math.round(ratio * 100);
+        }
+          
+        return ratio;
+      }
+  </script>
   </body>
 
 </html>

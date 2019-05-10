@@ -8,7 +8,7 @@ const transactionpool = require('./transactionpool')
 module.exports = function (param) {
   let io = param.io
   io.on('connection', function (socket) {
-    console.log('Welcome to SEC Block Socket IO Service')
+    console.log('Welcome to BIUT Block Socket IO Service')
   })
   io.of('/home').on('connection', home)
   io.of('/tokenblockchain').on('connection', tokenblockchain)

@@ -5,8 +5,9 @@ const SECUtils = require('@sec-block/secjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '35.158.171.46', // test-frankfurt
-  port: 3002
+  // host: '18.197.120.79', // test-frankfurt
+  host: '35.180.100.27', // test-paris
+  port: 3003
 })
 
 const userInfo = {
@@ -29,16 +30,25 @@ class MobileAppRpcClient {
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
     // this.sec_clearCache()
-    // this.sec_getNodesTable()
     // this.sec_getChainHeight()
     // this.sec_getNodeInfo()
     // this._setBlock()
     // this._syncFromIp()
-    this.sec_debug_getAccTreeAccInfo()
+    // this.sec_debug_getAccTreeAccInfo()
+    this.sec_getTotalReward()
+  }
+
+  sec_getTotalReward () {
+    const request = []
+    client.request('sec_getTotalReward', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_getTotalReward')
+      console.log(JSON.stringify(response))
+    })
   }
 
   sec_debug_getAccTreeAccInfo () {
-    let request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1']
+    let request = ['83da24368d250db335b6085f1442aa15468a75d8']
     client.request('sec_debug_getAccTreeAccInfo', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_debug_getAccTreeAccInfo')
@@ -55,15 +65,6 @@ class MobileAppRpcClient {
     })
   }
 
-  sec_getNodesTable () {
-    const request = []
-    client.request('sec_getNodesTable', request, (err, response) => {
-      if (err) console.log(err)
-      console.log('sec_getNodesTable')
-      console.log(JSON.stringify(response))
-    })
-  }
-
   sec_getChainHeight () {
     const request = []
     client.request('sec_getChainHeight', request, (err, response) => {
@@ -74,7 +75,7 @@ class MobileAppRpcClient {
   }
 
   sec_getBalance () {
-    const request = ['ff2e8a58d1d93d56ff75d98bfebf10afb01e1ab1', 'latest'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8', 'latest'] // account address
     client.request('sec_getBalance', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getBalance')
@@ -83,7 +84,7 @@ class MobileAppRpcClient {
   }
 
   sec_getTransactions () {
-    const request = ['83fcccabb461d8747748430a810fb5b411b7c2a9'] // account address
+    const request = ['83da24368d250db335b6085f1442aa15468a75d8'] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
@@ -98,11 +99,12 @@ class MobileAppRpcClient {
       timestamp: new Date().getTime(), // number
       from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
-      value: '12', // string
+      value: '10', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
-      inputData: 'Sec test transaction', // string, user defined extra messages
+      txFee: '1',
+      inputData: 'BIUT test transaction', // string, user defined extra messages
       data: ''
     }]
 

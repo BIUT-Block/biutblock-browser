@@ -12,7 +12,7 @@ $(document).ready((e) => {
       $('#token-pool-list').append(`
       <tr>
         <td class="f-500" style="font-weight: normal !important;"><p style="color: #8BC34A">TxHash: 0x${trans.TxHash}</p><p>From: 0x${trans.TxFrom}</p><p>To: 0x${trans.TxTo}</p></td>
-        <td>${trans.Value} SEC</td>
+        <td>${trans.Value} BIUT</td>
         <td style="text-transform:capitalize;">${trans.TxReceiptStatus}</td>
         <td class="f-500"><a href="/tokenpooltx?hash=${trans.TxHash}"><i class="zmdi zmdi-zoom-in"></i></a></td>
       </tr>
