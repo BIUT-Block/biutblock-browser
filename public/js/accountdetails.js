@@ -3,6 +3,7 @@ $(function () {
   $("#copyBtn").click(function() {
     var ssrsss = $("#address").text();//获取文本
     var flag = copyText(ssrsss); //传递文本 
+    $("#address").offset().top //自动滚回顶部
     if (flag) {
       $('#copyBtn').html('Copy success').addClass('copyActive')
       setTimeout(() => {
