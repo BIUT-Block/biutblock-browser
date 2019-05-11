@@ -105,7 +105,7 @@ function blockList (token) {
         <div class="inbox-item-text inboxFlex">
           <div class="inboxTit">
             Height: <a href="/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
-            <span class="inboxTit" style="margin-left:50px;">
+            <span class="inboxTit inboxTitMargin">
               Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
             </span>
           </div>
@@ -159,7 +159,7 @@ function senBlockList (token) {
         <div class="inbox-item-text inboxFlex">
           <div class="inboxTit">
             Height: <a href="/sen/tokenblockdetailsbynumber?number=${token.Number}">${token.Number}</a>
-            <span class="inboxTit" style="margin-left:50px;">
+            <span class="inboxTit inboxTitMargin">
               Transactions: <span class="inboxTxt">${token.Transactions.length}</span>
             </span>
           </div>
