@@ -204,6 +204,7 @@ a:hover {
   color: #fff;
   outline: none!important;
   margin-left: 16px;
+  border: 0;
 }
 
 .copyBtn:hover {
@@ -421,6 +422,7 @@ input:-ms-input-placeholder {
   }
   .copyBtn {
     margin: .25rem 0 0;
+    border: 0;
   }
   .downLeft {
     margin-left: 0;
