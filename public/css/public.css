@@ -135,6 +135,10 @@ a:hover {
   color: #00d6b2;
 }
 
+.logo-small img {
+ width: 1.5rem;height: 1.5rem;
+}
+
 /* 合约 */
 
 .contractTit {
