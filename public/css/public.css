@@ -136,6 +136,10 @@ a:hover {
   color: #00d6b2;
 }
 
+.logo-small img {
+ width: 1.5rem;height: 1.5rem;
+}
+
 /* 合约 */
 
 .contractTit {
@@ -205,6 +209,7 @@ a:hover {
   color: #fff;
   outline: none!important;
   margin-left: 16px;
+  border: 0;
 }
 
 .copyBtn:hover {
@@ -422,6 +427,7 @@ input:-ms-input-placeholder {
   }
   .copyBtn {
     margin: .25rem 0 0;
+    border: 0;
   }
   .downLeft {
     margin-left: 0;
