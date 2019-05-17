@@ -1,0 +1,31 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>BIUTBlock - Mapping</h3>
+        <form class="form-horizontal" role="form" method="post">
+          <div class="form-group row">
+            <label class="col-2 col-form-label">SEC Address</label>
+            <div class="col-md-10">
+              <input class="form-control" type="text" name="secaddress" placeholder="Please input your SEC private key" value="<%= mapping.secaddress %>">required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">BIU Address</label>
+            <div class="col-md-10">
+              <input class="form-control" type="text" name="biuaddress" placeholder="Please input your BIU Address" value="<%= mapping.biuaddress %>" required>
+            </div>
+          </div>
+          <div class="form-group row">
+            <label class="col-2 col-form-label">Transfered Value</label>
+            <div class="col-md-10">
+              <input class="form-control" type="number" name="value" value="<%= mapping.value %>" required>
+              <span class="help-block"><small>Please input the value of sec coins, which you transfered to our official account.</small></span>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

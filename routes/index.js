@@ -5,6 +5,7 @@ const fs = require('fs')
 const GEOIPReader = require('@maxmind/geoip2-node').Reader
 const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
 const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
+const generatePassword = require('password-generator')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -534,6 +535,113 @@ router.get('/logs', function (req, res, next) {
         logs: logs,
         errors: errors
       })
+    })
+  })
+})
+
+// ----------------------------  FOR Mapping  ----------------------------
+router.get('/mapping', (req, res, next) => {
+  res.render('mapping', {
+    page: 'mapping',
+    title: 'BIUT Blockchain - Mapping Controller',
+    mapping: {}
+  })
+})
+
+router.post('/mapping', (req, res, next) => {
+  let mapping = req.body
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mapping._id = generatePassword()
+    mappings.push(mapping)
+    fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+      if (err) next(err)
+      res.send('You have already submitted your transfer information successfully.')
+    })
+  })
+})
+
+router.get('/mapping/edit', (req, res, next) => {
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mappings.forEach((mapping, index) => {
+      if (mapping._id === req.query.id) {
+        res.render('mapping', {
+          page: 'mapping',
+          title: 'BIUT Blockchain - Mapping Controller',
+          mapping: mapping
+        })
+      }
+    })
+  })
+})
+
+router.post('/mapping/edit', (req, res, next) => {
+  let mapping = req.body
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mappings.forEach((_mapping, index) => {
+      if (mapping._id === _mapping.id) {
+        _mapping.secaddress = mapping.secaddress
+        _mapping.biuaddress = mapping.biuaddress
+        _mapping.value = mapping.value
+        fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+          if (err) next(err)
+          return res.redirect('/mapping-controller')
+        })
+      }
+    })
+  })
+})
+
+router.get('/mapping/remove', (req, res, next) => {
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mappings.forEach((mapping, index) => {
+      if (mapping._id === req.query.id) mappings.splice(index, 1)
+    })
+    fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+      if (err) next(err)
+      res.redirect('/mapping-controller')
+    })
+  })
+})
+
+router.get('/mapping-controller', (req, res, next) => {
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, mappings) => {
+    if (err) next(err)
+    res.render('mapping-controller', {
+      page: 'mapping-controller',
+      title: 'BIUT Blockchain - Mapping Controller',
+      mappings: JSON.parse(mappings) || []
     })
   })
 })

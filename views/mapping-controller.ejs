@@ -1,0 +1,62 @@
+<div class="wrapper">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-12">
+        <h3>BIUTBlock - Mapping Controller</h3>
+        <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th>SEC Address</th>
+                    <th>BIU Address</th>
+                    <th>Value</th> 
+                    <th>Manipulation</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>SEC Address</th>
+                    <th>BIU Address</th>
+                    <th>Value</th> 
+                    <th>Manipulation</th>
+                </tr>
+            </tfoot>
+            <tbody>
+                <% mappings.forEach(function(mapping, index) { %>
+                <tr>
+                    <td>
+                        <%= mapping.secaddress %>
+                    </td>
+                    <td>
+                        <%= mapping.biuaddress %>
+                    </td>
+                    <td>
+                        <%= mapping.value %>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <a href="/mapping/edit?id=<%= mapping._id %>" target="_blank" class="btn  btn-primary">edit</a>
+                            <a href="/mapping/remove?id=<%= mapping._id %>" class="btn btn-primary">remove</a>
+                        </div>
+                    </td>
+                </tr>
+                <% }) %>
+            </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+// $(document).ready(function () {
+//   var dt = $('.table').DataTable({
+//     pageLength: 50,
+//     lengthMenu: [
+//       [25, 50, 100, -1],
+//       [25, 50, 100, 'All']
+//     ],
+//     order: [[1, 'desc']],
+//     stateSave: true,
+//     responsive: true
+//   })
+// })
+</script>
