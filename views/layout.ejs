@@ -15,6 +15,7 @@
     <!-- App css -->
     <link href="/assets/css/bootstrap.min.css" rel="stylesheet"
       type="text/css" />
+    <% if (page==="mapping-controller") { %><link href="/plugins/DataTables-1.10.16/datatables.min.css" rel="stylesheet"><% } %>
     <link href="/assets/css/icons.css" rel="stylesheet" type="text/css" />
     <link href="/assets/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/css/public.css" rel="stylesheet" type="text/css" />
@@ -23,6 +24,7 @@
           background: rgb(235, 245, 253);z-index: 9999;color: #515a6e;font-size: 14px;display: none;
           border-top-left-radius: 4px;border-bottom-left-radius: 4px;}
     </style>
+    <script src="/assets/js/jquery.min.js"></script>
   </head>
 
   <body>
@@ -200,8 +202,8 @@
       </div>
     </footer>
     <!-- End Footer -->
-    <script src="/assets/js/jquery.min.js"></script>
     <script src="/assets/js/bootstrap.min.js"></script>
+    <% if (page==="mapping-controller") { %><script src="/plugins/DataTables-1.10.16/datatables.min.js"></script><% } %>
     <script src="/assets/js/jquery.app.js"></script>
     <script src="/assets/js/socket.io.js"></script>
     <script src="/assets/js/pagination.min.js"></script>
