@@ -737,7 +737,7 @@ router.post('/mapping/verify', (req, res, next) => {
             url: 'http://localhost:3002',
             body: JSON.stringify({
               'method': 'sec_sendRawTransaction',
-              'jsonrpc': 'rpc',
+              'jsonrpc': '2.0',
               'id': '1',
               'params': transaction
             }),
