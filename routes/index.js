@@ -740,6 +740,9 @@ router.post('/mapping/verify', (req, res, next) => {
               'Content-Type': 'application/json'
             }
           }, (err, response, body) => {
+            console.log(err)
+            console.log(response)
+            console.log(body)
             if (err) {
               res.json(err)
             }
