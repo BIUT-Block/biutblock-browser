@@ -12,7 +12,7 @@ const request = require('request')
 const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
 const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
 
-function _createTransaction(sendToAddress, amount, txFee) {
+function _createTransaction (sendToAddress, amount, txFee) {
   let timeStamp = new Date().getTime()
   let transferData = [{
     timestamp: timeStamp,
@@ -37,7 +37,7 @@ function _createTransaction(sendToAddress, amount, txFee) {
     Buffer.from(transferData[0].inputData)
   ]
   let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
-  let signature = SECUtil.ecsign(txSigHash, Buffer.from(privateKey, 'hex'))
+  let signature = SECUtil.ecsign(txSigHash, Buffer.from(chargerPrivateKey, 'hex'))
   transferData[0].data = {
     v: signature.v,
     r: signature.r.toString('hex'),
@@ -732,20 +732,19 @@ router.post('/mapping/verify', (req, res, next) => {
         if (req.query.type !== 'save') {
           console.log('transfer')
           let bodyRequest = _createTransaction(_mapping.biutaddress, _mapping.value, '0')
-          fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
-            if (err) next(err)
-            request({
-              method: 'POST',
-              url: 'http://localhost:3002',
-              body: JSON.stringify(bodyRequest),
-              headers: {
-                'Content-Type': 'application/json'
-              }
-            }, (err, response, body) => {
-              if (err) {
-                res.json(err)
-              }
-              res.json(response)
+          request({
+            method: 'POST',
+            url: 'http://localhost:3002',
+            body: JSON.stringify(bodyRequest),
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          }, (err, response, body) => {
+            if (err) {
+              res.json(err)
+            }
+            fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+              if (err) next(err)
               return res.redirect('/mapping-controller')
             })
           })
