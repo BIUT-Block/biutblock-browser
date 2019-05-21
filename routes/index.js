@@ -731,11 +731,16 @@ router.post('/mapping/verify', (req, res, next) => {
         _mapping.remarks = mapping.remarks
         if (req.query.type !== 'save') {
           console.log('transfer')
-          let bodyRequest = _createTransaction(_mapping.biutaddress, _mapping.value, '0')
+          let transaction = _createTransaction(_mapping.biutaddress, _mapping.value, '0')
           request({
             method: 'POST',
             url: 'http://localhost:3002',
-            body: bodyRequest,
+            body: JSON.stringify({
+              'method': 'sec_sendRawTransaction',
+              'jsonrpc': 'rpc',
+              'id': '1',
+              'params': transaction
+            }),
             headers: {
               'Content-Type': 'application/json'
             }
