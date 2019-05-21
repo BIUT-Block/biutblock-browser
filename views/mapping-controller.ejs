@@ -6,17 +6,25 @@
         <table class="table table-striped table-bordered table-hover" cellspacing="0" width="100%">
             <thead>
                 <tr>
-                    <th>SEC Private Key</th>
-                    <th>BIU Address</th>
+                    <th>ID</th>
+                    <th>ETH Private Key</th>
+                    <th>ETH Address</th>
+                    <th>BIUT Address</th>
+                    <th>Timestamp</th>
                     <th>Value</th> 
+                    <th>Remarks</th> 
                     <th>Manipulation</th>
                 </tr>
             </thead>
             <tfoot>
                 <tr>
-                    <th>SEC Private Key</th>
-                    <th>BIU Address</th>
+                    <th>ID</th>
+                    <th>ETH Private Key</th>
+                    <th>ETH Address</th>
+                    <th>BIUT Address</th>
+                    <th>Timestamp</th>
                     <th>Value</th> 
+                    <th>Remarks</th> 
                     <th>Manipulation</th>
                 </tr>
             </tfoot>
@@ -24,18 +32,35 @@
                 <% mappings.forEach(function(mapping, index) { %>
                 <tr>
                     <td>
-                        <%= mapping.secaddress %>
+                        <%= mapping._id %>
                     </td>
                     <td>
-                        <%= mapping.biuaddress %>
+                        <%= mapping.ethprivatekey %>
                     </td>
                     <td>
-                        <%= mapping.value %>
+                        <%= mapping.ethaddress %>
+                    </td>
+                    <td>
+                        <%= mapping.biutaddress %>
+                    </td>
+                    <td>
+                        <%= mapping.timestamp %>
+                    </td>
+                    <td>
+                        <%= mapping.value || "Not given" %>
+                    </td>
+                    <td>
+                        <%= mapping.remarks || "" %>
                     </td>
                     <td>
                         <div class="btn-group">
-                            <a href="/mapping/edit?id=<%= mapping._id %>" target="_blank" class="btn  btn-primary">edit</a>
-                            <a href="/mapping/remove?id=<%= mapping._id %>" class="btn btn-primary">remove</a>
+                            <% if (mapping.confirm === 'false') { %>
+                            <a href="/mapping/verify?id=<%= mapping._id %>" class="btn btn-warning" style="color: white !important">Verify</a>
+                            <% } else { %>
+                            <a href="#" class="btn btn-success" style="color: white !important" disabled>Verified</a>
+                            <% } %>
+                            <!-- <a href="/mapping/edit?id=<%= mapping._id %>" target="_blank" class="btn btn-primary" style="color: white !important">edit</a> -->
+                            <a href="/mapping/remove?id=<%= mapping._id %>" class="btn btn-primary" style="color: white !important">remove</a>
                         </div>
                     </td>
                 </tr>
@@ -47,16 +72,16 @@
   </div>
 </div>
 <script>
-// $(document).ready(function () {
-//   var dt = $('.table').DataTable({
-//     pageLength: 50,
-//     lengthMenu: [
-//       [25, 50, 100, -1],
-//       [25, 50, 100, 'All']
-//     ],
-//     order: [[1, 'desc']],
-//     stateSave: true,
-//     responsive: true
-//   })
-// })
+$(document).ready(function () {
+  var dt = $('.table').DataTable({
+    pageLength: 50,
+    lengthMenu: [
+      [25, 50, 100, -1],
+      [25, 50, 100, 'All']
+    ],
+    order: [[1, 'desc']],
+    stateSave: true,
+    responsive: true
+  })
+})
 </script>

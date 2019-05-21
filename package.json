@@ -23,6 +23,7 @@
   "dependencies": {
     "@biut-block/biutjs-node": "^1.0.8",
     "@biut-block/biutjs-tx": "^1.0.0",
+    "@biut-block/biutjs-util": "^1.0.0",
     "@maxmind/geoip2-node": "^0.4.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
