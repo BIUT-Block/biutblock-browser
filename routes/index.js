@@ -7,10 +7,51 @@ const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
 const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 const generatePassword = require('password-generator')
 const SECUtil = require('@biut-block/biutjs-util')
+const request = require('request')
+
+const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
+const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
+
+function _createTransaction(sendToAddress, amount, txFee) {
+  let timeStamp = new Date().getTime()
+  let transferData = [{
+    timestamp: timeStamp,
+    from: chargerAddress,
+    to: sendToAddress,
+    value: amount,
+    txFee: txFee,
+    gasLimit: '0',
+    gas: '0',
+    gasPrice: '0',
+    data: '',
+    inputData: ''
+  }]
+  const tokenTxBuffer = [
+    SECUtil.bufferToInt(transferData[0].timestamp),
+    Buffer.from(transferData[0].from, 'hex'),
+    Buffer.from(transferData[0].to, 'hex'),
+    Buffer.from(transferData[0].value),
+    Buffer.from(transferData[0].gasLimit),
+    Buffer.from(transferData[0].gas),
+    Buffer.from(transferData[0].gasPrice),
+    Buffer.from(transferData[0].inputData)
+  ]
+  let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
+  let signature = SECUtil.ecsign(txSigHash, Buffer.from(privateKey, 'hex'))
+  transferData[0].data = {
+    v: signature.v,
+    r: signature.r.toString('hex'),
+    s: signature.s.toString('hex')
+  }
+  return transferData
+}
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('index', { page: 'home', title: 'BIUT Blockchain Explorer V1.1' })
+  res.render('index', {
+    page: 'home',
+    title: 'BIUT Blockchain Explorer V1.1'
+  })
 })
 
 router.get('/genesisBlockHash', function (req, res, next) {
@@ -163,19 +204,31 @@ router.get('/accountdetails', function (req, res, next) {
 })
 
 router.get('/transactionblockchain', function (req, res, next) {
-  res.render('transactionblockchain', { page: 'transactionblockchain', title: 'BIUT Blockchain - Transaction Blockchain' })
+  res.render('transactionblockchain', {
+    page: 'transactionblockchain',
+    title: 'BIUT Blockchain - Transaction Blockchain'
+  })
 })
 
 router.get('/transactionblockdetails', function (req, res, next) {
-  res.render('transactionblockdetails', { page: 'transactionblockdetails', title: 'BIUT Blockchain - Transaction Block Details' })
+  res.render('transactionblockdetails', {
+    page: 'transactionblockdetails',
+    title: 'BIUT Blockchain - Transaction Block Details'
+  })
 })
 
 router.get('/contract', function (req, res, next) {
-  res.render('contract', { page: 'contract', title: 'BIUT Blockchain Smart Contract' })
+  res.render('contract', {
+    page: 'contract',
+    title: 'BIUT Blockchain Smart Contract'
+  })
 })
 
 router.get('/contractdetails', function (req, res, next) {
-  res.render('contractdetails', { page: 'contractdetails', title: 'BIUT Blockchain Smart Contract Details' })
+  res.render('contractdetails', {
+    page: 'contractdetails',
+    title: 'BIUT Blockchain Smart Contract Details'
+  })
 })
 
 router.get('/nodeinfo', function (req, res, next) {
@@ -281,15 +334,25 @@ router.get('/nodeinfoapi', function (req, res, next) {
 })
 
 router.get('/secwallet', function (req, res, next) {
-  res.render('secwallet', { page: 'secwallet', title: 'BIUT Blockchain Wallet APP' })
+  res.render('secwallet', {
+    page: 'secwallet',
+    title: 'BIUT Blockchain Wallet APP'
+  })
 })
 
 router.get('/secwallet-mobile', function (req, res, next) {
-  res.render('secwallet-mobile', { page: 'secwallet-mobile', title: 'BIUT Blockchain Wallet APP', layout: null })
+  res.render('secwallet-mobile', {
+    page: 'secwallet-mobile',
+    title: 'BIUT Blockchain Wallet APP',
+    layout: null
+  })
 })
 
 router.get('/account', function (req, res, next) {
-  res.render('account', { page: 'account', title: 'BIUT Blockchain Account' })
+  res.render('account', {
+    page: 'account',
+    title: 'BIUT Blockchain Account'
+  })
 })
 
 router.get('/publishversion', function (req, res, next) {
@@ -489,7 +552,12 @@ router.get('/tokenblockhashlist-sen', function (req, res, next) {
 
 router.get('/ndptable', function (req, res, next) {
   let peers = SECCore.CenterController.ndp.getPeers()
-  res.json(peers.map(peer => { return { id: peer.id.toString('hex'), address: peer.address } }))
+  res.json(peers.map(peer => {
+    return {
+      id: peer.id.toString('hex'),
+      address: peer.address
+    }
+  }))
 })
 
 router.get('/rlptable', function (req, res, next) {
@@ -663,9 +731,23 @@ router.post('/mapping/verify', (req, res, next) => {
         _mapping.remarks = mapping.remarks
         if (req.query.type !== 'save') {
           console.log('transfer')
+          let bodyRequest = _createTransaction(_mapping.biutaddress, _mapping.value, '0')
           fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
             if (err) next(err)
-            return res.redirect('/mapping-controller')
+            request({
+              method: 'POST',
+              url: 'http://localhost:3002',
+              body: JSON.stringify(bodyRequest),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }, (err, response, body) => {
+              if (err) {
+                res.json(err)
+              }
+              res.json(response)
+              return res.redirect('/mapping-controller')
+            })
           })
         } else {
           fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
