@@ -5,25 +5,27 @@
         <h3>BIUTBlock - Mapping</h3>
         <form class="form-horizontal" role="form" method="post">
           <div class="form-group row">
-            <label class="col-2 col-form-label">SEC Private Key</label>
+            <label class="col-2 col-form-label">ETH Private Key</label>
             <div class="col-md-10">
-              <input class="form-control" type="text" name="secaddress" placeholder="Please input your SEC Private Key" value="<%= mapping.secaddress %>" required>
+              <input class="form-control" type="text" name="ethprivatekey"
+                value="<%= mapping.ethprivatekey %>" required>
             </div>
           </div>
           <div class="form-group row">
             <label class="col-2 col-form-label">BIU Address</label>
             <div class="col-md-10">
-              <input class="form-control" type="text" name="biuaddress" placeholder="Please input your BIU Address" value="<%= mapping.biuaddress %>" required>
+              <input class="form-control" type="text" name="biutaddress" value="<%=
+                mapping.biutaddress %>" required>
             </div>
           </div>
           <div class="form-group row">
-            <label class="col-2 col-form-label">Transfered Value</label>
+            <label class="col-2 col-form-label">Value</label>
             <div class="col-md-10">
-              <input class="form-control" type="number" name="value" value="<%= mapping.value %>" required>
-              <span class="help-block"><small>Please input the value of sec coins, which you transfered to our official account.</small></span>
+              <input class="form-control" type="text" name="value" value="<%=
+                mapping.value %>">
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+          <button type="submit" class="btn btn-primary pull-right">Submit</button>
         </form>
       </div>
     </div>

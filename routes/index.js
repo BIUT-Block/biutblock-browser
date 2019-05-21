@@ -6,6 +6,7 @@ const GEOIPReader = require('@maxmind/geoip2-node').Reader
 const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
 const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 const generatePassword = require('password-generator')
+const SECUtil = require('@biut-block/biutjs-util')
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
@@ -560,6 +561,9 @@ router.post('/mapping', (req, res, next) => {
       mappings = []
     }
     mapping._id = generatePassword()
+    mapping.timestamp = new Date()
+    mapping.ethaddress = SECUtil.privateToAddress(SECUtil.privateToBuffer(mapping.ethprivatekey)).toString('hex')
+    mapping.confirm = 'false'
     mappings.push(mapping)
     fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
       if (err) next(err)
@@ -603,13 +607,72 @@ router.post('/mapping/edit', (req, res, next) => {
     }
     mappings.forEach((_mapping, index) => {
       if (mapping._id === _mapping.id) {
-        _mapping.secaddress = mapping.secaddress
-        _mapping.biuaddress = mapping.biuaddress
+        _mapping.ethprivatekey = mapping.ethprivatekey
+        _mapping.ethaddress = mapping.ethaddress
+        _mapping.biutaddress = mapping.biutaddress
         _mapping.value = mapping.value
         fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
           if (err) next(err)
           return res.redirect('/mapping-controller')
         })
+      }
+    })
+  })
+})
+
+router.get('/mapping/verify', (req, res, next) => {
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mappings.forEach((mapping, index) => {
+      if (mapping._id === req.query.id) {
+        res.render('verify', {
+          page: 'verify',
+          title: 'BIUT Blockchain - Mapping Controller',
+          mapping: mapping
+        })
+      }
+    })
+  })
+})
+
+router.post('/mapping/verify', (req, res, next) => {
+  let mapping = req.body
+  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+    if (err) next(err)
+    let mappings = []
+    try {
+      mappings = JSON.parse(data) || []
+    } catch (err) {
+      console.error(err)
+      mappings = []
+    }
+    mappings.forEach((_mapping, index) => {
+      if (req.query.id === _mapping._id) {
+        _mapping.ethprivatekey = mapping.ethprivatekey
+        _mapping.ethaddress = mapping.ethaddress
+        _mapping.biutaddress = mapping.biutaddress
+        _mapping.confirm = mapping.confirm
+        _mapping.value = mapping.value
+        _mapping.remarks = mapping.remarks
+        if (req.query.type !== 'save') {
+          console.log('transfer')
+          fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+            if (err) next(err)
+            return res.redirect('/mapping-controller')
+          })
+        } else {
+          fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+            if (err) next(err)
+            return res.redirect('/mapping-controller')
+          })
+        }
       }
     })
   })
