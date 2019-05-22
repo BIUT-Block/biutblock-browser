@@ -618,7 +618,7 @@ router.get('/mapping', auth, (req, res, next) => {
   })
 })
 
-router.post('/mapping', auth, (req, res, next) => {
+router.post('/mapping', (req, res, next) => {
   let mapping = req.body
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
