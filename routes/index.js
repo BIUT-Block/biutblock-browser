@@ -8,6 +8,7 @@ const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 const generatePassword = require('password-generator')
 const SECUtil = require('@biut-block/biutjs-util')
 const request = require('request')
+const auth = require('../models/auth')
 
 const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
 const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
@@ -609,7 +610,7 @@ router.get('/logs', function (req, res, next) {
 })
 
 // ----------------------------  FOR Mapping  ----------------------------
-router.get('/mapping', (req, res, next) => {
+router.get('/mapping', auth, (req, res, next) => {
   res.render('mapping', {
     page: 'mapping',
     title: 'BIUT Blockchain - Mapping Controller',
@@ -617,7 +618,7 @@ router.get('/mapping', (req, res, next) => {
   })
 })
 
-router.post('/mapping', (req, res, next) => {
+router.post('/mapping', auth, (req, res, next) => {
   let mapping = req.body
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
@@ -640,7 +641,7 @@ router.post('/mapping', (req, res, next) => {
   })
 })
 
-router.get('/mapping/edit', (req, res, next) => {
+router.get('/mapping/edit', auth, (req, res, next) => {
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
@@ -662,7 +663,7 @@ router.get('/mapping/edit', (req, res, next) => {
   })
 })
 
-router.post('/mapping/edit', (req, res, next) => {
+router.post('/mapping/edit', auth, (req, res, next) => {
   let mapping = req.body
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
@@ -688,7 +689,7 @@ router.post('/mapping/edit', (req, res, next) => {
   })
 })
 
-router.get('/mapping/verify', (req, res, next) => {
+router.get('/mapping/verify', auth, (req, res, next) => {
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
@@ -710,7 +711,7 @@ router.get('/mapping/verify', (req, res, next) => {
   })
 })
 
-router.post('/mapping/verify', (req, res, next) => {
+router.post('/mapping/verify', auth, (req, res, next) => {
   let mapping = req.body
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
@@ -759,7 +760,7 @@ router.post('/mapping/verify', (req, res, next) => {
   })
 })
 
-router.get('/mapping/remove', (req, res, next) => {
+router.get('/mapping/remove', auth, (req, res, next) => {
   fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
@@ -779,7 +780,7 @@ router.get('/mapping/remove', (req, res, next) => {
   })
 })
 
-router.get('/mapping-controller', (req, res, next) => {
+router.get('/mapping-controller', auth, (req, res, next) => {
   fs.readFile(process.cwd() + '/public/mapping.json', (err, mappings) => {
     if (err) next(err)
     res.render('mapping-controller', {
