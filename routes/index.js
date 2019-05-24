@@ -631,7 +631,6 @@ router.post('/mapping', (req, res, next) => {
     }
     mapping._id = generatePassword()
     mapping.timestamp = new Date()
-    mapping.ethaddress = SECUtil.privateToAddress(SECUtil.privateToBuffer(mapping.ethprivatekey)).toString('hex')
     mapping.confirm = 'false'
     mappings.push(mapping)
     fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
@@ -676,7 +675,6 @@ router.post('/mapping/edit', auth, (req, res, next) => {
     }
     mappings.forEach((_mapping, index) => {
       if (mapping._id === _mapping.id) {
-        _mapping.ethprivatekey = mapping.ethprivatekey
         _mapping.ethaddress = mapping.ethaddress
         _mapping.biutaddress = mapping.biutaddress
         _mapping.value = mapping.value
@@ -724,7 +722,6 @@ router.post('/mapping/verify', auth, (req, res, next) => {
     }
     mappings.forEach((_mapping, index) => {
       if (req.query.id === _mapping._id) {
-        _mapping.ethprivatekey = mapping.ethprivatekey
         _mapping.ethaddress = mapping.ethaddress
         _mapping.biutaddress = mapping.biutaddress
         _mapping.confirm = mapping.confirm
