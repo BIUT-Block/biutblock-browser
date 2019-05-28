@@ -8,6 +8,7 @@
                 <tr>
                     <th>ID</th>
                     <th>ETH Address</th>
+                    <th>ETH Tx Hash</th>
                     <th>BIUT Address</th>
                     <th>Timestamp</th>
                     <th>Value</th> 
@@ -25,13 +26,16 @@
                         <%= mapping.ethaddress %>
                     </td>
                     <td>
+                        <%= mapping.txhash %>
+                    </td>
+                    <td>
                         <%= mapping.biutaddress %>
                     </td>
                     <td>
                         <%= mapping.timestamp %>
                     </td>
                     <td>
-                        <%= mapping.value || "Not given" %>
+                        <%= mapping.value || "Not confirm" %>
                     </td>
                     <td>
                         <%= mapping.remarks || "" %>
