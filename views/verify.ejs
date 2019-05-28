@@ -80,7 +80,7 @@ $("#verify-form").submit(function(e) {
 
 $.get('http://api.etherscan.io/api?module=account&action=txlist&address=0x<%= (mapping.ethaddress.substring(0, 2) === "0x" ? mapping.ethaddress.substring(2) : mapping.ethaddress).toLowerCase() %>&startblock=0&endblock=99999999&sort=asc&apikey=FKI6JY1EK4ENZMI47SARE4XK9CQ7PD7C3H', function( data ) {
   data.result.forEach(tx=>{
-    if (tx.hash === '0x<%= mapping.txhash %>') {
+    if (tx.hash === '0x<%= (mapping.txhash.substring(0, 2) === "0x" ? mapping.txhash.substring(2) : mapping.txhash).toLowerCase() %>') {
       console.log(tx)
       $("#value").val(tx.value / 1000000000000000000)
     }
