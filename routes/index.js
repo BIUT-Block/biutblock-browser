@@ -630,7 +630,10 @@ router.post('/mapping', (req, res, next) => {
       mappings = []
     }
     request.get(`http://api.etherscan.io/api?module=account&action=tokentx&address=0x${(mapping.ethaddress.substring(0, 2) === '0x' ? mapping.ethaddress.substring(2) : mapping.ethaddress).toLowerCase()}&startblock=0&endblock=999999999&sort=asc&apikey=FKI6JY1EK4ENZMI47SARE4XK9CQ7PD7C3H`, function (error, response, body) {
-      if (error) return res.json({ status: 'failed', info: 'request error' })
+      if (error) {
+        res.status(500)
+        return res.json({ status: 'failed', info: 'request error' })
+      }
       let flag = false
       let data = JSON.parse(response.body)
       data.result.forEach(tx => {
@@ -639,14 +642,20 @@ router.post('/mapping', (req, res, next) => {
           mapping.value = tx.value / 1000000000000000000
         }
       })
-      if (!flag) return res.json({ status: 'failed', info: 'txhash not found in eth network' })
+      if (!flag) {
+        res.status(500)
+        return res.json({ status: 'failed', info: 'txhash not found in eth network' })
+      }
       flag = true
       mappings.forEach(_mapping => {
         if (_mapping.txhash === mapping.txhash) {
           flag = false
         }
       })
-      if (!flag) return res.json({ status: 'failed', info: 'txhash duplicated' })
+      if (!flag) {
+        res.status(500)
+        return res.json({ status: 'failed', info: 'txhash duplicated' })
+      }
       mapping._id = generatePassword()
       mapping.timestamp = new Date()
       mapping.biutaddress = mapping.ethaddress
