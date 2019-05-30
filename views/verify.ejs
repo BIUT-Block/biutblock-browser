@@ -8,15 +8,21 @@
             <label class="col-2 col-form-label">ETH Address</label>
             <div class="col-md-10">
               <input class="form-control" type="text" name="ethaddress" value="<%=
-                mapping.ethaddress %>" required>
+                mapping.ethaddress %>" required readonly>
             </div>
           </div>
-          <input type="hidden" name="txhash" value="<%= mapping.txhash %>">
+          <div class="form-group row">
+            <label class="col-2 col-form-label">ETH Address</label>
+            <div class="col-md-10">
+              <input class="form-control" type="text" name="txhash" value="<%=
+                mapping.txhash %>" required readonly>
+            </div>
+          </div>
           <div class="form-group row">
             <label class="col-2 col-form-label">BIU Address</label>
             <div class="col-md-10">
               <input class="form-control" type="text" name="biutaddress" value="<%=
-                mapping.biutaddress %>" required>
+                mapping.ethaddress %>" required readonly>
             </div>
           </div>
           <div class="form-group row">

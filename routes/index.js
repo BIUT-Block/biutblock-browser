@@ -629,61 +629,33 @@ router.post('/mapping', (req, res, next) => {
       console.error(err)
       mappings = []
     }
-    mapping._id = generatePassword()
-    mapping.timestamp = new Date()
-    mapping.confirm = 'false'
-    mappings.push(mapping)
-    fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
-      if (err) next(err)
-      res.send('You have already submitted your transfer information successfully.')
-    })
-  })
-})
-
-router.get('/mapping/edit', auth, (req, res, next) => {
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
-    if (err) next(err)
-    let mappings = []
-    try {
-      mappings = JSON.parse(data) || []
-    } catch (err) {
-      console.error(err)
-      mappings = []
-    }
-    mappings.forEach((mapping, index) => {
-      if (mapping._id === req.query.id) {
-        res.render('mapping', {
-          page: 'mapping',
-          title: 'BIUT Blockchain - Mapping Controller',
-          mapping: mapping
-        })
-      }
-    })
-  })
-})
-
-router.post('/mapping/edit', auth, (req, res, next) => {
-  let mapping = req.body
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
-    if (err) next(err)
-    let mappings = []
-    try {
-      mappings = JSON.parse(data) || []
-    } catch (err) {
-      console.error(err)
-      mappings = []
-    }
-    mappings.forEach((_mapping, index) => {
-      if (mapping._id === _mapping.id) {
-        _mapping.ethaddress = mapping.ethaddress
-        _mapping.txhash = mapping.txhash
-        _mapping.biutaddress = mapping.biutaddress
-        _mapping.value = mapping.value
-        fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
-          if (err) next(err)
-          return res.redirect('/mapping-controller')
-        })
-      }
+    request.get(`http://api.etherscan.io/api?module=account&action=tokentx&address=0x${(mapping.ethaddress.substring(0, 2) === '0x' ? mapping.ethaddress.substring(2) : mapping.ethaddress).toLowerCase()}&startblock=0&endblock=999999999&sort=asc&apikey=FKI6JY1EK4ENZMI47SARE4XK9CQ7PD7C3H`, function (error, response, body) {
+      if (error) return res.json({ status: 'failed', info: 'request error' })
+      let flag = false
+      let data = JSON.parse(response.body)
+      data.result.forEach(tx => {
+        if (tx.hash === `0x${(mapping.txhash.substring(0, 2) === '0x' ? mapping.txhash.substring(2) : mapping.txhash).toLowerCase()}`) {
+          flag = true
+          mapping.value = tx.value / 1000000000000000000
+        }
+      })
+      if (!flag) return res.json({ status: 'failed', info: 'txhash not found in eth network' })
+      flag = true
+      mappings.forEach(_mapping => {
+        if (_mapping.txhash === mapping.txhash) {
+          flag = false
+        }
+      })
+      if (!flag) return res.json({ status: 'failed', info: 'txhash duplicated' })
+      mapping._id = generatePassword()
+      mapping.timestamp = new Date()
+      mapping.biutaddress = mapping.ethaddress
+      mapping.confirm = 'false'
+      mappings.push(mapping)
+      fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+        if (err) next(err)
+        res.json({ status: 'success' })
+      })
     })
   })
 })
