@@ -640,7 +640,7 @@ router.post('/mapping', (req, res, next) => {
       let flag = false
       let data = JSON.parse(response.body)
       data.result.forEach(tx => {
-        if (tx.hash === `0x${(mapping.txhash.substring(0, 2) === '0x' ? mapping.txhash.substring(2) : mapping.txhash).toLowerCase()}`) {
+        if (tx.hash === `0x${(mapping.txhash.substring(0, 2) === '0x' ? mapping.txhash.substring(2) : mapping.txhash).toLowerCase()}` && tx.contractAddress === '0xc6689eb9a6d724b8d7b1d923ffd65b7005da1b62' && tx.to === '0xc7c1ca6181c222f5d83ec6814c28db7da73409bb') {
           flag = true
           mapping.value = tx.value / 1000000000000000000
         }
@@ -648,7 +648,7 @@ router.post('/mapping', (req, res, next) => {
       if (!flag) {
         res.status(500)
         res.statusMessage = 'txhash not found in eth network'
-        return res.json({ status: 'failed', info: 'txhash not found in eth network' })
+        return res.json({ status: 'failed', info: 'txhash not found in eth network or not in sec contract' })
       }
       flag = true
       mappings.forEach(_mapping => {
