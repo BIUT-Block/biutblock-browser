@@ -3,7 +3,6 @@ const router = express.Router()
 const request = require('request')
 
 router.get('/', (req, res, next) => {
-  console.log(req.query.url)
   request({
     method: 'GET',
     url: req.query.url,
