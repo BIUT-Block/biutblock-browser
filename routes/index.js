@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const SECCore = require('../src/main').Core
+const BlockchainCache = require('../src/blockchainCache')
 const fs = require('fs')
 const GEOIPReader = require('@maxmind/geoip2-node').Reader
 const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
@@ -56,122 +57,110 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/genesisBlockHash', function (req, res, next) {
-  SECCore.secAPIs.getTokenBlockchain(0, 0, (err, blockArray) => {
-    if (err) next(err)
-    res.send(blockArray[0].Hash)
-  })
+  res.send(BlockchainCache.getBIUTChain()[0].Hash)
 })
 
 router.get('/tokenblockchain', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 39)
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) next(err)
-    let totalNumber = data.length
-    let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-    res.render('tokenblockchain', {
-      page: 'tokenblockchain',
-      title: 'BIUT Blockchain - Token Blockchain',
-      pageNumber: pageNumber,
-      totalNumber: totalNumber,
-      blockchain: blockchain
-    })
+  let data = BlockchainCache.getBIUTChain()
+  let totalNumber = data.length
+  let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+  res.render('tokenblockchain', {
+    page: 'tokenblockchain',
+    title: 'BIUT Blockchain - Token Blockchain',
+    pageNumber: pageNumber,
+    totalNumber: totalNumber,
+    blockchain: blockchain
   })
 })
 
 router.get('/tokenblockchain-pagination', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 39)
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) next(err)
-    let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-    res.json(blockchain)
-  })
+  let data = BlockchainCache.getBIUTChain()
+  let blockchain = data.reverse().slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+  res.json(blockchain)
 })
 
 router.get('/tokenblockdetails', function (req, res, next) {
-  SECCore.secAPIs.getTokenBlock(req.query.hash, (err, block) => {
-    if (err) next(err)
-    if (typeof block.Transactions !== 'object') {
-      block = JSON.parse(block)
+  let data = BlockchainCache.getBIUTChain()
+  data.forEach(_block => {
+    if (_block.Hash === req.query.hash) {
+      res.render('tokenblockdetails', {
+        page: 'tokenblockdetails',
+        title: 'BIUT Blockchain - Token Block Details',
+        block: _block
+      })
     }
-    res.render('tokenblockdetails', {
-      page: 'tokenblockdetails',
-      title: 'BIUT Blockchain - Token Block Details',
-      block: block
-    })
   })
 })
 
 router.get('/tokenblockdetailsbynumber', function (req, res, next) {
-  SECCore.secAPIs.getTokenBlockchain(parseInt(req.query.number), parseInt(req.query.number), (err, block) => {
-    block = block[0]
-    if (err) next(err)
-    if (typeof block.Transactions !== 'object') {
-      block = JSON.parse(block)
-    }
-    res.render('tokenblockdetails', {
-      page: 'tokenblockdetails',
-      title: 'BIUT Blockchain - Token Block Details',
-      block: block
-    })
+  let block = BlockchainCache.getBIUTChain()[parseInt(req.query.number)]
+  if (typeof block.Transactions !== 'object') {
+    block = JSON.parse(block)
+  }
+  res.render('tokenblockdetails', {
+    page: 'tokenblockdetails',
+    title: 'BIUT Blockchain - Token Block Details',
+    block: block
   })
 })
 
 router.get('/tokentxlist', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 39)
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) next(err)
-    let transactions = []
-    data.reverse().forEach(block => {
-      let _transactions = block.Transactions.map(el => {
-        let _transaction = Object.assign({}, el)
-        _transaction.BlockNumber = block.Number
-        _transaction.BlockTimeStamp = block.TimeStamp
-        return _transaction
-      })
-      transactions = transactions.concat(_transactions)
+  let data = BlockchainCache.getBIUTChain()
+  let transactions = []
+  data.reverse().forEach(block => {
+    let _transactions = block.Transactions.map(el => {
+      let _transaction = Object.assign({}, el)
+      _transaction.BlockNumber = block.Number
+      _transaction.BlockTimeStamp = block.TimeStamp
+      return _transaction
     })
-    let totalNumber = transactions.length
-    let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-    res.render('tokentxlist', {
-      page: 'tokentxlist',
-      title: 'BIUT Blockchain - Token Tx List',
-      pageNumber: pageNumber,
-      totalNumber: totalNumber,
-      transactions: _transactions
-    })
+    transactions = transactions.concat(_transactions)
+  })
+  let totalNumber = transactions.length
+  let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+  res.render('tokentxlist', {
+    page: 'tokentxlist',
+    title: 'BIUT Blockchain - Token Tx List',
+    pageNumber: pageNumber,
+    totalNumber: totalNumber,
+    transactions: _transactions
   })
 })
 
 router.get('/tokentxlist-pagination', function (req, res, next) {
   let pageNumber = parseInt(req.query.pageNumber || 1)
   let pageSize = parseInt(req.query.pageSize || 39)
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) next(err)
-    let transactions = []
-    data.reverse().forEach(block => {
-      let _transactions = block.Transactions.map(el => {
-        let _transaction = Object.assign({}, el)
-        _transaction.BlockNumber = block.Number
-        _transaction.BlockTimeStamp = block.TimeStamp
-        return _transaction
-      })
-      transactions = transactions.concat(_transactions)
+  let data = BlockchainCache.getBIUTChain()
+  let transactions = []
+  data.reverse().forEach(block => {
+    let _transactions = block.Transactions.map(el => {
+      let _transaction = Object.assign({}, el)
+      _transaction.BlockNumber = block.Number
+      _transaction.BlockTimeStamp = block.TimeStamp
+      return _transaction
     })
-    let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
-    res.json(_transactions)
+    transactions = transactions.concat(_transactions)
   })
+  let _transactions = transactions.slice((pageNumber - 1) * pageSize, pageNumber * pageSize)
+  res.json(_transactions)
 })
 
 router.get('/tokentxdetails', function (req, res, next) {
-  SECCore.secAPIs.getTokenTx(req.query.hash, (transaction) => {
-    res.render('tokentxdetails', {
-      page: 'tokentxdetails',
-      title: 'BIUT Blockchain - Token Tx Details',
-      transaction: transaction
-    })
+  let BIUTTxs = BlockchainCache.getBIUTTxs()
+  BIUTTxs.forEach(tx => {
+    if (req.query.hash === tx.TxHash) {
+      res.render('tokentxdetails', {
+        page: 'tokentxdetails',
+        title: 'BIUT Blockchain - Token Tx Details',
+        transaction: tx
+      })
+    }
   })
 })
 
@@ -303,22 +292,20 @@ router.get('/search', function (req, res, next) {
       return next(new Error('Wrong Input parameter'))
     }
   } else {
-    SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-      if (err) next(err)
-      if ((parseInt(keyword) < data.length) && (parseInt(keyword) > -1)) {
-        let block = data[parseInt(keyword)]
-        if (typeof block.Transactions !== 'object') {
-          block = JSON.parse(block)
-        }
-        res.render('tokenblockdetails', {
-          page: 'tokenblockdetails',
-          title: 'BIUT Blockchain - Token Block Details',
-          block: block
-        })
-      } else {
-        res.redirect('/sen/search?search=' + keyword)
+    let data = BlockchainCache.getBIUTChain()
+    if ((parseInt(keyword) < data.length) && (parseInt(keyword) > -1)) {
+      let block = data[parseInt(keyword)]
+      if (typeof block.Transactions !== 'object') {
+        block = JSON.parse(block)
       }
-    })
+      res.render('tokenblockdetails', {
+        page: 'tokenblockdetails',
+        title: 'BIUT Blockchain - Token Block Details',
+        block: block
+      })
+    } else {
+      res.redirect('/sen/search?search=' + keyword)
+    }
   }
 })
 
@@ -437,9 +424,20 @@ router.get('/pool', function (req, res, next) {
 })
 
 router.get('/alltx', function (req, res, next) {
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
+  let data = BlockchainCache.getBIUTChain()
+  let sectransactions = []
+  data.reverse().forEach(block => {
+    let _transactions = block.Transactions.map(el => {
+      let _transaction = Object.assign({}, el)
+      _transaction.BlockNumber = block.Number
+      _transaction.BlockTimeStamp = block.TimeStamp
+      return _transaction
+    })
+    sectransactions = sectransactions.concat(_transactions)
+  })
+  SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
     if (err) next(err)
-    let sectransactions = []
+    let sentransactions = []
     data.reverse().forEach(block => {
       let _transactions = block.Transactions.map(el => {
         let _transaction = Object.assign({}, el)
@@ -447,73 +445,52 @@ router.get('/alltx', function (req, res, next) {
         _transaction.BlockTimeStamp = block.TimeStamp
         return _transaction
       })
-      sectransactions = sectransactions.concat(_transactions)
+      sentransactions = sentransactions.concat(_transactions)
     })
-    SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
-      if (err) next(err)
-      let sentransactions = []
-      data.reverse().forEach(block => {
-        let _transactions = block.Transactions.map(el => {
-          let _transaction = Object.assign({}, el)
-          _transaction.BlockNumber = block.Number
-          _transaction.BlockTimeStamp = block.TimeStamp
-          return _transaction
-        })
-        sentransactions = sentransactions.concat(_transactions)
-      })
-      res.json({
-        sectx: sectransactions,
-        sentx: sentransactions
-      })
+    res.json({
+      sectx: sectransactions,
+      sentx: sentransactions
     })
   })
 })
 
 router.get('/alltxwithpool', function (req, res, next) {
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) next(err)
-    let sectransactions = []
-    data.reverse().forEach(block => {
-      let _transactions = block.Transactions.map(el => {
-        let _transaction = Object.assign({}, el)
-        _transaction.BlockNumber = block.Number
-        _transaction.BlockTimeStamp = block.TimeStamp
-        return _transaction
-      })
-      sectransactions = sectransactions.concat(_transactions)
+  let data = BlockchainCache.getBIUTChain()
+  let sectransactions = []
+  data.reverse().forEach(block => {
+    let _transactions = block.Transactions.map(el => {
+      let _transaction = Object.assign({}, el)
+      _transaction.BlockNumber = block.Number
+      _transaction.BlockTimeStamp = block.TimeStamp
+      return _transaction
     })
-    SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
-      if (err) next(err)
-      let sentransactions = []
-      data.reverse().forEach(block => {
-        let _transactions = block.Transactions.map(el => {
-          let _transaction = Object.assign({}, el)
-          _transaction.BlockNumber = block.Number
-          _transaction.BlockTimeStamp = block.TimeStamp
-          return _transaction
-        })
-        sentransactions = sentransactions.concat(_transactions)
-      })
-      res.json({
-        secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().reverse(),
-        sectx: sectransactions,
-        senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().reverse(),
-        sentx: sentransactions
-      })
+    sectransactions = sectransactions.concat(_transactions)
+  })
+  data = BlockchainCache.getBIUChain()
+  let sentransactions = []
+  data.reverse().forEach(block => {
+    let _transactions = block.Transactions.map(el => {
+      let _transaction = Object.assign({}, el)
+      _transaction.BlockNumber = block.Number
+      _transaction.BlockTimeStamp = block.TimeStamp
+      return _transaction
     })
+    sentransactions = sentransactions.concat(_transactions)
+  })
+  res.json({
+    secpool: SECCore.CenterController.secChain.pool.getAllTxFromPool().reverse(),
+    sectx: sectransactions,
+    senpool: SECCore.CenterController.senChain.pool.getAllTxFromPool().reverse(),
+    sentx: sentransactions
   })
 })
 
 router.get('/blockchain', function (req, res, next) {
-  SECCore.secAPIs.getWholeTokenBlockchain((err, secdata) => {
-    if (err) next(err)
-    SECCore.senAPIs.getWholeTokenBlockchain((err, sendata) => {
-      if (err) next(err)
-      res.json({
-        secblockchain: secdata,
-        senblockchain: sendata
-      })
-    })
+  let secdata = BlockchainCache.getBIUTChain()
+  let sendata = BlockchainCache.getBIUChain()
+  res.json({
+    secblockchain: secdata,
+    senblockchain: sendata
   })
 })
 
@@ -522,33 +499,29 @@ router.get('/accountaddress', function (req, res, next) {
 })
 
 router.get('/tokenblockhashlist', function (req, res, next) {
-  SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) return next(err)
-    let HashList = []
-    data.forEach(block => {
-      HashList.push({
-        ParentHash: block.ParentHash,
-        Hash: block.Hash,
-        Number: block.Number
-      })
+  let data = BlockchainCache.getBIUTChain()
+  let HashList = []
+  data.forEach(block => {
+    HashList.push({
+      ParentHash: block.ParentHash,
+      Hash: block.Hash,
+      Number: block.Number
     })
-    res.json(HashList)
   })
+  res.json(HashList)
 })
 
 router.get('/tokenblockhashlist-sen', function (req, res, next) {
-  SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
-    if (err) return next(err)
-    let HashList = []
-    data.forEach(block => {
-      HashList.push({
-        ParentHash: block.ParentHash,
-        Hash: block.Hash,
-        Number: block.Number
-      })
+  let data = BlockchainCache.getBIUChain()
+  let HashList = []
+  data.forEach(block => {
+    HashList.push({
+      ParentHash: block.ParentHash,
+      Hash: block.Hash,
+      Number: block.Number
     })
-    res.json(HashList)
   })
+  res.json(HashList)
 })
 
 router.get('/ndptable', function (req, res, next) {
