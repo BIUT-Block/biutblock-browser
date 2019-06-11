@@ -1,6 +1,6 @@
 {
   "name": "@biut-block/biutblock-browser",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "biut blockchain browser",
   "main": "bin/www",
   "directories": {
