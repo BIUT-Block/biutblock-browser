@@ -8,6 +8,7 @@ const logger = require('morgan')
 const indexRouter = require('./routes/index')
 const SENRouter = require('./routes/sen')
 const RPCTransfer = require('./routes/rpc-transfer')
+const Forwarding = require('./routes/forwarding')
 
 let app = express()
 
@@ -25,6 +26,7 @@ app.use(cors())
 app.use('/', indexRouter)
 app.use('/sen', SENRouter)
 app.use('/rpctransfer', RPCTransfer)
+app.use('/forwarding', Forwarding)
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
