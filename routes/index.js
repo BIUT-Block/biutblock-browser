@@ -7,52 +7,39 @@ const GEOIPReader = require('@maxmind/geoip2-node').Reader
 const dbBuffer = fs.readFileSync(process.cwd() + '/src/GeoIP2-City.mmdb')
 const geoIPReader = GEOIPReader.openBuffer(dbBuffer)
 const generatePassword = require('password-generator')
-const SECUtil = require('@biut-block/biutjs-util')
 const request = require('request')
+const _ = require('lodash')
+const Utils = require('../src/utils')
 const auth = require('../models/auth')
-
-const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
-const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
-
-function _createTransaction (sendToAddress, amount, txFee) {
-  let timeStamp = new Date().getTime()
-  let transferData = [{
-    timestamp: timeStamp,
-    from: chargerAddress,
-    to: sendToAddress,
-    value: amount,
-    txFee: txFee,
-    gasLimit: '0',
-    gas: '0',
-    gasPrice: '0',
-    data: '',
-    inputData: ''
-  }]
-  const tokenTxBuffer = [
-    SECUtil.bufferToInt(transferData[0].timestamp),
-    Buffer.from(transferData[0].from, 'hex'),
-    Buffer.from(transferData[0].to, 'hex'),
-    Buffer.from(transferData[0].value),
-    Buffer.from(transferData[0].gasLimit),
-    Buffer.from(transferData[0].gas),
-    Buffer.from(transferData[0].gasPrice),
-    Buffer.from(transferData[0].inputData)
-  ]
-  let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
-  let signature = SECUtil.ecsign(txSigHash, Buffer.from(chargerPrivateKey, 'hex'))
-  transferData[0].data = {
-    v: signature.v,
-    r: signature.r.toString('hex'),
-    s: signature.s.toString('hex')
-  }
-  return transferData
-}
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
   res.render('index', {
     page: 'home',
     title: 'BIUT Blockchain Explorer V1.1'
+  })
+})
+
+router.get('/BIUTChainInfo', function (req, res, next) {
+  let BIUTChain = BlockchainCache.getBIUTChain()
+  let BIUTTxs = BlockchainCache.getBIUTTxs()
+  let TransactionsSum = BIUTTxs.length
+  res.json({
+    BlockSum: BIUTChain.length,
+    blockchain: _.takeRight(BIUTChain, 50).reverse(),
+    TransactionsSum: TransactionsSum
+  })
+})
+
+router.get('/BIUChainInfo', function (req, res, next) {
+  let BIUChain = BlockchainCache.getBIUChain()
+  let BIUTxs = BlockchainCache.getBIUTxs()
+  let TransactionsSum = BIUTxs.length
+  res.json({
+    BlockSum: BIUChain.length,
+    blockchain: _.takeRight(BIUChain, 50).reverse(),
+    TransactionsSum: TransactionsSum,
+    accountNumber: TransactionsSum / 2 * 3
   })
 })
 
@@ -319,6 +306,20 @@ router.get('/nodeinfoapi', function (req, res, next) {
     })
   })
   res.json(locations)
+})
+
+router.get('/systeminfoapi', function (req, res, next) {
+  let nodes = SECCore.CenterController.nodesIPSync.getNodesTable()
+  let tps = _.random(20, 30)
+  res.json({
+    NodesSum: nodes.length,
+    TPS: tps
+  })
+})
+
+router.get('/tpsapi', function (req, res, next) {
+  let nodes = SECCore.CenterController.nodesIPSync.getNodesTable()
+  res.send(nodes.length)
 })
 
 router.get('/secwallet', function (req, res, next) {
@@ -690,7 +691,7 @@ router.post('/mapping/verify', auth, (req, res, next) => {
         _mapping.remarks = mapping.remarks
         if (req.query.type !== 'save') {
           console.log('transfer')
-          let transaction = _createTransaction(_mapping.biutaddress, _mapping.value, '0')
+          let transaction = Utils.createTransaction(_mapping.biutaddress, _mapping.value, '0')
           request({
             method: 'POST',
             url: 'http://localhost:3002',

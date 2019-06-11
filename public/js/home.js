@@ -1,32 +1,39 @@
-/* global $ io TimeDiff */
-let secTxSum = 0
-let senTxSum = 0
-let secHeight = 0
-let senHeight = 0
-let senAccount = 0
-let onlineNode = 0
-let currentTPS = 0
+/* global $ TimeDiff */
+let biutTxSum = 0
+let biuTxSum = 0
+let biutHeight = 0
+let biuHeight = 0
+let biuAccount = 0
+let currenttpsBuffer = []
+let transactionsBuffer = []
+
 $(document).ready(() => {
-  const socket = io.connect(window.location.protocol + '//' + window.location.host + '/home')
-  let currenttpsBuffer = []
-  let transactionsBuffer = []
-  socket.on('TokenBlockchain', (data) => {
-    secTxSum = data.TransactionsSum
-    onlineNode = data.Nodes.length
-    currentTPS = data.TPS
-    secHeight = data.BlockSum - 1
-    let TokenBlockchain = data.blockchain
+  getBIUTChainInfo()
+  getBIUChainInfo()
+  getSystemInfo()
+  setInterval(() => {
+    getBIUTChainInfo()
+    getBIUChainInfo()
+    getSystemInfo()
+  }, 30000)
+})
+
+function getBIUTChainInfo () {
+  $.getJSON('/BIUTChainInfo', data => {
+    biutTxSum = data.TransactionsSum
+    biutHeight = data.BlockSum - 1
+    let BIUTChain = data.blockchain
     $('#token-block-chain-list').html('')
     $('#token-trans-list').html('')
     let transactions = []
-    TokenBlockchain.forEach((_token, index) => {
-      let token = _token
-      if (typeof _token !== 'object') {
-        token = JSON.parse(_token)
+    BIUTChain.forEach((block, index) => {
+      let _block = block
+      if (typeof block !== 'object') {
+        _block = JSON.parse(block)
       }
-      transactions = transactions.concat(token.Transactions)
+      transactions = transactions.concat(_block.Transactions)
       if (index < 20) {
-        blockList(token)
+        biutBlockList(_block)
       }
     })
 
@@ -36,20 +43,12 @@ $(document).ready(() => {
         trans = JSON.parse(_trans)
       }
       if (index < 50 && trans.TxFrom.substring(0, 4) !== '0000') {
-        tradingList(trans)
+        biutTradingList(trans)
       }
     })
     indexList()
 
-    if (currenttpsBuffer.length < 11) {
-      currenttpsBuffer.push(parseInt(data.TPS))
-    } else {
-      currenttpsBuffer.shift()
-      currenttpsBuffer.push(parseInt(data.TPS))
-    }
-    tpssparkline(currenttpsBuffer)
-
-    transactionsBuffer = TokenBlockchain.slice(0, 20).map(block => {
+    transactionsBuffer = BIUTChain.slice(0, 20).map(block => {
       if (typeof block !== 'object') {
         block = JSON.parse(block)
       }
@@ -57,23 +56,26 @@ $(document).ready(() => {
     })
     transactionssparkline(transactionsBuffer)
   })
-  socket.on('SEN_TokenBlockchain', (data) => {
-    senTxSum = data.TransactionsSum
-    senHeight = data.BlockSum - 1
-    senAccount = data.accountNumber
+}
+
+function getBIUChainInfo () {
+  $.getJSON('/BIUChainInfo', data => {
+    biuTxSum = data.TransactionsSum
+    biuHeight = data.BlockSum - 1
+    biuAccount = data.accountNumber
     indexList()
     let TokenBlockchain = data.blockchain
     $('#sen-token-block-chain-list').html('')
     $('#sen-token-trans-list').html('')
     let transactions = []
-    TokenBlockchain.forEach((_token, index) => {
-      let token = _token
-      if (typeof _token !== 'object') {
-        token = JSON.parse(_token)
+    TokenBlockchain.forEach((data, index) => {
+      let _data = data
+      if (typeof data !== 'object') {
+        _data = JSON.parse(data)
       }
-      transactions = transactions.concat(token.Transactions)
+      transactions = transactions.concat(_data.Transactions)
       if (index < 20) {
-        senBlockList(token)
+        biuBlockList(_data)
       }
     })
 
@@ -83,24 +85,37 @@ $(document).ready(() => {
         trans = JSON.parse(_trans)
       }
       if (index < 50 && trans.TxFrom.substring(0, 4) !== '0000') {
-        senTradingList(trans)
+        biuTradingList(trans)
       }
     })
+    indexList()
   })
-})
+}
+
+function getSystemInfo () {
+  $.getJSON('/systeminfoapi', data => {
+    $('#onlineNode').html(data.NodesSum)
+    $('#current').html(data.TPS)
+    if (currenttpsBuffer.length < 11) {
+      currenttpsBuffer.push(parseInt(data.TPS))
+    } else {
+      currenttpsBuffer.shift()
+      currenttpsBuffer.push(parseInt(data.TPS))
+    }
+    tpssparkline(currenttpsBuffer)
+  })
+}
 
 // 节点列表数据
 function indexList () {
-  $('#onlineNode').html(onlineNode)
-  $('#currentHeight').html(`${secHeight} | ${senHeight} `)
-  $('#accountNumber').html(senAccount)
-  $('#totalTransactions').html(`${secTxSum} | ${senTxSum} `)
-  $('#current').html(currentTPS)
+  $('#currentHeight').html(`${biutHeight} | ${biuHeight} `)
+  $('#accountNumber').html(biuAccount)
+  $('#totalTransactions').html(`${biutTxSum} | ${biuTxSum} `)
   $('#peak').html(33118)
 }
 
 // 区块列表 table
-function blockList (token) {
+function biutBlockList (token) {
   let timeDiff = TimeDiff(new Date(token.TimeStamp), new Date())
   $('#token-block-chain-list').append(`
   <ul class="inbox-item">
@@ -122,7 +137,7 @@ function blockList (token) {
 }
 
 // 交易列表 table
-function tradingList (trans) {
+function biutTradingList (trans) {
   $('#token-trans-list').append(`
   <ul class="inbox-item">
     <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">
@@ -151,7 +166,7 @@ function tradingList (trans) {
 }
 
 // 区块列表 table
-function senBlockList (token) {
+function biuBlockList (token) {
   let timeDiff = TimeDiff(new Date(token.TimeStamp), new Date())
   $('#sen-token-block-chain-list').append(`
   <ul class="inbox-item">
@@ -181,7 +196,7 @@ function senBlockList (token) {
 }
 
 // 交易列表 table
-function senTradingList (trans) {
+function biuTradingList (trans) {
   $('#sen-token-trans-list').append(`
   <ul class="inbox-item">
     <li class="itemList" style="margin-top:13px;padding-bottom: 13px;">

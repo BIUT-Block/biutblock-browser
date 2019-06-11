@@ -88,10 +88,10 @@ function onListening () {
   debug('Listening on ' + bind)
 }
 
-const io = require('socket.io')(server)
+// const io = require('socket.io')(server)
 
-require('../sockets/base')({
-  io: io,
-  SECMain: SECMain
-})
+// require('../sockets/base')({
+//   io: io,
+//   SECMain: SECMain
+// })
 SECMain.run()
