@@ -26,7 +26,7 @@ router.get('/BIUTChainInfo', function (req, res, next) {
   let TransactionsSum = BIUTTxs.length
   res.json({
     BlockSum: BIUTChain.length,
-    blockchain: _.takeRight(BIUTChain, 50).reverse(),
+    blockchain: _.takeRight(BIUTChain, 20).reverse(),
     TransactionsSum: TransactionsSum
   })
 })
@@ -37,7 +37,7 @@ router.get('/BIUChainInfo', function (req, res, next) {
   let TransactionsSum = BIUTxs.length
   res.json({
     BlockSum: BIUChain.length,
-    blockchain: _.takeRight(BIUChain, 50).reverse(),
+    blockchain: _.takeRight(BIUChain, 20).reverse(),
     TransactionsSum: TransactionsSum,
     accountNumber: TransactionsSum / 2 * 3
   })
