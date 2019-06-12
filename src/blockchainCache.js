@@ -1,4 +1,3 @@
-const _ = require('lodash')
 const SECCore = require('./main').Core
 const deepcopy = require('deepcopy')
 
