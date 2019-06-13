@@ -25,13 +25,12 @@ function getBIUTChainInfo () {
     let BIUTChain = data.blockchain
     $('#token-block-chain-list').html('')
     $('#token-trans-list').html('')
-    let transactions = []
+    let transactions = data.BIUTTxs
     BIUTChain.forEach((block, index) => {
       let _block = block
       if (typeof block !== 'object') {
         _block = JSON.parse(block)
       }
-      transactions = transactions.concat(_block.Transactions)
       if (index < 20) {
         biutBlockList(_block)
       }
@@ -67,13 +66,12 @@ function getBIUChainInfo () {
     let TokenBlockchain = data.blockchain
     $('#sen-token-block-chain-list').html('')
     $('#sen-token-trans-list').html('')
-    let transactions = []
+    let transactions = data.BIUTxs
     TokenBlockchain.forEach((data, index) => {
       let _data = data
       if (typeof data !== 'object') {
         _data = JSON.parse(data)
       }
-      transactions = transactions.concat(_data.Transactions)
       if (index < 20) {
         biuBlockList(_data)
       }
