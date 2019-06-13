@@ -28,19 +28,22 @@ router.get('/BIUTChainInfo', function (req, res, next) {
     BlockSum: BIUTChain.length,
     blockchain: _.takeRight(BIUTChain, 20).reverse(),
     TransactionsSum: TransactionsSum,
-    BIUTTxs: _.takeRight(BIUTTxs, 30).reverse()
+    BIUTTxs: _.takeRight(BIUTTxs, 20).reverse()
   })
 })
 
 router.get('/BIUChainInfo', function (req, res, next) {
   let BIUChain = BlockchainCache.getBIUChain()
   let BIUTxs = BlockchainCache.getBIUTxs()
+  BIUTxs.filter(tx => {
+    return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4)
+  })
   let TransactionsSum = BIUTxs.length
   res.json({
     BlockSum: BIUChain.length,
     blockchain: _.takeRight(BIUChain, 20).reverse(),
     TransactionsSum: TransactionsSum,
-    BIUTxs: _.takeRight(BIUTxs, 30).reverse(),
+    BIUTxs: _.takeRight(BIUTxs, 20).reverse(),
     accountNumber: TransactionsSum / 2 * 3
   })
 })
