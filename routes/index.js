@@ -27,7 +27,8 @@ router.get('/BIUTChainInfo', function (req, res, next) {
   res.json({
     BlockSum: BIUTChain.length,
     blockchain: _.takeRight(BIUTChain, 20).reverse(),
-    TransactionsSum: TransactionsSum
+    TransactionsSum: TransactionsSum,
+    BIUTTxs: _.takeRight(BIUTTxs, 30).reverse()
   })
 })
 
@@ -39,6 +40,7 @@ router.get('/BIUChainInfo', function (req, res, next) {
     BlockSum: BIUChain.length,
     blockchain: _.takeRight(BIUChain, 20).reverse(),
     TransactionsSum: TransactionsSum,
+    BIUTxs: _.takeRight(BIUTxs, 30).reverse(),
     accountNumber: TransactionsSum / 2 * 3
   })
 })
