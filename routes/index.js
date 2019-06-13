@@ -35,7 +35,7 @@ router.get('/BIUTChainInfo', function (req, res, next) {
 router.get('/BIUChainInfo', function (req, res, next) {
   let BIUChain = BlockchainCache.getBIUChain()
   let BIUTxs = BlockchainCache.getBIUTxs()
-  BIUTxs.filter(tx => {
+  BIUTxs = BIUTxs.filter(tx => {
     return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4)
   })
   let TransactionsSum = BIUTxs.length
