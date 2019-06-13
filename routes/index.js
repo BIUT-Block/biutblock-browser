@@ -727,23 +727,23 @@ router.post('/mapping/verify', auth, (req, res, next) => {
 })
 
 router.get('/mapping/remove', auth, (req, res, next) => {
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
-    if (err) next(err)
-    let mappings = []
-    try {
-      mappings = JSON.parse(data) || []
-    } catch (err) {
-      console.error(err)
-      mappings = []
-    }
-    mappings.forEach((mapping, index) => {
-      if (mapping._id === req.query.id) mappings.splice(index, 1)
-    })
-    fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
-      if (err) next(err)
-      res.redirect('/mapping-controller')
-    })
-  })
+  // fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+  //   if (err) next(err)
+  //   let mappings = []
+  //   try {
+  //     mappings = JSON.parse(data) || []
+  //   } catch (err) {
+  //     console.error(err)
+  //     mappings = []
+  //   }
+  //   mappings.forEach((mapping, index) => {
+  //     if (mapping._id === req.query.id) mappings.splice(index, 1)
+  //   })
+  //   fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+  //     if (err) next(err)
+  //     res.redirect('/mapping-controller')
+  //   })
+  // })
 })
 
 router.get('/mapping-controller', auth, (req, res, next) => {
