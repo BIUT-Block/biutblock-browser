@@ -8,5 +8,6 @@ data/*
 log
 public/version.json
 public/mapping.json
+data/mapping.json
 biutlogs
 address
