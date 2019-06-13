@@ -594,7 +594,7 @@ router.get('/mapping', auth, (req, res, next) => {
 
 router.post('/mapping', (req, res, next) => {
   let mapping = req.body
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+  fs.readFile(process.cwd() + '/data/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
     try {
@@ -640,7 +640,7 @@ router.post('/mapping', (req, res, next) => {
       mapping.biutaddress = mapping.ethaddress
       mapping.confirm = 'false'
       mappings.push(mapping)
-      fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+      fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
         if (err) next(err)
         res.json({ status: 'success' })
       })
@@ -649,7 +649,7 @@ router.post('/mapping', (req, res, next) => {
 })
 
 router.get('/mapping/verify', auth, (req, res, next) => {
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+  fs.readFile(process.cwd() + '/data/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
     try {
@@ -672,7 +672,7 @@ router.get('/mapping/verify', auth, (req, res, next) => {
 
 router.post('/mapping/verify', auth, (req, res, next) => {
   let mapping = req.body
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
+  fs.readFile(process.cwd() + '/data/mapping.json', (err, data) => {
     if (err) next(err)
     let mappings = []
     try {
@@ -705,18 +705,16 @@ router.post('/mapping/verify', auth, (req, res, next) => {
               'Content-Type': 'application/json'
             }
           }, (err, response, body) => {
-            console.log(err)
-            console.log(body)
             if (err) {
               res.json(err)
             }
-            fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+            fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
               if (err) next(err)
               return res.redirect('/mapping-controller')
             })
           })
         } else {
-          fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
+          fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
             if (err) next(err)
             return res.redirect('/mapping-controller')
           })
@@ -726,28 +724,8 @@ router.post('/mapping/verify', auth, (req, res, next) => {
   })
 })
 
-router.get('/mapping/remove', auth, (req, res, next) => {
-  // fs.readFile(process.cwd() + '/public/mapping.json', (err, data) => {
-  //   if (err) next(err)
-  //   let mappings = []
-  //   try {
-  //     mappings = JSON.parse(data) || []
-  //   } catch (err) {
-  //     console.error(err)
-  //     mappings = []
-  //   }
-  //   mappings.forEach((mapping, index) => {
-  //     if (mapping._id === req.query.id) mappings.splice(index, 1)
-  //   })
-  //   fs.writeFile(process.cwd() + '/public/mapping.json', JSON.stringify(mappings), (err) => {
-  //     if (err) next(err)
-  //     res.redirect('/mapping-controller')
-  //   })
-  // })
-})
-
 router.get('/mapping-controller', auth, (req, res, next) => {
-  fs.readFile(process.cwd() + '/public/mapping.json', (err, mappings) => {
+  fs.readFile(process.cwd() + '/data/mapping.json', (err, mappings) => {
     if (err) next(err)
     res.render('mapping-controller', {
       page: 'mapping-controller',
@@ -756,5 +734,25 @@ router.get('/mapping-controller', auth, (req, res, next) => {
     })
   })
 })
+
+// router.get('/mapping/remove', auth, (req, res, next) => {
+// fs.readFile(process.cwd() + '/data/mapping.json', (err, data) => {
+//   if (err) next(err)
+//   let mappings = []
+//   try {
+//     mappings = JSON.parse(data) || []
+//   } catch (err) {
+//     console.error(err)
+//     mappings = []
+//   }
+//   mappings.forEach((mapping, index) => {
+//     if (mapping._id === req.query.id) mappings.splice(index, 1)
+//   })
+//   fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
+//     if (err) next(err)
+//     res.redirect('/mapping-controller')
+//   })
+// })
+// })
 
 module.exports = router
