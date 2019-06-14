@@ -62,6 +62,26 @@ router.get('/ticker', (req, res, next) => {
   }
 })
 
+router.get('/history', (req, res, next) => {
+  let symbol = req.query.symbol
+  let currentTimestamp = new Date().getTime() / 1000
+  let days7Before = currentTimestamp - 7 * 24 * 60 *60
+  let url = 'https://market.coinegg.com/tradingview/history?symbol=' + symbol + '&resolution=240&from=' + days7Before + '&to=' + currentTimestamp
+  request({
+    method: 'GET',
+    url: url,
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  }, (err, response, body) => {
+    if (err) {
+      res.json(err)
+    }
+    let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+    res.json(data)
+  })
+})
+
 router.get('/kline', (req, res, next) => {
   request({
     method: 'GET',
