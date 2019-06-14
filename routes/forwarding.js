@@ -45,9 +45,21 @@ router.get('/ticker', (req, res, next) => {
       let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
       res.json(data)
     })
+  } else if (req.query.symbol === 'sec_usdt') {
+    request({
+      method: 'GET',
+      url: 'https://market.coinegg.com/market/ticker?symbol=sec_usdt',
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    }, (err, response, body) => {
+      if (err) {
+        res.json(err)
+      }
+      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+      res.json(data)
+    })
   }
-
-  
 })
 
 router.get('/kline', (req, res, next) => {
