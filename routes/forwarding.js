@@ -76,6 +76,7 @@ router.get('/ticker', (req, res, next) => {
 })
 
 router.get('/history', (req, res, next) => {
+  let symbol = req.query.symbol
   let timeInterval = getTimeInterval()
   let url = 'https://market.coinegg.com/tradingview/history?symbol=' + symbol + '&resolution=D&from=' + timeInterval.days10Before + '&to=' + timeInterval.current
   request({
