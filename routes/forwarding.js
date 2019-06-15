@@ -2,6 +2,19 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 
+function getTimeInterval () {
+  let fullYear = new Date().getFullYear()
+  let month = new Date().getMonth() + 1
+  let day = new Date().getDate()
+  let timeStamp = new Date(fullYear + '-' + month + '-' + day + ' 18:00:00').getTime() / 1000
+  let days10Before = timeStamp - 10 * 24 * 60 * 60
+  return {
+    current: timeStamp,
+    days10Before: days10Before
+  }
+}
+
+
 router.get('/ticker', (req, res, next) => {
   if (req.query.symbol === 'sec_btc') {
     request({
@@ -63,10 +76,8 @@ router.get('/ticker', (req, res, next) => {
 })
 
 router.get('/history', (req, res, next) => {
-  let symbol = req.query.symbol
-  let currentTimestamp = new Date().getTime() / 1000
-  let days7Before = currentTimestamp - 7 * 24 * 60 *60
-  let url = 'https://market.coinegg.com/tradingview/history?symbol=' + symbol + '&resolution=240&from=' + days7Before + '&to=' + currentTimestamp
+  let timeInterval = getTimeInterval()
+  let url = 'https://market.coinegg.com/tradingview/history?symbol=' + symbol + '&resolution=D&from=' + timeInterval.days10Before + '&to=' + timeInterval.current
   request({
     method: 'GET',
     url: url,
