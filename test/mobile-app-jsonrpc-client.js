@@ -5,8 +5,8 @@ const SECUtils = require('@biut-block/biutjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  // host: '18.197.120.79', // test-frankfurt
-  host: '35.180.100.27', // test-paris
+  host: '35.158.171.46', // test-frankfurt
+  // host: '35.180.100.27', // test-paris
   port: 3003
 })
 
@@ -35,7 +35,17 @@ class MobileAppRpcClient {
     // this._setBlock()
     // this._syncFromIp()
     // this.sec_debug_getAccTreeAccInfo()
-    this.sec_getTotalReward()
+    // this.sec_getTotalReward()
+    this.sec_rebuildAccTree()
+  }
+
+  sec_rebuildAccTree () {
+    const request = []
+    client.request('sec_rebuildAccTree', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('sec_rebuildAccTree')
+      console.log(JSON.stringify(response))
+    })
   }
 
   sec_getTotalReward () {
