@@ -1,5 +1,5 @@
 const SECCore = require('./main').Core
-const deepcopy = require('deepcopy')
+const deepcopy = require('clone-deep')
 
 class BlockchainCache {
   constructor () {
