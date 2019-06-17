@@ -6,7 +6,7 @@ function getTimeInterval () {
   let fullYear = new Date().getFullYear()
   let month = new Date().getMonth() + 1
   let day = new Date().getDate()
-  let timeStamp = new Date(fullYear + '-' + month + '-' + day + ' 18:00:00').getTime() / 1000
+  let timeStamp = new Date(fullYear + '-' + month + '-' + day + ' 12:00:00').getTime() / 1000
   let days10Before = timeStamp - 10 * 24 * 60 * 60
   return {
     current: timeStamp,
