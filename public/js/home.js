@@ -107,7 +107,7 @@ function getSystemInfo () {
 // 节点列表数据
 function indexList () {
   $('#currentHeight').html(`${biutHeight} | ${biuHeight} `)
-  $('#accountNumber').html(biuAccount)
+  $('#accountNumber').html(Math.round(biuAccount))
   $('#totalTransactions').html(`${biutTxSum} | ${biuTxSum} `)
   $('#peak').html(33118)
 }
