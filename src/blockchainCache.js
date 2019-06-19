@@ -1,5 +1,6 @@
 const SECCore = require('./main').Core
 const deepcopy = require('clone-deep')
+const _ = require('lodash')
 
 class BlockchainCache {
   constructor () {
@@ -7,6 +8,8 @@ class BlockchainCache {
     this.biuChain = []
     this.biutTxs = []
     this.biuTxs = []
+    this.biutHome = {}
+    this.biuHome = {}
     this.loadBIUTChain(err => {
       if (err) console.error(err)
       else console.log('Init BIUTChain finished')
@@ -23,12 +26,12 @@ class BlockchainCache {
       this.loadBIUTChain(err => {
         if (err) console.error(err)
       })
-    }, 20000)
+    }, 60000)
     setInterval(() => {
       this.loadBIUChain(err => {
         if (err) console.error(err)
       })
-    }, 20000)
+    }, 60000)
   }
 
   loadBIUTChain (callback) {
@@ -44,6 +47,12 @@ class BlockchainCache {
           biutTxs = biutTxs.concat(_data.Transactions)
           if (data.length === i + 1) {
             this.biutTxs = biutTxs
+            this.biutHome = {
+              BlockSum: this.biutChain.length,
+              blockchain: _.takeRight(deepcopy(this.biutChain), 20).reverse(),
+              TransactionsSum: this.biutTxs.length,
+              BIUTTxs: _.takeRight(deepcopy(this.biutTxs), 20).reverse()
+            }
             callback(err)
           }
         })
@@ -67,6 +76,15 @@ class BlockchainCache {
           biuTxs = biuTxs.concat(_data.Transactions)
           if (data.length === i + 1) {
             this.biuTxs = biuTxs
+            this.biuHome = {
+              BlockSum: this.biuChain.length,
+              blockchain: _.takeRight(deepcopy(this.biuChain), 20).reverse(),
+              TransactionsSum: this.biuTxs.length,
+              BIUTxs: (_.takeRight(deepcopy(this.biuTxs), 20).reverse()).filter(tx => {
+                return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000'
+              }),
+              accountNumber: Math.round(this.biuTxs.length / 2 * 3)
+            }
             callback(err)
           }
         })
@@ -89,6 +107,12 @@ class BlockchainCache {
   }
   getBIUTxs () {
     return deepcopy(this.biuTxs)
+  }
+  getBIUTHomeInfo () {
+    return this.biutHome
+  }
+  getBIUHomeInfo () {
+    return this.biuHome
   }
 }
 
