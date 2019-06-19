@@ -109,7 +109,6 @@ function indexList () {
   $('#currentHeight').html(`${biutHeight} | ${biuHeight} `)
   $('#accountNumber').html(Math.round(biuAccount))
   $('#totalTransactions').html(`${biutTxSum} | ${biuTxSum} `)
-  $('#peak').html(33118)
 }
 
 // 区块列表 table
