@@ -21,31 +21,11 @@ router.get('/', function (req, res, next) {
 })
 
 router.get('/BIUTChainInfo', function (req, res, next) {
-  let BIUTChain = BlockchainCache.getBIUTChain()
-  let BIUTTxs = BlockchainCache.getBIUTTxs()
-  let TransactionsSum = BIUTTxs.length
-  res.json({
-    BlockSum: BIUTChain.length,
-    blockchain: _.takeRight(BIUTChain, 20).reverse(),
-    TransactionsSum: TransactionsSum,
-    BIUTTxs: _.takeRight(BIUTTxs, 20).reverse()
-  })
+  res.json(BlockchainCache.getBIUTHomeInfo())
 })
 
 router.get('/BIUChainInfo', function (req, res, next) {
-  let BIUChain = BlockchainCache.getBIUChain()
-  let BIUTxs = BlockchainCache.getBIUTxs()
-  BIUTxs = BIUTxs.filter(tx => {
-    return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000'
-  })
-  let TransactionsSum = BIUTxs.length
-  res.json({
-    BlockSum: BIUChain.length,
-    blockchain: _.takeRight(BIUChain, 20).reverse(),
-    TransactionsSum: TransactionsSum,
-    BIUTxs: _.takeRight(BIUTxs, 20).reverse(),
-    accountNumber: TransactionsSum / 2 * 3
-  })
+  res.json(BlockchainCache.getBIUHomeInfo())
 })
 
 router.get('/genesisBlockHash', function (req, res, next) {
