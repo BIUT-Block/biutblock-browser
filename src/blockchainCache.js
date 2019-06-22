@@ -6,6 +6,8 @@ class BlockchainCache {
   constructor () {
     this.biutChain = []
     this.biuChain = []
+    this.biutChainHeight = 0
+    this.biuChainHeight = 0
     this.biutTxs = []
     this.biuTxs = []
     this.biutHome = {}
@@ -26,11 +28,13 @@ class BlockchainCache {
       this.loadBIUTChain(err => {
         if (err) console.error(err)
       })
+      this.loadBIUTChainHeight()
     }, 60000)
     setInterval(() => {
       this.loadBIUChain(err => {
         if (err) console.error(err)
       })
+      this.loadBIUChainHeight()
     }, 60000)
   }
 
@@ -94,12 +98,28 @@ class BlockchainCache {
     })
   }
 
+  loadBIUTChainHeight (callback) {
+    this.biutChainHeight = SECCore.secAPIs.getChainHeight()
+  }
+
+  loadBIUChainHeight (callback) {
+    this.biuChainHeight = SECCore.secAPIs.getChainHeight()
+  }
+
   getBIUTChain () {
     return deepcopy(this.biutChain)
   }
 
   getBIUChain () {
     return deepcopy(this.biuChain)
+  }
+
+  getBIUTChainHeight () {
+    return this.biutChainHeight
+  }
+
+  getBIUChainHeight () {
+    return this.biuChainHeight
   }
 
   getBIUTTxs () {
