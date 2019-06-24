@@ -71,7 +71,7 @@ class BlockchainCache {
     SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
       if (err) console.error(err)
       this.biuChain = data
-      this.biuChainHeight = this.biuChainHeight.length
+      this.biuChainHeight = this.biuChain.length
       try {
         let biuTxs = []
         if (data.length === 0) return callback()
