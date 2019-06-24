@@ -28,13 +28,11 @@ class BlockchainCache {
       this.loadBIUTChain(err => {
         if (err) console.error(err)
       })
-      this.loadBIUTChainHeight()
     }, 60000)
     setInterval(() => {
       this.loadBIUChain(err => {
         if (err) console.error(err)
       })
-      this.loadBIUChainHeight()
     }, 60000)
   }
 
