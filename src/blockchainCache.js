@@ -41,6 +41,7 @@ class BlockchainCache {
   loadBIUTChain (callback) {
     SECCore.secAPIs.getWholeTokenBlockchain((err, data) => {
       this.biutChain = data
+      this.biutChainHeight = this.biutChain.length
       try {
         let biutTxs = []
         if (data.length === 0) return callback()
@@ -70,6 +71,7 @@ class BlockchainCache {
     SECCore.senAPIs.getWholeTokenBlockchain((err, data) => {
       if (err) console.error(err)
       this.biuChain = data
+      this.biuChainHeight = this.biuChainHeight.length
       try {
         let biuTxs = []
         if (data.length === 0) return callback()
