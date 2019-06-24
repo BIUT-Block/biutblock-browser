@@ -485,7 +485,7 @@ router.get('/blockheight', function (req, res, next) {
   let senHeight = BlockchainCache.getBIUChainHeight()
   res.json({
     secblockheight: secHeight,
-    senblockheigh: senHeight
+    senblockheight: senHeight
   })
 })
 
