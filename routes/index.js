@@ -480,6 +480,15 @@ router.get('/blockchain', function (req, res, next) {
   })
 })
 
+router.get('/blockheight', function (req, res, next) {
+  let secHeight = BlockchainCache.getBIUTChainHeight()
+  let senHeight = BlockchainCache.getBIUChainHeight()
+  res.json({
+    secblockheight: secHeight,
+    senblockheight: senHeight
+  })
+})
+
 router.get('/accountaddress', function (req, res, next) {
   res.send(SECCore.Account.getAddress())
 })
