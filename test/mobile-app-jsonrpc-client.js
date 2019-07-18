@@ -5,9 +5,11 @@ const SECUtils = require('@biut-block/biutjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  host: '35.158.171.46', // test-frankfurt
+  //host: '35.158.171.46', // test-frankfurt
   // host: '35.180.100.27', // test-paris
-  port: 3003
+  //host:'127.0.0.1',
+  //port: 3003
+  port: 3002
 })
 
 const userInfo = {
@@ -19,24 +21,25 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    // this.sec_getBalance()
-    // this.sec_getTransactions()
-    // this.sec_sendRawTransaction()
+    //this.sec_getBalance()
+    //this.sec_getTransactions()
+    //this.sec_sendRawTransaction()
     // this.sec_freeCharge()
     // this.sec_getTokenChainSize()
     // this.sec_setPOW()
     // this.sec_startNetworkEvent()
-    // this.sec_getBlockByHash()
+    //this.sec_getBlockByHash()
     // this.sec_getWholeTokenBlockchain()
     // this.sec_setAddress()
     // this.sec_clearCache()
     // this.sec_getChainHeight()
-    // this.sec_getNodeInfo()
+     //this.sec_getNodeInfo()
     // this._setBlock()
     // this._syncFromIp()
     // this.sec_debug_getAccTreeAccInfo()
     // this.sec_getTotalReward()
-    this.sec_rebuildAccTree()
+    //  this.sec_rebuildAccTree()
+      this.biut_validateAddress()
   }
 
   sec_rebuildAccTree () {
@@ -94,13 +97,16 @@ class MobileAppRpcClient {
   }
 
   sec_getTransactions () {
-    const request = ['83da24368d250db335b6085f1442aa15468a75d8'] // account address
+      //const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e'] // account address
+      const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e',2,5] // account address
     client.request('sec_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('sec_getTransactions')
       console.log(response)
       console.log('result: ')
-      console.log(JSON.stringify(response.result))
+        console.log(JSON.stringify(response.result))
+        //console.log(response.currentPage)
+        //console.log(response.totalNumber)
     })
   }
 
@@ -244,7 +250,16 @@ class MobileAppRpcClient {
       console.log('_syncFromIp')
       console.log(response)
     })
-  }
+    }
+
+    biut_validateAddress() {
+        let request = ['83da24368d250db335b6085f1442aa15468a75d8']
+        client.request('biut_validateAddress', request, (err, response) => {
+            if (err) console.log(err)
+            console.log('biut_validateAddress')
+            console.log(response)
+        })
+    }
 }
 
 let mobileAppRpcClient = new MobileAppRpcClient()
