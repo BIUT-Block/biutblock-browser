@@ -79,14 +79,14 @@ class BlockchainCache {
           }
           biuTxs = biuTxs.concat(_data.Transactions)
           if (data.length === i + 1) {
-            this.biuTxs = biuTxs
+            this.biuTxs = biuTxs.filter(tx => {
+              return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000'
+            })
             this.biuHome = {
               BlockSum: this.biuChain.length,
               blockchain: _.takeRight(deepcopy(this.biuChain), 20).reverse(),
               TransactionsSum: this.biuTxs.length,
-              BIUTxs: (_.takeRight(deepcopy(this.biuTxs), 20).reverse()).filter(tx => {
-                return tx.TxFrom.substring(0, 4) !== '0000' && tx.TxTo.substring(0, 4) !== '0000'
-              }),
+              BIUTxs: (_.takeRight(deepcopy(this.biuTxs), 20).reverse()),
               accountNumber: Math.round(this.biuTxs.length / 2 * 3)
             }
             callback(err)
