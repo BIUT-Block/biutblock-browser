@@ -12,3 +12,5 @@ data/mapping.json
 biutlogs
 address
 ndpprivatekey
+.vs
+.vs/*
