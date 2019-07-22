@@ -21,7 +21,7 @@ const userInfo = {
 class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
-    //this.sec_getBalance()
+    this.sec_getBalance()
     //this.sec_getTransactions()
     //this.sec_sendRawTransaction()
     // this.sec_freeCharge()
@@ -38,8 +38,8 @@ class MobileAppRpcClient {
     // this._syncFromIp()
     // this.sec_debug_getAccTreeAccInfo()
     // this.sec_getTotalReward()
-    //  this.sec_rebuildAccTree()
-      this.biut_validateAddress()
+      this.sec_rebuildAccTree()
+     // this.biut_validateAddress()
   }
 
   sec_rebuildAccTree () {
@@ -113,9 +113,9 @@ class MobileAppRpcClient {
   sec_sendRawTransaction () {
     const request = [{
       timestamp: new Date().getTime(), // number
-      from: '83da24368d250db335b6085f1442aa15468a75d8', // 40 bytes address
+        from: '0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
-      value: '10', // string
+      value: '0.01', // string
       gasLimit: '0', // string, temporarily set to 0
       gas: '0', // string, temporarily set to 0
       gasPrice: '0', // string, temporarily set to 0
@@ -260,6 +260,7 @@ class MobileAppRpcClient {
             console.log(response)
         })
     }
+
 }
 
 let mobileAppRpcClient = new MobileAppRpcClient()
