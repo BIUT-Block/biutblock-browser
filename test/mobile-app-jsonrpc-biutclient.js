@@ -5,10 +5,11 @@ const SECUtils = require('@biut-block/biutjs-util')
  * rpc server port 3002
  */
 let client = jayson.client.http({
-  //host: '35.158.171.46', // test-frankfurt
+  // host: '35.158.171.46', // test-frankfurt
   // host: '35.180.100.27', // test-paris
-  //host:'127.0.0.1',
-  //port: 3003
+  // host:'127.0.0.1',
+  // port: 3003
+  host: 'localhost',
   port: 3004
 })
 
@@ -22,24 +23,24 @@ class MobileAppRpcClient {
   constructor (config = {}) {
     this.config = config
     this.biut_getBalance()
-    //this.biut_getTransactions()
-    //this.biut_sendRawTransaction()
+    // this.biut_getTransactions()
+    // this.biut_sendRawTransaction()
     // this.biut_freeCharge()
     // this.biut_getTokenChainSize()
     // this.biut_setPOW()
     // this.biut_startNetworkEvent()
-    //this.biut_getBlockByHash()
+    // this.biut_getBlockByHash()
     // this.biut_getWholeTokenBlockchain()
-     this.biut_getNewAddress()
+    this.biut_getNewAddress()
     // this.biut_clearCache()
     // this.biut_getChainHeight()
-     //this.biut_getNodeInfo()
+    // this.biut_getNodeInfo()
     // this._setBlock()
     // this._syncFromIp()
     // this.biut_debug_getAccTreeAccInfo()
     // this.biut_getTotalReward()
-      this.biut_rebuildAccTree()
-     // this.biut_validateAddress()
+    this.biut_rebuildAccTree()
+    // this.biut_validateAddress()
   }
 
   biut_rebuildAccTree () {
@@ -50,8 +51,6 @@ class MobileAppRpcClient {
       console.log(JSON.stringify(response))
     })
   }
-
-
 
   biut_debug_getAccTreeAccInfo () {
     let request = ['83da24368d250db335b6085f1442aa15468a75d8']
@@ -80,7 +79,7 @@ class MobileAppRpcClient {
     })
   }
 
-   biut_getBalance () {
+  biut_getBalance () {
     const request = ['83da24368d250db335b6085f1442aa15468a75d8', 'latest'] // account address
     client.request('biut_getBalance', request, (err, response) => {
       if (err) console.log(err)
@@ -90,21 +89,21 @@ class MobileAppRpcClient {
   }
 
   biut_getTransactions () {
-      //const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e'] // account address
-      const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e',2,5] // account address
+    // const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e'] // account address
+    const request = ['0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e', 2, 5] // account address
     client.request('biut_getTransactions', request, (err, response) => {
       if (err) console.log(err)
       console.log('biut_getTransactions')
       console.log(response)
       console.log('result: ')
-        console.log(JSON.stringify(response.result))
+      console.log(JSON.stringify(response.result))
     })
   }
 
   biut_sendRawTransaction () {
     const request = [{
       timestamp: new Date().getTime(), // number
-        from: '0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e', // 40 bytes address
+      from: '0xe71250bbd106fdcf7c7a92cf7d58d8680976d20e', // 40 bytes address
       to: '7ad81e8ab64ddc52cd91b1ca921ab4baf1cf8f6b', // 40 bytes address
       value: '0.01', // string
       gasLimit: '0', // string, temporarily set to 0
@@ -241,25 +240,25 @@ class MobileAppRpcClient {
       console.log('_syncFromIp')
       console.log(response)
     })
-    }
+  }
 
-    biut_validateAddress() {
-        let request = ['83da24368d250db335b6085f1442aa15468a75d8']
-        client.request('biut_validateAddress', request, (err, response) => {
-            if (err) console.log(err)
-            console.log('biut_validateAddress')
-            console.log(response)
-        })
-    }
+  biut_validateAddress () {
+    let request = ['83da24368d250db335b6085f1442aa15468a75d8']
+    client.request('biut_validateAddress', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('biut_validateAddress')
+      console.log(response)
+    })
+  }
 
-    biut_getNewAddress() {
-        let request = []
-        client.request('biut_getNewAddress', request, (err, response) => {
-            if (err) console.log(err)
-            console.log('biut_getNewAddress')
-            console.log(response)
-        })
-    }
+  biut_getNewAddress () {
+    let request = []
+    client.request('biut_getNewAddress', request, (err, response) => {
+      if (err) console.log(err)
+      console.log('biut_getNewAddress')
+      console.log(response)
+    })
+  }
 }
 
 let mobileAppRpcClient = new MobileAppRpcClient()

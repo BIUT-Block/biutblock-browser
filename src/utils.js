@@ -3,7 +3,7 @@ const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
 const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
 
 let Utils = {
-  createTransaction: function _createTransaction (sendToAddress, amount, txFee) {
+  createTransaction: function _createTransaction (sendToAddress, amount, txFee, nonce) {
     let timeStamp = new Date().getTime()
     let transferData = [{
       timestamp: timeStamp,
@@ -15,6 +15,7 @@ let Utils = {
       gas: '0',
       gasPrice: '0',
       data: '',
+      nonce: nonce,
       inputData: ''
     }]
     const tokenTxBuffer = [
@@ -25,6 +26,7 @@ let Utils = {
       Buffer.from(transferData[0].gasLimit),
       Buffer.from(transferData[0].gas),
       Buffer.from(transferData[0].gasPrice),
+      Buffer.from(transferData[0].nonce),
       Buffer.from(transferData[0].inputData)
     ]
     let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
