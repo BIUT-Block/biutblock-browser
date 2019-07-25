@@ -684,16 +684,14 @@ router.post('/mapping/verify', auth, (req, res, next) => {
         _mapping.value = mapping.value
         _mapping.remarks = mapping.remarks
         if (req.query.type !== 'save') {
-          console.log('transfer')
-          let transaction = Utils.createTransaction(_mapping.biutaddress, _mapping.value, '0')
           request({
             method: 'POST',
             url: 'http://localhost:3002',
             body: JSON.stringify({
-              'method': 'sec_sendRawTransaction',
+              'method': 'sec_getNonce',
               'jsonrpc': '2.0',
               'id': '1',
-              'params': transaction
+              'params': ['c4be3c8093fd7acdcdf415331040fc974f8b2ad5']
             }),
             headers: {
               'Content-Type': 'application/json'
@@ -702,9 +700,29 @@ router.post('/mapping/verify', auth, (req, res, next) => {
             if (err) {
               res.json(err)
             }
-            fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
-              if (err) next(err)
-              return res.redirect('/mapping-controller')
+            let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+            let nonce = data.result ? data.result.Nonce || '0' : '0'
+            let transaction = Utils.createTransaction(_mapping.biutaddress, _mapping.value, '0', nonce)
+            request({
+              method: 'POST',
+              url: 'http://localhost:3002',
+              body: JSON.stringify({
+                'method': 'sec_sendRawTransaction',
+                'jsonrpc': '2.0',
+                'id': '1',
+                'params': transaction
+              }),
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            }, (err, response, body) => {
+              if (err) {
+                res.json(err)
+              }
+              fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
+                if (err) next(err)
+                return res.redirect('/mapping-controller')
+              })
             })
           })
         } else {

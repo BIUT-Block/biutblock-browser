@@ -14,7 +14,6 @@ function getTimeInterval () {
   }
 }
 
-
 router.get('/ticker', (req, res, next) => {
   if (req.query.symbol === 'sec_btc') {
     request({

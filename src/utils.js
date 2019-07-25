@@ -1,6 +1,7 @@
 const SECUtil = require('@biut-block/biutjs-util')
+const fs = require('fs')
+const path = require('path')
 const chargerAddress = 'c4be3c8093fd7acdcdf415331040fc974f8b2ad5'
-const chargerPrivateKey = 'f847ed41c167b3d89fd79b634a8049dd3a49ada638c494e170e02daf119b0187'
 
 let Utils = {
   createTransaction: function _createTransaction (sendToAddress, amount, txFee, nonce) {
@@ -30,6 +31,7 @@ let Utils = {
       Buffer.from(transferData[0].inputData)
     ]
     let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
+    let chargerPrivateKey = fs.readFileSync(path.join(process.cwd(), '/privateKey'), 'utf-8')
     let signature = SECUtil.ecsign(txSigHash, Buffer.from(chargerPrivateKey, 'hex'))
     transferData[0].data = {
       v: signature.v,
