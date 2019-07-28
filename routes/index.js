@@ -381,7 +381,6 @@ router.post('/publishversion', function (req, res, next) {
 
 router.post('/iplocation', function (req, res, next) {
   let ips = req.body.ips
-  console.log(req.body)
   if (Array.isArray(ips)) {
     let locations = []
     ips.forEach(ip => {
@@ -680,7 +679,7 @@ router.post('/mapping/verify', auth, (req, res, next) => {
         _mapping.ethaddress = mapping.ethaddress
         _mapping.txhash = mapping.txhash
         _mapping.biutaddress = mapping.biutaddress
-        _mapping.confirm = mapping.confirm
+        _mapping.confirm = mapping.confirm === 'false' ? 'false' : 'true'
         _mapping.value = mapping.value
         _mapping.remarks = mapping.remarks
         if (req.query.type !== 'save') {

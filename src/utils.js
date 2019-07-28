@@ -32,6 +32,7 @@ let Utils = {
     ]
     let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
     let chargerPrivateKey = fs.readFileSync(path.join(process.cwd(), '/privateKey'), 'utf-8')
+    console.log(chargerPrivateKey)
     let signature = SECUtil.ecsign(txSigHash, Buffer.from(chargerPrivateKey, 'hex'))
     transferData[0].data = {
       v: signature.v,
