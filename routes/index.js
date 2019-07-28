@@ -702,6 +702,7 @@ router.post('/mapping/verify', auth, (req, res, next) => {
             let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
             let nonce = data.result ? data.result.Nonce || '0' : '0'
             let transaction = Utils.createTransaction(_mapping.biutaddress, _mapping.value, '0', nonce)
+            console.log(transaction)
             request({
               method: 'POST',
               url: 'http://localhost:3002',
@@ -718,10 +719,16 @@ router.post('/mapping/verify', auth, (req, res, next) => {
               if (err) {
                 res.json(err)
               }
-              fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
-                if (err) next(err)
+              console.log(response)
+              let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+              if (data.info === 'OK') {
+                fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
+                  if (err) next(err)
+                  return res.redirect('/mapping-controller')
+                })
+              } else {
                 return res.redirect('/mapping-controller')
-              })
+              }
             })
           })
         } else {
