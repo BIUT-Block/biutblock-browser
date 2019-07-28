@@ -28,7 +28,8 @@ let Utils = {
       Buffer.from(transferData[0].gas),
       Buffer.from(transferData[0].gasPrice),
       Buffer.from(transferData[0].nonce),
-      Buffer.from(transferData[0].inputData)
+      Buffer.from(transferData[0].inputData),
+      Buffer.from('SEC')
     ]
     let txSigHash = Buffer.from(SECUtil.rlphash(tokenTxBuffer).toString('hex'), 'hex')
     let chargerPrivateKey = fs.readFileSync(path.join(process.cwd(), '/privateKey'), 'utf-8')
