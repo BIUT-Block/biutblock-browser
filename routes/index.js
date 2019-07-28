@@ -720,7 +720,7 @@ router.post('/mapping/verify', auth, (req, res, next) => {
               }
               let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
               console.log(data)
-              if (data.info === 'OK') {
+              if (data.result.info === 'OK') {
                 fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
                   if (err) next(err)
                   return res.redirect('/mapping-controller')
