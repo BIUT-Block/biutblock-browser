@@ -676,14 +676,12 @@ router.post('/mapping/verify', auth, (req, res, next) => {
     }
     mappings.forEach((_mapping, index) => {
       if (req.query.id === _mapping._id) {
-        console.log(_mapping)
         _mapping.ethaddress = mapping.ethaddress
         _mapping.txhash = mapping.txhash
         _mapping.biutaddress = mapping.biutaddress
         _mapping.confirm = mapping.confirm === 'false' ? 'false' : 'true'
         _mapping.value = mapping.value
         _mapping.remarks = mapping.remarks
-        console.log(_mapping)
         if (req.query.type !== 'save') {
           request({
             method: 'POST',
@@ -721,8 +719,6 @@ router.post('/mapping/verify', auth, (req, res, next) => {
                 res.json(err)
               }
               let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-              console.log(data)
-              console.log(data.result.info)
               if (data.result.info === 'OK') {
                 fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
                   if (err) next(err)
@@ -754,25 +750,5 @@ router.get('/mapping-controller', auth, (req, res, next) => {
     })
   })
 })
-
-// router.get('/mapping/remove', auth, (req, res, next) => {
-// fs.readFile(process.cwd() + '/data/mapping.json', (err, data) => {
-//   if (err) next(err)
-//   let mappings = []
-//   try {
-//     mappings = JSON.parse(data) || []
-//   } catch (err) {
-//     console.error(err)
-//     mappings = []
-//   }
-//   mappings.forEach((mapping, index) => {
-//     if (mapping._id === req.query.id) mappings.splice(index, 1)
-//   })
-//   fs.writeFile(process.cwd() + '/data/mapping.json', JSON.stringify(mappings), (err) => {
-//     if (err) next(err)
-//     res.redirect('/mapping-controller')
-//   })
-// })
-// })
 
 module.exports = router
