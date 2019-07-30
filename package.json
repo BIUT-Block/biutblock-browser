@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/BIUT-Block/biutblock-browser#README",
   "dependencies": {
-    "@biut-block/biutjs-node": "^1.0.75",
+    "@biut-block/biutjs-node": "^1.0.81",
     "@biut-block/biutjs-tx": "^1.0.3",
     "@biut-block/biutjs-util": "^1.0.0",
     "@maxmind/geoip2-node": "^0.4.0",
