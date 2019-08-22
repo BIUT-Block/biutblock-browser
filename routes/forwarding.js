@@ -60,7 +60,7 @@ router.get('/ticker', (req, res, next) => {
   } else if (req.query.symbol === 'biut_usdt') {
     request({
       method: 'GET',
-      url: 'https://market.coinegg.com/market/ticker?symbol=sec_usdt',
+      url: 'https://market.coinegg.com/market/ticker?symbol=biut_usdt',
       headers: {
         'Content-Type': 'application/json'
       }
