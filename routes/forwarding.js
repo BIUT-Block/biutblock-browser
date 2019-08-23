@@ -15,7 +15,7 @@ function getTimeInterval () {
 }
 
 router.get('/ticker', (req, res, next) => {
-  if (req.query.symbol === 'sec_btc') {
+  if (req.query.symbol === 'biut_btc') {
     request({
       method: 'GET',
       url: 'https://trade.coinegg.com/web/symbol/ticker?right_coin=btc',
@@ -29,7 +29,7 @@ router.get('/ticker', (req, res, next) => {
       let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
       res.json(data)
     })
-  } else if (req.query.symbol === 'sec_eth') {
+  } else if (req.query.symbol === 'biut_eth') {
     request({
       method: 'GET',
       url: 'https://trade.coinegg.com/web/symbol/ticker?right_coin=eth',
@@ -57,10 +57,10 @@ router.get('/ticker', (req, res, next) => {
       let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
       res.json(data)
     })
-  } else if (req.query.symbol === 'sec_usdt') {
+  } else if (req.query.symbol === 'biut_usdt') {
     request({
       method: 'GET',
-      url: 'https://market.coinegg.com/market/ticker?symbol=sec_usdt',
+      url: 'https://market.coinegg.com/market/ticker?symbol=biut_usdt',
       headers: {
         'Content-Type': 'application/json'
       }
@@ -100,7 +100,7 @@ router.get('/history', (req, res, next) => {
 router.get('/kline', (req, res, next) => {
   request({
     method: 'GET',
-    url: 'https://api.coinegg.im/api/v1/kline/region/eth?coin=sec',
+    url: 'https://api.coinegg.im/api/v1/kline/region/eth?coin=biut',
     headers: {
       'Content-Type': 'application/json'
     }
