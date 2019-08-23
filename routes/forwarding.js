@@ -26,8 +26,12 @@ router.get('/ticker', (req, res, next) => {
       if (err) {
         res.json(err)
       }
-      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-      res.json(data)
+      try {
+        let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+        res.json(data)
+      } catch (err) {
+        res.json({})
+      }
     })
   } else if (req.query.symbol === 'biut_eth') {
     request({
@@ -40,8 +44,12 @@ router.get('/ticker', (req, res, next) => {
       if (err) {
         res.json(err)
       }
-      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-      res.json(data)
+      try {
+        let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+        res.json(data)
+      } catch (err) {
+        res.json({})
+      }
     })
   } else if (req.query.symbol === 'eth_usdt') {
     request({
@@ -54,8 +62,12 @@ router.get('/ticker', (req, res, next) => {
       if (err) {
         res.json(err)
       }
-      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-      res.json(data)
+      try {
+        let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+        res.json(data)
+      } catch (err) {
+        res.json({})
+      }
     })
   } else if (req.query.symbol === 'biut_usdt') {
     request({
@@ -68,8 +80,12 @@ router.get('/ticker', (req, res, next) => {
       if (err) {
         res.json(err)
       }
-      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-      res.json(data)
+      try {
+        let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+        res.json(data)
+      } catch (err) {
+        res.json({})
+      }
     })
   }
 })
@@ -108,8 +124,12 @@ router.get('/kline', (req, res, next) => {
     if (err) {
       res.json(err)
     }
-    let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-    res.json(data)
+    try {
+      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+      res.json(data)
+    } catch (err) {
+      res.json({})
+    }
   })
 })
 module.exports = router
