@@ -88,8 +88,12 @@ router.get('/history', (req, res, next) => {
     if (err) {
       res.json(err)
     }
-    let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
-    res.json(data)
+    try {
+      let data = typeof response.body === 'string' ? JSON.parse(response.body) : response.body
+      res.json(data)
+    } catch (err) {
+      res.json({})
+    }
   })
 })
 
