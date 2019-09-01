@@ -150,7 +150,7 @@ router.get('/accountdetails', function (req, res, next) {
         income++
       }
     })
-    SECCore.secAPIs.getBalance(address, (err, balance) => {
+    SECCore.secAPIs.getBalance(address, 'SEC', (err, balance) => {
       if (err) next(err)
       res.render('accountdetails', {
         page: 'accountdetails',
@@ -247,7 +247,7 @@ router.get('/search', function (req, res, next) {
             income++
           }
         })
-        SECCore.secAPIs.getBalance(keyword, (err, balance) => {
+        SECCore.secAPIs.getBalance(keyword, 'SEC', (err, balance) => {
           if (err) next(err)
           res.render('accountdetails', {
             page: 'accountdetails',
