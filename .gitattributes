@@ -1,2 +1,0 @@
-src/GeoIP2-City.mmdb filter=lfs diff=lfs merge=lfs -text
-GeoIP2-City.mmdb filter=lfs diff=lfs merge=lfs -text
